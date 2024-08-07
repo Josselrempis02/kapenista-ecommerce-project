@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kapenista</title>
+    
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/cart.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}">
@@ -25,11 +26,11 @@
         <a href="" class="logo"><img src="assets/img/final-logo.png" alt="logo"></a>
 
         <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">About</a></li>
-            <li><a href="index.html">Menu</a></li>
-            <li><a href="Shop.html">Shop</a></li>
-            <li><a href="index.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+            <li><a href="/">About</a></li>
+            <li><a href="/">Menu</a></li>
+            <li><a href="/">Shop</a></li>
+            <li><a href="/">Contact</a></li>
         </ul>
 
         <div class="nav-icon">
@@ -65,7 +66,7 @@
                 
                     <button class="login-btn" type="submit">Log in</button>
 
-                    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
                     
                 </form>
                 
