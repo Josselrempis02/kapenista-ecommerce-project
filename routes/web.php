@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -18,6 +19,16 @@ Route::get('/', function () {
     return view('index');
 });
 
-//User Controoler 
-Route::get('/login', [UserController::class, 'login']);
+//User Controller 
+Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::get('/signup', [UserController::class, 'signup']);
+
+// Create New User
+Route::post('/users', [UserController::class, 'store']);
+// logout
+Route::get('/logout', [UserController::class, 'logout']);
+// Log In User
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+//Showing shop pages 
+Route::get('/shop', [ShopController::class, 'shop'])->middleware('auth');

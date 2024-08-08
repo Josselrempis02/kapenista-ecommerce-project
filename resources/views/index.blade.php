@@ -75,7 +75,7 @@
             <!-- Add other menu items similarly -->
         </div>
         <div class="order-btn">
-            <a href="{{ url('Shop') }}" class="order-btn">Order now</a>
+            <a href="/shop" class="order-btn">Order now</a>
         </div>
     </section>
     <!--Menu-section-ends -->

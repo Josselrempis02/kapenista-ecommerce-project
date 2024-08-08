@@ -17,9 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone_number')->nullable();  // Add phone number field
+            $table->string('address')->nullable();       // Add address field
             $table->rememberToken();
             $table->timestamps();
         });
+        
     }
 
     /**

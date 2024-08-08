@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive-css.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/signup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nav.css') }}">
 
 
 
@@ -32,13 +33,37 @@
             <li><a href="/">Home</a></li>
             <li><a href="#about-us">About</a></li>
             <li><a href="#menu">Menu</a></li>
-            <li><a href="Shop.html">Shop</a></li>
+            <li><a href="/shop">Shop</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-icon">
+            @auth
+             <span class="welcome-message"> Welcome, {{auth()->user()->name}} !</span>
+                
+             <div class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <i class='bx bxs-user'></i>
+                    </a>
+                <div class="dropdown-content">
+                    <a href="/users/account">See My Account</a>
+                    <form  method="POST" action="/logout">
+                        <a href="/logout">Logout</a>
+                    </form>
+                    
+                </div>
+            </div>
+
+             <a href="/users/cart"><i class='bx bxs-cart-alt'></i></a>
+             <div class="bx bx-menu" id="menu-icon"></div>
+
+             @else
+
+
             <a href="/login"><i class='bx bxs-user'></i></a>
             <a href="cart.html"><i class='bx bxs-cart-alt'></i></a>
             <div class="bx bx-menu" id="menu-icon"></div>
+
+            @endauth
         </div>
     </header>
 
