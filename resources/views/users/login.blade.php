@@ -29,7 +29,7 @@
         <li><a href="/">Home</a></li>
             <li><a href="/">About</a></li>
             <li><a href="/">Menu</a></li>
-            <li><a href="/">Shop</a></li>
+            <li><a href="/shop">Shop</a></li>
             <li><a href="/">Contact</a></li>
         </ul>
 
@@ -57,12 +57,19 @@
                 <h1>Log in</h1>
                 <h2>Enter your details below</h2>
 
-                <form class="login-form-container" action="" method="post">
+                <form class="login-form-container" action="/users/authenticate" method="POST">
+                    @csrf
                     
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" >
+                    @error('email')
+                                  <p class="error-message">{{$message}}</p>
+                                 @enderror
                 
                     
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" >
+                    @error('password')
+                                  <p class="error-message">{{$message}}</p>
+                                 @enderror
                 
                     <button class="login-btn" type="submit">Log in</button>
 
