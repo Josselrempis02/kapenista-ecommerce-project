@@ -69,58 +69,78 @@
 
     <!-- Signup Section Starts -->
     <section class="signup">
-        <div class="signup-container">
-            <img src="assets/img/about-us.jpg" alt="">
+    <div class="signup-container">
+        <img src="assets/img/about-us.jpg" alt="">
 
-            <div class="signup-form">
-                <h1>Create an account</h1>
-                <h2>Enter your details below</h2>
+        <div class="signup-form">
+            <h1>Create an account</h1>
+            
 
-                <form class="signup-form-container" action="/users" method="POST">
-                    @csrf
-                    <div class="form-container">
-                        <div class="row">
-                            <div class="column">
-                                <input type="text" id="name" name="name" placeholder="Name" value="{{old('name')}}" >
+            <!-- Social Sign Up Buttons -->
+            <div class="social-signup">
+    
+    <a class="google-btn" href="{{ route('login.google') }}">
+        <img src="assets/img/google-icon.png" alt="Google Icon">
+        Sign up with Google
+    </a>
+</div>
 
-                                @error('name')
-                                  <p class="error-message">{{$message}}</p>
-                                 @enderror
-                            </div>
-                            <div class="column">
-                                <input type="email" id="email" name="email" placeholder="Email" value="{{old('email')}}" >
 
-                                @error('email')
-                                  <p class="error-message">{{$message}}</p>
-                                 @enderror
-                            </div>
-                        </div>
-                                            <div>
-                            <input type="tel" id="number" name="phone_number" placeholder="Phone number" value="{{old('phone_number')}}">
-                            @error('phone_number')
-                                <p class="error-message">{{$message}}</p>
+            <!-- OR separator -->
+            <div class="separator">
+                <hr>
+                <span>OR</span>
+                <hr>
+            </div>
+
+            <!-- Signup Form -->
+            
+            <form class="signup-form-container" action="/users" method="POST">
+                @csrf
+                <div class="form-container">
+                    <div class="row">
+                        <div class="column">
+                            <input type="text" id="name" name="name" placeholder="Name" value="{{old('name')}}">
+
+                            @error('name')
+                              <p class="error-message">{{$message}}</p>
                             @enderror
                         </div>
-                        <div>
-                            <input type="text" id="address" name="address" placeholder="Address" value="{{old('address')}}">
-                            @error('address')
-                                <p class="error-message">{{$message}}</p>
-                            @enderror
-                        </div>
-                        <div>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" >
+                        <div class="column">
+                            <input type="email" id="email" name="email" placeholder="Email" value="{{old('email')}}">
 
-                            @error('password')
-                                  <p class="error-message">{{$message}}</p>
-                                 @enderror
+                            @error('email')
+                              <p class="error-message">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
-                    <button class="signup-btn" type="submit">Create an account</button>
-                    <p>Already have an account? <a href="/login">Log in</a></p>
-                </form>
-            </div>
+                    <div>
+                        <input type="tel" id="number" name="phone_number" placeholder="Phone number" value="{{old('phone_number')}}">
+                        @error('phone_number')
+                            <p class="error-message">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <input type="text" id="address" name="address" placeholder="Address" value="{{old('address')}}">
+                        @error('address')
+                            <p class="error-message">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <input type="password" id="password" name="password" placeholder="Enter your password">
+
+                        @error('password')
+                              <p class="error-message">{{$message}}</p>
+                        @enderror
+                    </div>
+                </div>
+                <button class="signup-btn" type="submit">Create an account</button>
+                <p>Already have an account? <a href="/login">Log in</a></p>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
+
     <!-- Signup Section Ends -->
 
     <!-- Footer Section Starts -->
