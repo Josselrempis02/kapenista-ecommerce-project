@@ -23,7 +23,9 @@ html{
     scroll-behavior: smooth;
 }
 
-
+section{
+    background-color: var(--primary);
+}
 
 /* Header-css-starts  */
 header{
@@ -36,6 +38,7 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 20px 10%;
+    background-color: var(--primary);
 }
 
 .logo img{
@@ -334,7 +337,7 @@ header.sticky{
 
 form{
     flex: 1 1 30rem;
-    padding: 5rem 2rem;
+    padding: 1rem 2rem;
     text-align: center;
 }
 
@@ -803,7 +806,10 @@ form h3{
 
 
 
-
+.for{
+    display: flex;
+    justify-content: end ;
+}
 
 
 

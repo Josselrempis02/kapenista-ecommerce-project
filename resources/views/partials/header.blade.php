@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive-css.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/signup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/forgot-password.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/reset-password.css') }}">
 
 
 

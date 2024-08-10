@@ -18,6 +18,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <style>
+     .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.separator hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.separator span {
+    font-size: 14px;
+    color: #666;
+    padding: 0 10px;
+    background-color: #fff; /* To match the background of the form */
+}
+
+
+    </style>
 </head>
 <body>
     <!-- Header-Section-Starts -->
@@ -47,42 +72,54 @@
     <!-- Login-Section-starts -->
 
     <section class="login">
+    <div class="login-container">
+        <img src="assets/img/about-us.jpg" alt="About Us">
 
-        <div class="login-container">
-            
-                <img src="assets/img/about-us.jpg" alt="">
-            
+        <div class="login-form">
+            <h1>Log in</h1>
+            <h2>Enter your details below</h2>
 
-            <div class="login-form">
-                <h1>Log in</h1>
-                <h2>Enter your details below</h2>
+            <form class="login-form-container" action="/users/authenticate" method="POST">
+                @csrf
 
-                <form class="login-form-container" action="/users/authenticate" method="POST">
-                    @csrf
-                    
-                    <input type="email" id="email" name="email" placeholder="Enter your email" >
-                    @error('email')
-                                  <p class="error-message">{{$message}}</p>
-                                 @enderror
-                
-                    
-                    <input type="password" id="password" name="password" placeholder="Enter your password" >
-                    @error('password')
-                                  <p class="error-message">{{$message}}</p>
-                                 @enderror
-                
-                    <button class="login-btn" type="submit">Log in</button>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                @error('email')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
 
-                    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-                    
-                </form>
-                
-            </div>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+                @error('password')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
+
+                <a class="for" href="/forgot-password">Forgot password?</a>
+
+               
+                <button class="login-btn" type="submit">Log in</button>
+
+                 <!-- OR separator -->
+                 <div class="separator">
+                    <hr>
+                    <span>OR</span>
+                    <hr>
+                </div>
+
+                <!-- Google Login Button -->
+                <div class="google-login">
+                    <a href="/auth/google" class="google-btn">
+                        <img src="assets/img/google-icon.png" alt="Google Icon">
+                        Login with Google
+                    </a>
+                </div>
+
+
+                <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+            </form>
         </div>
-        
-       
-    
-  </section>
+    </div>
+</section>
+
+
 
     <!-- Login-Section-Ends -->
 
