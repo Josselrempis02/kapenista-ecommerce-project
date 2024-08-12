@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="reset-password-container">
+<section class="forgot">
+    <div class="reset-password-container">
     <h2>Reset Password</h2>
 
     <form method="POST" action="{{ route('password.update') }}">
@@ -32,4 +33,6 @@
         <button type="submit" class="btn btn-primary">Reset Password</button>
     </form>
 </div>
+</section>
+
 @endsection
