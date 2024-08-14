@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 
@@ -17,27 +18,46 @@ use App\Http\Controllers\ForgotPasswordController;
 |
 */
 
+// Home Route
 Route::get('/', function () {
     return view('index');
 });
 
-//User Controller 
+// ==================
+// User Authentication Routes
+// ==================
+
+// Show the login page for users
 Route::get('/login', [UserController::class, 'login'])->name('login');
+
+// Show the signup page for new users
 Route::get('/signup', [UserController::class, 'signup']);
 
+// Handle Google OAuth login
 Route::get('auth/google', [UserController::class, 'redirectToGoogle'])->name('login.google');
+
+// Handle the callback after Google authentication
 Route::get('auth/google/callback', [UserController::class, 'handleGoogleCallback']);
 
-// Create New User
+// Create a new user
 Route::post('/users', [UserController::class, 'store']);
-// logout
-Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
-// Log In User
+
+// Authenticate the user (log in)
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
-//Showing shop pages 
+// Log out the user
+Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+// ==================
+// Shop Routes (Protected)
+// ==================
+
+// Show the shop page (only accessible by authenticated users)
 Route::get('/shop', [ShopController::class, 'shop'])->middleware('auth');
 
+// ==================
+// Password Reset Routes
+// ==================
 
 // Show the form to request a password reset link
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -50,3 +70,25 @@ Route::get('reset-password/{token}', [ResetPasswordController::class, 'showReset
 
 // Handle the password reset
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// ==================
+// Admin Authentication Routes
+// ==================
+
+// Show the admin login page
+Route::get('admin/login', [AdminController::class, 'login']);
+
+// Handle admin login
+Route::post('/admin/login', [AdminController::class, 'store'])->name('admin-login');
+Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin-logout');
+
+// ==================
+// Admin Routes (Protected)
+// ==================
+
+// Admin dashboard (only accessible by authenticated admins)
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+});
