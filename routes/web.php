@@ -31,7 +31,7 @@ Route::get('auth/google/callback', [UserController::class, 'handleGoogleCallback
 // Create New User
 Route::post('/users', [UserController::class, 'store']);
 // logout
-Route::get('/logout', [UserController::class, 'logout']);
+Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 // Log In User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 

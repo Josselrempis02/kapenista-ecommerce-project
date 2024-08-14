@@ -7,7 +7,7 @@
             <h5>Kapenista</h5>
             <h1>Coffee and Chill</h1>
             <p>Experience Coffee and Chill Like Never Before</p>
-            <a href="#" class="main-btn">Shop Now<i class='bx bx-right-arrow-alt'></i></a>
+            <a href="/shop" class="main-btn">Shop Now<i class='bx bx-right-arrow-alt'></i></a>
         </div>
         <div class="down-arrow">
             <a href="#about-us" class="down"><i class='bx bx-down-arrow-alt'></i></a>

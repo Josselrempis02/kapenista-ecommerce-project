@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive-css.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/signup.css') }}">
+    
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,6 +133,18 @@
                         @error('password')
                               <p class="error-message">{{$message}}</p>
                         @enderror
+
+                        
+                    <div class="forgot-container-signup">
+                         <label for="show-password" class="show-password-label">
+                            <input type="checkbox" id="show-password" onclick="togglePassword()"> 
+                             Show Password
+                         </label>
+
+                         
+
+                   
+                    </div>
                     </div>
                 </div>
                 <button class="signup-btn" type="submit">Create an account</button>
@@ -181,5 +194,16 @@
         <p>Copyright © @2023 Kapenista. All Rights Reserved. </p>
     </div>
     <script src="js/script.js"></script>
+    <script>
+        function togglePassword() {
+    var passwordField = document.getElementById("password");
+    var showPasswordCheckbox = document.getElementById("show-password");
+    if (showPasswordCheckbox.checked) {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+}
+    </script>
 </body>
 </html>
