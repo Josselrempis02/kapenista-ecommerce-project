@@ -102,14 +102,22 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_reset_tokens',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+ 'passwords' => [
+    'users' => [
+        'provider' => 'users',
+        'table' => 'password_resets',
+        'expire' => 60,
+        'throttle' => 60,
     ],
+
+    'admins' => [
+        'provider' => 'admins',
+        'table' => 'password_resets',  // Same table as users or create a separate one if you prefer
+        'expire' => 60,
+        'throttle' => 60,
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
