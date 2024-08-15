@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function login()
+    public function showLoginForm()
     {
         return view('admin.admin-login');
     }

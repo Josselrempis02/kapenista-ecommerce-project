@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\AdminResetPasswordController;
+use App\Http\Controllers\AdminForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,8 +81,28 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 Route::get('admin/login', [AdminController::class, 'login']);
 
 // Handle admin login
-Route::post('/admin/login', [AdminController::class, 'store'])->name('admin-login');
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin-login');
+
+Route::post('/admin/login', [AdminController::class, 'store'])->name('admin');
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin-logout');
+
+
+// ==================
+// Admin Authentication Routes
+// 
+
+
+// Show the form to request a password reset link for admins
+Route::get('admin/forgot-password', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
+
+// Handle the form submission and send the reset link to admins
+Route::post('admin/forgot-password', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+
+// Show the form to reset the admin's password
+Route::get('admin/reset-password/{token}', [AdminResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
+
+// Handle the admin password reset
+Route::post('admin/reset-password', [AdminResetPasswordController::class, 'reset'])->name('admin.password.update');
 
 // ==================
 // Admin Routes (Protected)

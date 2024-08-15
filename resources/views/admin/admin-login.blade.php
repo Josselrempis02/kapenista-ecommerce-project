@@ -17,7 +17,7 @@
 
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <form method="POST" action="{{ route('admin-login') }}">
+            <form method="POST" action="{{ route('admin') }}">
                 @csrf
                 <h1>Sign In</h1>
                 
@@ -45,7 +45,7 @@
                     <label for="show-password">
                         <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
                     </label>
-                    <a class="for" href="{{ route('password.request') }}">Forgot password?</a>
+                    <a class="for" href="{{ route('admin.password.request') }}">Forgot password?</a>
                 </div>
                 <button type="submit">Sign In</button>
             </form>

@@ -17,13 +17,13 @@ class AdminAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // Check if the user is authenticated as an admin
         if (!Auth::guard('admin')->check()) {
-            // Redirect to the admin login page if not authenticated
+            // You can use dd() or Log::info() to debug
+            Log::info('Admin not authenticated. Redirecting to admin login.');
             return redirect()->route('admin-login');
         }
-
-        // Allow the request to proceed
+    
         return $next($request);
     }
+    
 }
