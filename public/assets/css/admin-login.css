@@ -274,4 +274,27 @@ background: linear-gradient(208deg, rgba(213,145,89,1) 21%, rgba(213,145,89,1) 5
 .google-btn img {
     width: 20px;
     margin-right: 10px;
+    
+}
+
+.forgot-container label {
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.forgot-container .for {
+    white-space: nowrap;
+
+    color: var(--hover);
+    font-weight: 700;
+    
+}
+
+.forgot-container{
+    gap: 50px;
+    padding-bottom: 30px;
+}
+
+.error-message{
+    color: var(--red);
 }

@@ -9,8 +9,10 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/admin-login.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+    
 
-    <title>Modern Login Page | Admin Panel</title>
+
+    <title> Admin Panel</title>
 </head>
 
 <body>
@@ -21,16 +23,8 @@
                 @csrf
                 <h1>Sign In</h1>
                 
-                <!-- Error Handling -->
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+             
+              
 
                 <div class="google-login">
                     <a href="/auth/google" class="google-btn">
@@ -39,8 +33,15 @@
                     </a>
                 </div>
                 <span>or use your email password</span>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" id="password" placeholder="Password" required>
+                @error('email')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
+                <input type="email" name="email" placeholder="Email" >
+                
+                <input type="password" name="password" id="password" placeholder="Password" >
+                @error('password')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
                 <div class="forgot-container">
                     <label for="show-password">
                         <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
