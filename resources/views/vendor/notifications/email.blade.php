@@ -1,4 +1,9 @@
 <x-mail::message>
+{{-- Add your logo --}}
+<div style="text-align: center;">
+    <img src="https://i.ibb.co/F0GMMfh/final-logo.png" alt="Logo" style="max-width: 200px;">
+</div>
+
 {{-- Greeting --}}
 @if (! empty($greeting))
 # {{ $greeting }}
@@ -40,7 +45,7 @@
 {{ $salutation }}
 @else
 @lang('Regards'),<br>
-{{ config('Kapenista') }}
+{{ config('app.name') }}
 @endif
 
 {{-- Subcopy --}}
