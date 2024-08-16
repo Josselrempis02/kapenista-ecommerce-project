@@ -18,150 +18,26 @@
         </div>
 
         <div class="shop-product">
-
-            <div class="shop-product-container">
-
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
+    <div class="shop-product-container">
+        @foreach($products as $product)
+            <div class="shop-product-row">
+                <img src="{{ asset('assets/img/menu3.jfif') }}" alt="{{ $product->name }}">
                 <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
+                  <h5>{{ $product->name }}</h5>
                 </div>
                 <div class="shop-product-price">
-                  <p>₱120</p>
+                  <p>₱{{ $product->price }}</p>
                 </div>
                 <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
+                  <button class="add-to-cart-button">
+                  <a href="{{ route('shop.details', $product->product_id) }}">Add to cart</a>
 
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
+                  </button>
                 </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-              
-             
-              <div class="shop-product-row">
-                <img src="assets/img/menu3.jfif" alt="">
-                <div class="shop-product-text">
-                  <h5>Cafe Latte</h5>
-                </div>
-                <div class="shop-product-price">
-                  <p>₱120</p>
-                </div>
-                <div class="add-to-cart">
-                  <button class="add-to-cart-button"><a href="Shop-details.html">Add to Cart</a></button>
-                  </div>
-              </div>
-              
-              
             </div>
-          </div>
+        @endforeach
+    </div>
+</div>
        
     </section>
     

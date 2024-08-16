@@ -20,7 +20,11 @@ use App\Http\Controllers\AdminForgotPasswordController;
 |
 */
 
+// ==================
 // Home Route
+// ==================
+
+// Show the homepage
 Route::get('/', function () {
     return view('index');
 });
@@ -47,7 +51,7 @@ Route::post('/users', [UserController::class, 'store']);
 // Authenticate the user (log in)
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
-// Log out the user
+// Log out the user (requires authentication)
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // ==================
@@ -56,6 +60,12 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // Show the shop page (only accessible by authenticated users)
 Route::get('/shop', [ShopController::class, 'shop'])->middleware('auth');
+
+// Show the products in the shop (only accessible by authenticated users)
+Route::get('/shop', [ShopController::class, 'showProducts'])->middleware('auth');
+
+// Show the details of a specific product
+Route::get('/shop-details/{product_id}', [ShopController::class, 'showProductDetails'])->name('shop.details');
 
 // ==================
 // Password Reset Routes
@@ -67,10 +77,10 @@ Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequest
 // Handle the form submission and send the reset link
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-// Show the form to reset the password
+// Show the form to reset the password using the provided token
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 
-// Handle the password reset
+// Handle the password reset and update it
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 // ==================
@@ -78,19 +88,17 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 // ==================
 
 // Show the admin login page
-Route::get('admin/login', [AdminController::class, 'login']);
+Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin-login');
 
-// Handle admin login
-Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin-login');
-
+// Handle admin login submission
 Route::post('/admin/login', [AdminController::class, 'store'])->name('admin');
+
+// Log out the admin
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin-logout');
 
-
 // ==================
-// Admin Authentication Routes
-// 
-
+// Admin Password Reset Routes
+// ==================
 
 // Show the form to request a password reset link for admins
 Route::get('admin/forgot-password', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
@@ -98,10 +106,10 @@ Route::get('admin/forgot-password', [AdminForgotPasswordController::class, 'show
 // Handle the form submission and send the reset link to admins
 Route::post('admin/forgot-password', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
 
-// Show the form to reset the admin's password
+// Show the form to reset the admin's password using the provided token
 Route::get('admin/reset-password/{token}', [AdminResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
 
-// Handle the admin password reset
+// Handle the admin password reset and update it
 Route::post('admin/reset-password', [AdminResetPasswordController::class, 'reset'])->name('admin.password.update');
 
 // ==================
