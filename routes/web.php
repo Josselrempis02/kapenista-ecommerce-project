@@ -24,7 +24,6 @@ use App\Http\Controllers\AdminForgotPasswordController;
 // Home Route
 // ==================
 
-// Show the homepage
 Route::get('/', function () {
     return view('index');
 });
@@ -54,15 +53,21 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 // Log out the user (requires authentication)
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
-//User Account
+// ==================
+// User Account Management Routes (Protected)
+// ==================
+
+// Display the user's account settings
 Route::get('/users/account', [UserController::class, 'UserAccountSettings'])->middleware('auth');
 
+// Show a specific user's account
 Route::get('/user/account/{id}', [UserController::class, 'ShowUserAccount'])->name('user.account');
 
+// Update the user's profile
 Route::put('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
+
+// Update the user's password
 Route::put('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
-
-
 
 // ==================
 // Shop Routes (Protected)
@@ -78,7 +83,6 @@ Route::get('/shop', [ShopController::class, 'showProducts'])->middleware('auth')
 Route::get('/shop-details/{product_id}', [ShopController::class, 'showProductDetails'])
     ->middleware('auth')
     ->name('shop.details');
-
 
 // ==================
 // Password Reset Routes
@@ -129,9 +133,10 @@ Route::post('admin/reset-password', [AdminResetPasswordController::class, 'reset
 // Admin Routes (Protected)
 // ==================
 
-// Admin dashboard (only accessible by authenticated admins)
 Route::middleware(['auth:admin'])->group(function () {
+    // Admin dashboard
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     });
 });
+

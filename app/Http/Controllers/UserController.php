@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
@@ -116,5 +117,47 @@ class UserController extends Controller
             return view('users.user_account', compact('user'));
         }
         
-       
+       //Update profile
+       public function updateProfile(Request $request){
+        //validate the input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
+            'address' => 'nullable|string|max:255',
+        ]);
+        //get the auth user
+        $user = Auth::user();
+
+        // update user details
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->save();
+    
+
+        return back()->with('success', 'Profile updated successfully!');
+       }
+
+       //Change password
+       public function updatePassword(Request $request){
+        //Validate the input
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:10|confirmed',
+        ]);
+
+        //get the auth user
+        $user = Auth::user();
+
+       // Check if the current password is correct
+         if (!Hash::check($request->current_password, $user->password)) {
+        return back()->withErrors(['current_password' => 'The current password does not match our records.']);
+         }
+
+         // update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Change Password Successfully!');
+       }
 }
