@@ -105,6 +105,10 @@ class UserController extends Controller
         }
     }
 
+        //Show user account 
+        public function UserAccountSettings() {
+            return view('users.user_account');
+        }
   
 
     

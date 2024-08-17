@@ -55,7 +55,7 @@
         </ul>
 
         <div class="nav-icon">
-            <a href="/users/myaccount.html"><i class='bx bxs-user'></i></a>
+            <a href="/users/account"><i class='bx bxs-user'></i></a>
             <a href="cart.html"><i class='bx bxs-cart-alt'></i></a>
             <div class="bx bx-menu" id="menu-icon"></div>
         </div>

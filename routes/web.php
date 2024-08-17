@@ -54,6 +54,9 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 // Log out the user (requires authentication)
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
+//User Account
+Route::get('/users/account', [UserController::class, 'UserAccountSettings']);
+
 // ==================
 // Shop Routes (Protected)
 // ==================

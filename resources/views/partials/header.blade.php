@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/forgot-password.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/reset-password.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/myaccount.css') }}">
 
 
 
@@ -43,7 +44,7 @@
              <span class="welcome-message"> Welcome, {{auth()->user()->name}} !</span>
                 
              <div class="dropdown">
-                    <a href="#" class="dropbtn">
+                    <a href="" class="dropbtn">
                         <i class='bx bxs-user'></i>
                     </a>
                 <div class="dropdown-content">
