@@ -55,7 +55,14 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //User Account
-Route::get('/users/account', [UserController::class, 'UserAccountSettings']);
+Route::get('/users/account', [UserController::class, 'UserAccountSettings'])->middleware('auth');
+
+Route::get('/user/account/{id}', [UserController::class, 'ShowUserAccount'])->name('user.account');
+
+Route::put('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
+Route::put('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+
+
 
 // ==================
 // Shop Routes (Protected)
