@@ -65,7 +65,10 @@ Route::get('/shop', [ShopController::class, 'shop'])->middleware('auth');
 Route::get('/shop', [ShopController::class, 'showProducts'])->middleware('auth');
 
 // Show the details of a specific product
-Route::get('/shop-details/{product_id}', [ShopController::class, 'showProductDetails'])->name('shop.details');
+Route::get('/shop-details/{product_id}', [ShopController::class, 'showProductDetails'])
+    ->middleware('auth')
+    ->name('shop.details');
+
 
 // ==================
 // Password Reset Routes
