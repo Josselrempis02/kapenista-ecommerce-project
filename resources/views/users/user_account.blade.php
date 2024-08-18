@@ -40,15 +40,17 @@
                     <div class="edit-container">
                         <div class="personal-info-section">
                             <label for="fname">Name</label>
-                            <input type="text" id="fname" name="fname" value="{{ old('fname', $user->name) }}" placeholder="Name" required>
+                            <input type="text" id="fname" name="name" value="{{ old('fname', $user->name) }}" placeholder="Name" required>
+
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" value="{{ old('address', $user->address) }}" placeholder="Address" required>
                         </div>
 
                         <div class="contact-info-section">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Email" required>
 
-                            <label for="address">Address</label>
-                            <input type="text" id="address" name="address" value="{{ old('address', $user->address) }}" placeholder="Address" required>
+                            
                         </div>
                     </div>
 
@@ -63,18 +65,26 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="input-column">
-                        <label for="current-password">Current Password</label>
-                        <input type="password" id="current-password" name="current_password" placeholder="Current Password" required>
+                    <div class="edit-container">
 
-                        <label for="new-password">New Password</label>
-                        <input type="password" id="new-password" name="new_password" placeholder="New Password" required>
+                        <div class="current_password_section">
+                            <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" name="current_password" placeholder="Current Password" required>
+                        
+                        </div>
+
+                        <div class="new_password_section">
+                            <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" name="new_password" placeholder="New Password">
 
                         <label for="confirm-password">Confirm New Password</label>
-                        <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm New Password" required>
+                        <input type="password" id="confirm-password" name="new_password_confirmation" placeholder="Confirm New Password" >
+                        </div>
+                        
                     </div>
 
                     <div class="action-buttons">
+                        <a href="" class="cancel">Cancel</a>
                         <button type="submit" class="save-changes">Change Password</button>
                     </div>
                 </form>
