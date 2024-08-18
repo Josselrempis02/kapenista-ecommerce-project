@@ -48,7 +48,7 @@
                         <i class='bx bxs-user'></i>
                     </a>
                 <div class="dropdown-content">
-                    <a href="/users/account">See My Account</a>
+                    <a href="{{ route('user.account', Auth::user()->id) }}">See My Account</a>
                     <form  method="POST" action="/logout">
                         <a href="/logout">Logout</a>
                     </form>

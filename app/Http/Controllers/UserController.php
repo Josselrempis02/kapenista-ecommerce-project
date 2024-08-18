@@ -110,6 +110,11 @@ class UserController extends Controller
             return view('users.user_account');
         }
   
-
-    
+        //Show Single User Account
+        public function ShowUserAccount($id) {
+            $user = User::where('id', $id)->firstOrFail();
+            return view('users.user_account', compact('user'));
+        }
+        
+       
 }
