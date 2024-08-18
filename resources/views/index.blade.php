@@ -4,7 +4,7 @@
     <!-- Main-Section-Starts -->
     <section class="main-home">
         <div class="main-text">
-            <h5>Kapenista</h5>
+            <h5>KAPENISTA</h5>
             <h1>Coffee and Chill</h1>
             <p>Experience Coffee and Chill Like Never Before</p>
             <a href="/shop" class="main-btn">Shop Now<i class='bx bx-right-arrow-alt'></i></a>
