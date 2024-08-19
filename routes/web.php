@@ -77,12 +77,43 @@ Route::put('/user/update-password', [UserController::class, 'updatePassword'])->
 Route::get('/shop', [ShopController::class, 'shop'])->middleware('auth');
 
 // Show the products in the shop (only accessible by authenticated users)
-Route::get('/shop', [ShopController::class, 'showProducts'])->middleware('auth');
+Route::get('/shop', [ShopController::class, 'showProducts'])
+->middleware('auth')
+->name('shop');
 
 // Show the details of a specific product
 Route::get('/shop-details/{product_id}', [ShopController::class, 'showProductDetails'])
     ->middleware('auth')
     ->name('shop.details');
+
+
+
+// Add product to cart
+Route::post('/shop-cart/cart', [ShopController::class, 'store'])
+    ->middleware('auth')
+    ->name('cart.store');
+
+// Show the checkout page
+Route::get('/shop-checkout', [ShopController::class, 'ShowCheckout'])->middleware('auth');
+
+Route::get('/shop-cart', [ShopController::class, 'showCart'])
+    ->middleware('auth')
+    ->name('shop.cart');
+
+Route::get('/cart/remove/{rowId}', [ShopController::class, 'removeItem'])
+    ->middleware('auth')
+    ->name('cart.remove');
+
+Route::get('/cart/clear', [ShopController::class, 'clearCart'])
+    ->middleware('auth')
+    ->name('cart.clear');
+
+
+
+
+
+
+
 
 // ==================
 // Password Reset Routes

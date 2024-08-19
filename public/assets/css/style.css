@@ -816,4 +816,12 @@ form h3{
 
 
 
-  
+.add-cart-form{
+    padding: 0;
+    text-align: left;
+}
+
+
+    .alert {
+        transition: opacity 0.6s ease;
+    }
