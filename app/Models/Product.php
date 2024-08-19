@@ -15,4 +15,6 @@ class Product extends Model
         'price',
         'category',
     ];
+
+    protected $primaryKey = 'product_id';
 }

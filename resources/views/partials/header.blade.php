@@ -58,7 +58,11 @@
                 </div>
             </div>
 
-             <a href="/users/cart"><i class='bx bxs-cart-alt'></i></a>
+            <a href="/shop-cart" class="cart-icon">
+                <i class='bx bxs-cart-alt'></i>
+                <span class="cart-count">{{ Cart::content()->count(); }}</span>
+            </a>
+
              <div class="bx bx-menu" id="menu-icon"></div>
 
              @else

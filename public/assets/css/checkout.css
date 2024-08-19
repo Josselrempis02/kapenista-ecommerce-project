@@ -19,14 +19,14 @@
 
 }
 
-.table-container{
-    width: 100%;
-   
-}
+
 
 .table-container{
     background-color: transparent;
-   
+    display: flex;
+    flex-direction: column;
+    justify-content:end ;
+    width: 50%;
 }
 
 .table-container h1{
