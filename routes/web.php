@@ -25,7 +25,7 @@ use App\Http\Controllers\AdminForgotPasswordController;
 // ==================
 
 Route::get('/', function () {
-    return view('index');
+    return view('admin.dashboard');
 });
 
 // ==================
