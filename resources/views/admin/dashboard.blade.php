@@ -72,7 +72,7 @@
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Cold sssssssCoffee</a>
+                            <a href="#" class="sidebar-link">Cold Coffee</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Hot Coffee</a>
