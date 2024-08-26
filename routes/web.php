@@ -171,3 +171,4 @@ Route::middleware(['auth:admin'])->group(function () {
     });
 });
 
+Route::get('/admin/all-products', [AdminController::class, 'allproducts']);
