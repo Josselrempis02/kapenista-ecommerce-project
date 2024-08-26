@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,7 +45,14 @@ class AdminController extends Controller
     }
 
     //Show All products 
-    public function allproducts(){
-        return view('admin.all-products');
-    }
+    // public function allproducts(){
+    //     return view('admin.all-products');
+    // }
+
+    public function showAll()
+{
+    // Assuming you are fetching products from a Product model
+    $products = Product::Simplepaginate(6); // 6 products per page
+    return view('admin.all-products', compact('products'));
+}
 }
