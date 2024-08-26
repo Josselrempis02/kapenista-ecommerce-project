@@ -42,4 +42,9 @@ class AdminController extends Controller
 
         return redirect('/admin/login')->with('success', 'Logged out successfully');
     }
+
+    //Show All products 
+    public function allproducts(){
+        return view('admin.all-products');
+    }
 }
