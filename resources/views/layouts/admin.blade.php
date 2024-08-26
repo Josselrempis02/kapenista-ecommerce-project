@@ -9,6 +9,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/admin-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/all-products.css') }}">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
    
 
@@ -30,7 +31,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="/admin/all-products" class="sidebar-link">
+                <a href="/products" class="sidebar-link">
                     <i class="lni lni-cart-full"></i>
                     <span>All Products</span>
                 </a>
