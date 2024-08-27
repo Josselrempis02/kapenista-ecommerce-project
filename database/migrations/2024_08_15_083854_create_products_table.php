@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id'); // Creates an auto-incrementing id column named 'product_id'
-            $table->string('img'); // To store the image path or URL
+            $table->string('img')->nullable(); // To store the image path or URL
             $table->string('name'); // To store the product name
             $table->decimal('price', 8, 2); // To store the product price, with up to 8 digits in total and 2 decimal places
-            $table->longText('description');
+            $table->longText('description'); // To store the product description
             $table->string('category'); // To store the product category
+            $table->integer('stock'); // To store the product stock quantity
             $table->timestamps(); // Creates 'created_at' and 'updated_at' columns
         });
+        
         
     }
 

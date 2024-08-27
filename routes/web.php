@@ -172,3 +172,5 @@ Route::middleware(['auth:admin'])->group(function () {
 });
 
 Route::get('/products', [AdminController::class, 'showAll']);
+
+Route::post('/add-products', [AdminController::class, 'add']);

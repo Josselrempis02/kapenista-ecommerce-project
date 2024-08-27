@@ -128,3 +128,12 @@ a {
     line-height: 1.4;
 }
 
+.custom-btn{
+    background-color: var(--hover);
+    color: var(--primary);
+    border: none;
+}
+
+.custom-btn:hover{
+    background-color: var(--hover-effect);
+}
