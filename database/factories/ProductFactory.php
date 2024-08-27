@@ -21,7 +21,8 @@ class ProductFactory extends Factory
             'name' => $this->faker->word(), // Generates a fake product name
             'price' => $this->faker->randomFloat(2, 1, 1000), // Generates a fake price between 1 and 1000
             'description' => $this->faker->paragraph(5),
-            'category' => $this->faker->word(), // Generates a fake category name
+            'category' => $this->faker->word(),
+            'stock' => $this->faker->numberBetween(1, 100), // Generates a fake category name
         ];
     }
 }

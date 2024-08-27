@@ -50,9 +50,34 @@ class AdminController extends Controller
     // }
 
     public function showAll()
-{
+    {
     // Assuming you are fetching products from a Product model
     $products = Product::Simplepaginate(6); // 6 products per page
     return view('admin.all-products', compact('products'));
-}
+    }
+
+    //Add Product
+
+    public function add(Request $request) {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'stock' => 'required',
+            'price' => 'required',
+
+        ]);
+
+
+    $formFields = $request->all();
+    
+        if($request->hasFile('img')) {
+            $formFields['img'] = $request->file('img')->store('img', 'public');
+        }
+
+        Product::create($formFields);
+
+        return redirect('/products')->with('message', 'Add product successfully!');
+
+    }
 }
