@@ -8,9 +8,13 @@
           rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('assets/css/admin-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/all-products.css') }}">
-    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/order-list.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/order-details.css') }}">
+    
    
 
     <title>Admin</title>
@@ -37,7 +41,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/order-list" class="sidebar-link">
                     <i class="lni lni-empty-file"></i>
                     <span>Order List</span>
                 </a>
