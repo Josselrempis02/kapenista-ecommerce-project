@@ -84,12 +84,17 @@ class ShopController extends Controller
     }
 
     public function showCheckout()
-{
-    $cartItems = Cart::content(); // Get all items in the cart
-        $total = Cart::subtotal(); // Get the cart subtotal
-        return view('users.checkout', compact('cartItems', 'total'));
+    {
+        $cartItems = Cart::content(); 
+        $subtotal = Cart::subtotal(); 
     
+        
+        $deliveryFee = 50; 
     
-}    
+        
+        $total = $subtotal + $deliveryFee;
+    
+        return view('users.checkout', compact('cartItems', 'subtotal', 'deliveryFee', 'total'));
+    }
 
 }

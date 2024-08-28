@@ -80,4 +80,16 @@ class AdminController extends Controller
         return redirect('/products')->with('message', 'Add product successfully!');
 
     }
+
+
+    //Show Order List
+    public function orderList (){
+        return view('admin.order-list');
+    }
+
+    //show order details
+
+    public function orderDetails(){
+        return view('admin.order-details');
+    }
 }

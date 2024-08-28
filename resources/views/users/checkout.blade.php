@@ -40,15 +40,13 @@
                         <h1>Your Order</h1>
                         <table>
                             <tr>
-                                <td>Product</td>
                                 <td>Subtotal</td>
+                                <td>₱{{ $subtotal }}</td>
                             </tr>
-                            @foreach ($cartItems as $item)
-                            <tr class="product-row">
-                                <td>{{ $item->name }}</td>
-                                <td>₱{{ $item->subtotal }}</td>
+                            <tr>
+                                <td>Delivery Fee</td>
+                                <td>₱{{ $deliveryFee }}</td>
                             </tr>
-                            @endforeach
                             <tr>
                                 <td>Total</td>
                                 <td>₱{{ $total }}</td>
