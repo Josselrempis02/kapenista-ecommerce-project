@@ -63,7 +63,7 @@ html{
 
 }
 
-.icon{
+.custom-icon{
     background-color: var(--icon-color);
     color: var(--primary);
     padding: 10px;

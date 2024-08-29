@@ -177,4 +177,6 @@ Route::post('/add-products', [AdminController::class, 'add']);
 
 Route::get('/order-list', [AdminController::class, 'orderList']);
 
-Route::get('/order-details', [AdminController::class, 'orderDetails'])->name('order.details');
+Route::get('/order-list/order-details', [AdminController::class, 'orderDetails'])->name('order.details');
+
+Route::get('/inventory', [AdminController::class, 'inventory'])->name('inventory');

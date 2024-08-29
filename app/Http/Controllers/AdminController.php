@@ -92,4 +92,11 @@ class AdminController extends Controller
     public function orderDetails(){
         return view('admin.order-details');
     }
+
+
+    //show inventory
+
+    public function inventory(){
+        return view('admin.inventory');
+    }
 }

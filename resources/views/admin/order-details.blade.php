@@ -40,7 +40,7 @@
                 <div class="row mt-4">
                     <div class="col-12 col-md-4 d-flex justify-content-center align-items-center mb-3">
                         <div class="border p-3 rounded d-flex align-items-center">
-                            <i class="lni lni-shopping-basket icon me-3"></i>
+                            <i class="lni lni-user custom-icon me-3"></i>
                             <span class="details">
                                 <h4 class="mb-2">Customer</h4>
                                 <h5>Full Name: Jossel</h5>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-12 col-md-4 d-flex justify-content-center align-items-center mb-3">
                         <div class="border p-3 rounded d-flex align-items-center">
-                            <i class="lni lni-shopping-basket icon me-3"></i>
+                            <i class="lni lni-credit-cards me-3 custom-icon"></i>
                             <span class="details">
                                 <h4 class="mb-2">Order Info</h4>
                                 <h5>Payment Method: COD</h5>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-12 col-md-4 d-flex justify-content-center align-items-center mb-3">
                         <div class="border p-3 rounded d-flex align-items-center">
-                            <i class="lni lni-shopping-basket icon me-3"></i>
+                            <i class="lni lni-delivery custom-icon me-3"></i>
                             <span class="details">
                                 <h4 class="mb-2">Deliver to</h4>
                                 <h5>Address: Guitnang bayan 1, San Mateo Rizal</h5>
