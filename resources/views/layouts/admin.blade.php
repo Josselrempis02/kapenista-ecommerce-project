@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/all-products.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/order-list.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/order-details.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/inventory.css') }}">
     
    
 
@@ -47,7 +48,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="{{ route ('inventory')}}" class="sidebar-link">
                     <i class="lni lni-dropbox"></i>
                     <span>Inventory</span>
                 </a>
