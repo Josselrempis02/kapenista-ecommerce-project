@@ -3,127 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
           rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
 
+    <!-- Add your custom stylesheets -->
     <link rel="stylesheet" href="{{ asset('assets/css/admin-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/all-products.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/order-list.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/order-details.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/inventory.css') }}">
     
-   
-
-    <title>Admin</title>
+    <title>@yield('title', 'Admin Dashboard')</title>
 </head>
 <body>
 <div class="d-flex">
     <!-- Sidebar -->
-    <aside id="sidebar" class="sidebar-toggle">
-        <div class="sidebar-logo">
-            <img src="{{ asset('assets/img/final-logo.png') }}" alt="Logo">
-        </div>
-        <!-- Sidebar Navigation -->
-        <ul class="sidebar-nav p-0">
-            <li class="sidebar-item">
-                <a href="/" class="sidebar-link">
-                    <i class="lni lni-grid-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/products" class="sidebar-link">
-                    <i class="lni lni-cart-full"></i>
-                    <span>All Products</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/order-list" class="sidebar-link">
-                    <i class="lni lni-empty-file"></i>
-                    <span>Order List</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="{{ route ('inventory')}}" class="sidebar-link">
-                    <i class="lni lni-dropbox"></i>
-                    <span>Inventory</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-bar-chart"></i>
-                    <span>Sales Report</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-user"></i>
-                    <span>Staff</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-users"></i>
-                    <span>Customer</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                   data-bs-target="#auth" aria-expanded="true" aria-controls="auth">
-                    <span>Categories</span>
-                </a>
-                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Cold Coffee</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Hot Coffee</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Bottle Beverages</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <!-- Sidebar Navigation Ends -->
-        <div class="sidebar-footer">
-            <a href="#" class="sidebar-link">
-                <i class="lni lni-exit"></i>
-                <span>Setting</span>
-            </a>
-        </div>
-    </aside>
+    @include('partials.sidebar')
     <!-- Sidebar Ends -->
 
     <!-- Main Component -->
     <div class="main">
-            <nav class="navbar navbar-expand bg-light">
-            <button class="toggler-btn" type="button">
-                <i class="lni lni-text-align-left"></i>
-            </button>
+        <!-- Navbar -->
+        @include('partials.navbar')
+        <!-- Navbar Ends -->
 
-            <div class="dropdown ms-auto"> <!-- ms-auto class aligns the dropdown to the right -->
-                <button 
-                class="btn custon-btn dropdown-toggle" 
-                type="button" 
-                id="dropdownMenuButton" 
-                data-bs-toggle="dropdown" 
-                aria-expanded="false">
-                    ADMIN
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item click" href="#">Settings</a>
-                    <a class="dropdown-item click" href="#">Logout</a>
-                    
-                </div>
-            </div>
-        </nav>
-
-        
         <!-- Content Section -->
         <section>
             @yield('content')

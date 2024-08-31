@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('title', 'all-products')
+
+
 @section('content')
 <section class="d-flex align-items-center justify-content-between allproducts-container">
     <div class="allproducts-text">
