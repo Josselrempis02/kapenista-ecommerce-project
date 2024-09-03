@@ -123,6 +123,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
+            'phone_number' => ['nullable', 'string', 'max:11'],
             'address' => 'nullable|string|max:255',
         ]);
         //get the auth user
@@ -131,6 +132,7 @@ class UserController extends Controller
         // update user details
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone_number = $request->phone_number;
         $user->address = $request->address;
         $user->save();
     
