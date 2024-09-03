@@ -50,7 +50,9 @@
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Email" required>
 
-                            
+                            <label for="email">Phone number</label>
+                            <input type="tel" id="number" name="phone_number" placeholder="Phone number" value="{{old('phone_number', $user->phone_number)}}">
+
                         </div>
                     </div>
 
