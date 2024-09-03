@@ -20,6 +20,7 @@
                 <thead>
                     <tr class="orders-header">
                         <th scope="col">Product</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Stock</th>
                         <th scope="col">Price</th>
                         <th scope="col">Action</th>
@@ -28,6 +29,7 @@
                 <tbody>
                     <tr class="recent-orders-tr">
                         <td>Cafe latte</td>
+                        <td>Cold Coffee</td>
                         <td>26</td>
                         <td>₱110.40</td>
                         <td>
