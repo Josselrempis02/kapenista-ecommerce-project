@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id('order_id');
             $table->unsignedBigInteger('admin_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('payment_id');
             $table->dateTime('orderDate');
             $table->decimal('TotalAmount', 10, 2);
+            $table->enum('order_status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
+
             $table->timestamps();
 
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');

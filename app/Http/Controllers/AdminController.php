@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,15 +83,11 @@ class AdminController extends Controller
     }
 
 
-    //Show Order List
-    public function orderList (){
-        return view('admin.order-list');
-    }
 
     //show order details
-
-    public function orderDetails(){
-        return view('admin.order-details');
+    public function orderDetails($order_id){
+        $orders = Order::where('order_id', $order_id)->firstORfail();
+        return view('admin.order-details', compact('orders'));
     }
 
 
@@ -99,4 +96,12 @@ class AdminController extends Controller
     public function inventory(){
         return view('admin.inventory');
     }
+
+
+    //Show customer order
+    public function customerOrder(){
+        $orders = Order::all();
+        return view('admin.order-list', compact('orders'));
+    }
+
 }

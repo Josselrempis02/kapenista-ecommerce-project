@@ -19,7 +19,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr class="orders-header">
-                        <th scope="col">Product</th>
+                        
                         <th scope="col">Order ID</th>
                         <th scope="col">Date</th>
                         <th scope="col">Customer Name</th>
@@ -28,15 +28,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details') }}'" style="cursor: pointer;">
-                        <td>Cafe latte</td>
-                        <td>#25426</td>
-                        <td>Nov 8th, 2023</td>
-                        <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                        <td><span class="badge bg-success">Delivered</span></td>
-                        <td>₱110.40</td>
+                    @foreach($orders as $order)
+                    <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details', ['order_id' => $order->order_id]) }}'" style="cursor: pointer;">
+                        <td>{{ $order->order_id }}</td>
+                        <td>{{ $order->orderDate }}</td>
+                        <td>{{ $order->user->name }}</td>
+                        <td><span class="badge bg-success">{{ $order->order_status }}</span></td>
+                        <td>{{ $order->TotalAmount }}</td>
                     </tr>
                     <!-- Repeat similar rows for other products -->
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -6,12 +6,14 @@
         <h1>Order Details</h1>
         <h3>Home > Order List > Order Details</h3>
     </div>
-
+    
     <div class="p-4">
+
         <div class="recent-orders p-3 border bg-light fw-bold" style="border-radius: 10px;">
             <div class="d-flex gap-3 align-items-center mb-3">
-                <h4 class="card-title mb-0">Order ID: #12321</h4>
-                <div class="badge bg-warning text-dark">Pending</div>
+                <h4 class="card-title mb-0">Order ID: {{ $orders->order_id}}</h4>
+
+                <div class="badge bg-warning text-dark">{{ $orders->order_status}}</div>
                 <button class="btn btn-link text-dark p-0">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
@@ -43,9 +45,9 @@
                             <i class="lni lni-user custom-icon me-3"></i>
                             <span class="details">
                                 <h4 class="mb-2">Customer</h4>
-                                <h5>Full Name: Jossel</h5>
-                                <h5>Email: Jossel@@gmail.com</h5>
-                                <h5>Phone: 0912234563</h5>
+                                <h5>Full Name: {{ $orders->user->name}}</h5>
+                                <h5>Email: {{ $orders->user->email}}</h5>
+                                <h5>Phone: {{ $orders->user->phone_number}}</h5>
                             </span>
                         </div>
                     </div>
@@ -54,8 +56,8 @@
                             <i class="lni lni-credit-cards me-3 custom-icon"></i>
                             <span class="details">
                                 <h4 class="mb-2">Order Info</h4>
-                                <h5>Payment Method: COD</h5>
-                                <h5>Status: Pending</h5>
+                                <h5>Payment Method: {{ $orders->payment->payment_method}}</h5>
+                                
                             </span>
                         </div>
                     </div>
@@ -64,7 +66,7 @@
                             <i class="lni lni-delivery custom-icon me-3"></i>
                             <span class="details">
                                 <h4 class="mb-2">Deliver to</h4>
-                                <h5>Address: Guitnang bayan 1, San Mateo Rizal</h5>
+                                <h5> {{ $orders->user->address}}</h5>
                             </span>
                         </div>
                     </div>
@@ -121,5 +123,6 @@
             </div>
         </div>
     </div>
+   
 </section>
 @endsection
