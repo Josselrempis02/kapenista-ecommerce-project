@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 17, 2024 at 04:50 AM
+-- Host: localhost
+-- Generation Time: Sep 03, 2024 at 03:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,6 +38,13 @@ CREATE TABLE `admins` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin User', 'admin@example.com', NULL, '$2y$10$vjmZYpSTGZgeRuz1bxkAV.SzCLNYJJjyAzOuXdtbdmUNeT/k8u2li', NULL, '2024-08-29 22:06:58', '2024-08-29 22:06:58');
+
 -- --------------------------------------------------------
 
 --
@@ -71,13 +78,30 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2024_08_10_102932_create_password_resets_table', 1),
-(6, '2024_08_14_082721_create_admins_table', 1),
-(7, '2024_08_15_083854_create_products_table', 1);
+(15, '2014_10_12_000000_create_users_table', 1),
+(16, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(17, '2019_08_19_000000_create_failed_jobs_table', 1),
+(18, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(19, '2024_08_10_102932_create_password_resets_table', 1),
+(20, '2024_08_14_082721_create_admins_table', 1),
+(21, '2024_08_15_083854_create_products_table', 1),
+(22, '2024_08_29_072015_create_orders_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  `admin_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `orderDate` datetime NOT NULL,
+  `TotalAmount` decimal(10,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -130,11 +154,12 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `products` (
   `product_id` bigint(20) UNSIGNED NOT NULL,
-  `img` varchar(255) NOT NULL,
+  `img` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `price` decimal(8,2) NOT NULL,
   `description` longtext NOT NULL,
   `category` varchar(255) NOT NULL,
+  `stock` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -143,17 +168,35 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `img`, `name`, `price`, `description`, `category`, `created_at`, `updated_at`) VALUES
-(1, 'https://via.placeholder.com/640x480.png/0055aa?text=nihil', 'sed', 992.54, 'Voluptatem qui distinctio eos et nemo. Voluptatem et quibusdam enim quisquam consequatur quasi dolor explicabo. Quaerat molestias rerum impedit quia sunt vel odio. Doloremque minus qui quisquam. Dolorum sint nihil dolorem odit consectetur et. Sapiente velit sed quos dignissimos id fugit officia.', 'aut', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(2, 'https://via.placeholder.com/640x480.png/0022aa?text=a', 'pariatur', 159.85, 'Recusandae quo voluptatem adipisci eaque error consequatur ipsum quo. Porro molestias quis distinctio et ducimus quasi. Alias ut quibusdam nemo voluptas animi. Ratione rerum sint consectetur placeat sit maiores. Sed laborum aut possimus mollitia alias qui ut debitis. Magni molestiae dolore impedit velit inventore eum.', 'accusamus', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(3, 'https://via.placeholder.com/640x480.png/00aa44?text=consequuntur', 'quo', 449.63, 'Temporibus velit doloribus quasi laborum. Aut sed dicta quod unde voluptas delectus sapiente. Dolores sed quis mollitia. Suscipit odit nulla quia nihil et minus.', 'rerum', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(4, 'https://via.placeholder.com/640x480.png/0055ee?text=hic', 'nobis', 724.96, 'Totam quas nobis ut aut dolorem quis alias aut. Quis laborum dolores necessitatibus eligendi sunt qui provident id. Cum sed ducimus consequatur cupiditate. Eos et sed fuga sed. Quo laboriosam molestias non ut cupiditate quas reprehenderit ducimus. Qui quo a maxime eos voluptatem molestiae.', 'deserunt', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(5, 'https://via.placeholder.com/640x480.png/001144?text=aut', 'qui', 353.89, 'Assumenda ut mollitia nisi. Impedit asperiores non totam. Architecto ullam sunt esse atque eveniet neque qui voluptas. Labore eum doloremque deleniti molestiae et quaerat veniam praesentium.', 'voluptatibus', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(6, 'https://via.placeholder.com/640x480.png/00aa33?text=voluptatem', 'quos', 387.96, 'Ut ut quis est ut. Et cum perspiciatis adipisci vitae praesentium voluptas ullam. Nesciunt qui doloremque sit expedita quia illum. Non sunt ut vel fuga voluptates dolores. Ratione libero earum accusantium quam soluta beatae. Suscipit eos quis quod eum asperiores.', 'quos', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(7, 'https://via.placeholder.com/640x480.png/00ddcc?text=iure', 'praesentium', 284.71, 'Ipsam sit quas ea perspiciatis quibusdam. Nobis expedita necessitatibus rerum ullam sint deleniti. Qui dolorum consectetur et delectus. Minima est accusantium at aut sunt. Qui nulla suscipit omnis praesentium porro. Sint et officiis earum ad aut iure. Laborum temporibus id odit vitae quaerat in maxime dolores.', 'voluptas', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(8, 'https://via.placeholder.com/640x480.png/00ff22?text=laborum', 'quos', 717.87, 'Quia ut corrupti excepturi ullam aut occaecati. Reiciendis odit quia autem aspernatur. Voluptates nesciunt aspernatur est aut aliquam quis. Laborum neque fuga molestiae molestiae nesciunt eum. Hic quos debitis consequuntur aut totam. Dolorem velit eos nisi odit ducimus. Nostrum voluptas est sed voluptatem.', 'reiciendis', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(9, 'https://via.placeholder.com/640x480.png/0044ff?text=ab', 'non', 209.77, 'Quo ullam nihil distinctio. Ea voluptate exercitationem est iusto atque sapiente aut. Unde doloribus alias id. Eaque cum provident amet.', 'nam', '2024-08-15 19:40:37', '2024-08-15 19:40:37'),
-(10, 'https://via.placeholder.com/640x480.png/0033ee?text=ut', 'ea', 82.57, 'Dolore ex ullam quo voluptas. In maxime ut ut qui. Neque laboriosam debitis reiciendis natus ad. Deleniti asperiores omnis eos facilis qui cum quasi ipsum. Ducimus est iure nihil aperiam nulla aut.', 'quia', '2024-08-15 19:40:37', '2024-08-15 19:40:37');
+INSERT INTO `products` (`product_id`, `img`, `name`, `price`, `description`, `category`, `stock`, `created_at`, `updated_at`) VALUES
+(1, 'https://via.placeholder.com/640x480.png/00bb00?text=illo', 'culpa', 112.64, 'Voluptate debitis qui unde. Ut quas distinctio debitis sed. In laborum inventore quidem facere excepturi sint. Odit harum eum ducimus tempore. Libero perferendis aut voluptas laboriosam.', 'velit', 52, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(2, 'https://via.placeholder.com/640x480.png/0066aa?text=dolorum', 'recusandae', 726.47, 'Commodi enim dolore quibusdam at. Reiciendis iusto placeat consequatur possimus error. Consequatur et error alias dolores earum tempora quia. In quis iusto et sint consectetur. Id corporis nobis fugiat voluptatem eos. Deleniti magnam itaque vitae blanditiis et. Autem rerum et temporibus consequatur iste magnam maxime omnis.', 'quia', 92, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(3, 'https://via.placeholder.com/640x480.png/006644?text=assumenda', 'non', 619.85, 'Ut eum eum ullam voluptatem. Possimus ut voluptas voluptatem dignissimos quia aut. Sit commodi in quia ipsum omnis. Explicabo voluptatem eveniet quibusdam id repudiandae impedit excepturi deleniti. Voluptas omnis quas quia est molestiae.', 'commodi', 32, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(4, 'https://via.placeholder.com/640x480.png/0011aa?text=cupiditate', 'consequatur', 395.65, 'Et molestiae molestias voluptatem animi placeat. Animi ratione mollitia vel eveniet eveniet beatae soluta. Labore et eius ut eos aperiam cum. Unde totam sit maxime tempora. Ea facere maiores consectetur a iusto et.', 'dolorem', 33, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(5, 'https://via.placeholder.com/640x480.png/006688?text=aliquid', 'qui', 622.49, 'Sed nulla amet et. Odio reiciendis eveniet similique molestias nemo omnis voluptas. Omnis ea aut quasi. Corrupti corrupti laudantium debitis praesentium. Autem nisi ex placeat ut. Consequuntur molestiae voluptates est voluptatibus expedita. Dolores impedit id sunt magnam non dolores.', 'a', 100, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(6, 'https://via.placeholder.com/640x480.png/005544?text=minima', 'et', 174.20, 'Numquam id voluptatem molestiae ea esse. Dolore distinctio doloribus quaerat unde quo perspiciatis. Placeat ea omnis amet rerum nisi. Id fugiat iste aut quis nihil saepe.', 'quaerat', 99, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(7, 'https://via.placeholder.com/640x480.png/008855?text=laudantium', 'aperiam', 806.61, 'Velit et quas non est. Voluptate quidem aut sapiente qui harum ipsa aliquid. Et doloremque hic delectus maxime autem quisquam. Qui corrupti voluptas necessitatibus. Laudantium autem et inventore veritatis asperiores ut mollitia. Voluptatem eum nihil dignissimos. Est autem sequi impedit quas iure consequatur ullam.', 'iure', 41, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(8, 'https://via.placeholder.com/640x480.png/009911?text=quia', 'illum', 565.49, 'Repellendus quia accusamus necessitatibus autem animi. Inventore delectus vero dolor aliquam eligendi. Beatae excepturi quia voluptatibus ut labore inventore aut. Vel incidunt qui doloremque aut. Dicta vel libero at.', 'cumque', 48, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(9, 'https://via.placeholder.com/640x480.png/000000?text=qui', 'harum', 446.48, 'Tenetur dolore voluptas at velit magnam aspernatur nulla. Suscipit repellendus voluptas architecto illum. Consequatur nulla tempora itaque reprehenderit vero adipisci quia. Sed quasi veritatis accusantium accusamus provident occaecati cumque. Eaque aperiam est doloremque modi.', 'dolor', 32, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(10, 'https://via.placeholder.com/640x480.png/009999?text=at', 'ratione', 162.29, 'Magni aut eum mollitia debitis. Animi mollitia esse nesciunt debitis. Esse earum voluptates odit magnam praesentium. Velit repellat distinctio iusto. Atque et et reprehenderit ab magnam. Ad excepturi soluta odit quaerat. Consequatur culpa qui ut doloremque quibusdam.', 'ea', 78, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(11, 'https://via.placeholder.com/640x480.png/00bbdd?text=voluptas', 'aut', 2.04, 'Eum dolores officiis enim sed et sit. Modi quas ut quibusdam consequatur doloribus pariatur. Sint porro debitis necessitatibus nemo omnis ipsum. Sit quidem ad rerum qui. Et fuga assumenda consequatur molestiae. Reprehenderit nesciunt eaque optio aperiam molestiae. Neque sed doloribus dolor quaerat delectus autem accusantium nihil.', 'est', 44, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(12, 'https://via.placeholder.com/640x480.png/003300?text=sed', 'voluptatem', 14.50, 'Atque aut illum esse neque. Ea atque dolorem quam deserunt ad vero. Eos ullam atque omnis et sint dolore qui fugiat. Quo quibusdam ut perspiciatis dolorum tenetur quasi. Blanditiis aut id error explicabo deserunt magnam numquam.', 'eligendi', 44, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(13, 'https://via.placeholder.com/640x480.png/000088?text=ad', 'rerum', 701.50, 'Molestias cupiditate repudiandae sit pariatur blanditiis. Accusantium ut voluptatem quasi ullam quia explicabo recusandae. Velit voluptatibus illo consequatur voluptatum reiciendis nobis et. Error laboriosam commodi dolores voluptas enim ipsam. Nulla itaque assumenda delectus aliquam minima quae. Aliquam deleniti expedita ad fugit voluptatem quia occaecati tenetur.', 'repellat', 38, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(14, 'https://via.placeholder.com/640x480.png/005577?text=est', 'modi', 441.05, 'Ipsam non non aut omnis sequi. Qui quibusdam perspiciatis quo occaecati ut quos tempora vero. Non cum omnis eveniet non commodi nesciunt. Unde soluta sed omnis explicabo. Maiores error et nihil alias. Et officia et modi repellat libero earum voluptatem. Aliquam aut voluptatem aut.', 'perferendis', 87, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(15, 'https://via.placeholder.com/640x480.png/0033ff?text=molestias', 'rerum', 452.46, 'Cumque id et fugit vitae reiciendis. Cum quo iure quia dolor. Nam magni est ipsam praesentium quia. Quibusdam perspiciatis voluptas facere dolores deleniti ut in vel. Enim suscipit architecto non voluptatem minima exercitationem quod. Sit ipsum ipsam sint sunt expedita corrupti nostrum aliquid. Laboriosam magnam debitis eos provident.', 'optio', 31, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(16, 'https://via.placeholder.com/640x480.png/00bb33?text=laborum', 'aliquid', 911.76, 'Rerum molestias delectus consequuntur nesciunt ipsam sed. Rerum consequatur voluptate eos maxime et iusto tempora. Eum ad aperiam facere pariatur laudantium vel. Possimus debitis ratione quas totam quas odio delectus. Dignissimos doloremque et placeat necessitatibus laborum sunt eum et. Et porro earum cum consectetur nesciunt. Consequatur nam reiciendis omnis non optio qui maxime voluptates.', 'voluptatem', 4, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(17, 'https://via.placeholder.com/640x480.png/00dd77?text=error', 'voluptas', 733.94, 'Accusamus commodi laborum quia qui aut. Ut rerum inventore sit unde. Soluta praesentium quo rerum perferendis. Explicabo quaerat natus odit. Omnis cupiditate veniam exercitationem vel.', 'modi', 42, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(18, 'https://via.placeholder.com/640x480.png/0033dd?text=nemo', 'qui', 719.27, 'Voluptas quaerat in voluptates quibusdam voluptas eum voluptates. Est voluptates rerum incidunt et. Odit est minima sapiente dolores mollitia. Quis eveniet dolor dolorem. Iusto provident minima hic et. Dolor libero odio enim repudiandae possimus maiores voluptatem. Velit quis sit et et.', 'dolorem', 66, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(19, 'https://via.placeholder.com/640x480.png/003366?text=voluptates', 'aliquid', 9.60, 'Quas commodi aliquid recusandae tenetur et. Ipsa voluptas et reiciendis provident architecto molestiae ea. Nesciunt fugiat voluptatibus eos id error ea dicta. Dolor qui tempora autem omnis reiciendis labore. Velit et officiis esse similique natus aut.', 'aut', 52, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(20, 'https://via.placeholder.com/640x480.png/0088aa?text=deserunt', 'quia', 638.17, 'Eum maiores tempora harum consequatur odit. Dolores laudantium similique culpa. Dolores sint sint nulla. Magni possimus laborum similique. Aut sequi quis sit animi dolore tempore iste est. Voluptatum nulla quaerat ut quis ducimus ut.', 'reprehenderit', 38, '2024-08-26 17:39:18', '2024-08-26 17:39:18'),
+(21, NULL, 'Jossel Alfred Rempillo Rempis', 111.00, 'asdsadada', '1', 11, '2024-08-26 17:40:28', '2024-08-26 17:40:28'),
+(22, NULL, 'aj', 1000.00, 'asdasdasd', '2', 99, '2024-08-26 17:45:22', '2024-08-26 17:45:22'),
+(23, 'img/yuE6LPeka9Ny9ibJcJugseMBec97wC805FTkuB53.png', 'admin', 23.00, 'asdasdsadsa', '1', 2, '2024-08-26 18:02:23', '2024-08-26 18:02:23'),
+(24, 'img/Ay84L4zc7Xt3ApDYPzmwVb2LQ5kO0Ab4EPwfkCmH.png', 'asdasdsa', 232.00, 'adasda', '1', 100, '2024-08-26 18:07:01', '2024-08-26 18:07:01'),
+(25, 'img/JCQFmWZw4GcL7MXEHqqTLkTQsY1OvxedFwgCSxqs.png', 'asdasdsa', 232.00, 'adasda', '1', 100, '2024-08-26 18:07:05', '2024-08-26 18:07:05'),
+(26, 'img/WAVTCXOCNe7CiC1sKpDmH18skd9GRk2RROdEaGfN.png', 'aj', 100.00, 'asdasdasd', 'Bottle Beverages', 11, '2024-08-26 18:10:10', '2024-08-26 18:10:10'),
+(27, 'img/OaYPIvzz62rhidQsNVBRAlmAzT71sWdUyTIKwLzG.png', 'admin', 233.00, 'asdsadsadsa', 'Bottle Beverages', 23, '2024-08-26 18:13:54', '2024-08-26 18:13:54'),
+(28, 'img/ue4HclLaSsYWhmVELznppcJ20NUyPXukoyEAwT3J.png', 'Spanish Latte', 1500.00, 'masarap', 'Cold Coffee', 99, '2024-08-27 17:31:11', '2024-08-27 17:31:11');
 
 -- --------------------------------------------------------
 
@@ -180,8 +223,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `google_id`, `email_verified_at`, `password`, `phone_number`, `address`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Francine Marinelle Reyes', 'frxengmarinelle@gmail.com', '102342927383261638110', NULL, 'eyJpdiI6ImJPc0d1NEIwbnN3dVJ1TWh6SXd4Wnc9PSIsInZhbHVlIjoiTVc5K3pMTDZMMUIrWmJBZFhtU25GN0JLQVJxNEdiSXN3QkdSY2oyVzQ5az0iLCJtYWMiOiIyNjQ2Mzc4YTc1N2E1OGM4MzYxN2Y1YTBiZGU3MzdhODM3MTEzN2JiODcxNjQwNGI1YTQ2NTAzMjUwYTEzOTQ4IiwidGFnIjoiIn0=', NULL, NULL, NULL, '2024-08-15 19:41:07', '2024-08-15 19:41:07'),
-(2, 'Jossel Rempis', 'josselrempis02@gmail.com', '113389686093828943842', NULL, 'eyJpdiI6IlJpUFNnQ0xHQmxkOWdORUY4RGVDNXc9PSIsInZhbHVlIjoiRG9NRlBOYnQzbXdpLzFuWVJHOWhvU0lRZFlLL2xtWWRsODRmZ3d1ZHl2az0iLCJtYWMiOiI0YmQ5MzAzYzA3ZmUxMzlhZGZiYzlmMjM5OTdiZDNkYTE2NzkxZGUxNTcxMTRkNDU4YzQwZTZiM2QxYTZlOWRhIiwidGFnIjoiIn0=', NULL, NULL, NULL, '2024-08-15 21:56:42', '2024-08-15 21:56:42');
+(1, 'Jossel Rempis', 'josselrempis02@gmail.com', '113389686093828943842', NULL, 'eyJpdiI6ImQ0cVJGdkR5clFtbVlUUVIyams2K2c9PSIsInZhbHVlIjoid3NtMVdQcThWaHlaMTNURVVyQjdZalVNRDFHTlAvOW1ORU03R1RGTm5CVT0iLCJtYWMiOiI2ZGIxY2I4MTI4ZjE5YTgwNWEwMDA5ZTk5NTI1NWI3ZGM0OWY2MmQ3ZTlmNzI0ZjBiNjFlMThmNGJjNGYxMGVlIiwidGFnIjoiIn0=', NULL, NULL, NULL, '2024-08-27 17:31:51', '2024-08-27 17:31:51'),
+(2, 'Admin User', 'admin@example.com', NULL, NULL, '$2y$10$sXmTosMWSHvHO0evCPG2cezETfLWQzvDcoRDdGzyvVSKYrFoUqj5G', NULL, NULL, NULL, '2024-08-29 22:06:12', '2024-08-29 22:06:12');
 
 --
 -- Indexes for dumped tables
@@ -206,6 +249,14 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `orders_admin_id_foreign` (`admin_id`),
+  ADD KEY `orders_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -248,7 +299,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -260,7 +311,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -272,13 +329,24 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
