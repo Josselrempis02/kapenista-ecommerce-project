@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
     use HasFactory;
+
+   
     // Specify the table name (optional if it follows Laravel's naming convention)
     protected $table = 'orders';
 
@@ -40,5 +44,12 @@ class Order extends Model
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
     }
+
+    public function orderProducts()
+    {
+        return $this->hasMany(OrdersProduct::class, 'order_id', 'order_id');
+    }
+
+  
 }
 

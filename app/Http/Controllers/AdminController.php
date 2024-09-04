@@ -84,12 +84,15 @@ class AdminController extends Controller
 
 
 
-    //show order details
-    public function orderDetails($order_id){
-        $orders = Order::where('order_id', $order_id)->firstORfail();
-        return view('admin.order-details', compact('orders'));
+    public function orderDetails($order_id) {
+        $orders = Order::where('order_id', $order_id)->with('orderProducts.product')->firstOrFail();
+    
+        $subtotal = $orders->orderProducts->sum(function ($orderProduct) {
+            return $orderProduct->quantity * $orderProduct->price;
+        });
+    
+        return view('admin.order-details', compact('orders', 'subtotal'));
     }
-
 
     //show inventory
 
@@ -103,5 +106,25 @@ class AdminController extends Controller
         $orders = Order::all();
         return view('admin.order-list', compact('orders'));
     }
+
+    public function updateOrderStatus(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'order_id' => 'required|exists:orders,order_id',
+            'order_status' => 'required|in:Processing,Completed,Cancelled',
+        ]);
+    
+        // Find the order by ID
+        $order = Order::find($request->order_id);
+    
+        // Update the order status
+        $order->order_status = $request->order_status;
+        $order->save();
+    
+        // Redirect back with a success message
+        return back()->with('success', 'Order status updated successfully!');
+    }
+    
 
 }

@@ -36,5 +36,8 @@ class OrdersProduct extends Model
         return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
     }
 
+    
+
+
 
 }

@@ -184,5 +184,9 @@ Route::middleware(['auth:admin'])->group(function () {
 
     // Inventory
     Route::get('/inventory', [AdminController::class, 'inventory'])->name('inventory');
+
+    // Update order status
+    Route::post('/update-order-status', [AdminController::class, 'updateOrderStatus']);
+
 });
 
