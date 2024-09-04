@@ -18,8 +18,10 @@ class Order extends Model
     protected $fillable = [
         'admin_id',
         'user_id',
+        'payment_id',
         'orderDate',
-        'TotalAmount'
+        'TotalAmount',
+        'order_status'
     ];
 
     // Define the relationship with the Admin model
@@ -32,6 +34,11 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
     }
 }
 

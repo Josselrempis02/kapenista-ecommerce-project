@@ -177,10 +177,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/add-products', [AdminController::class, 'add']);
 
     // Order list
-    Route::get('/order-list', [AdminController::class, 'orderList']);
+    Route::get('/order-list', [AdminController::class, 'customerOrder']);
 
     // Order details
-    Route::get('/order-list/order-details', [AdminController::class, 'orderDetails'])->name('order.details');
+    Route::get('/order-list/order-details/{order_id}', [AdminController::class, 'orderDetails'])->name('order.details');
 
     // Inventory
     Route::get('/inventory', [AdminController::class, 'inventory'])->name('inventory');
