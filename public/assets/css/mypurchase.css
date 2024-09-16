@@ -28,7 +28,9 @@ padding: 0;
 margin-bottom: 100px;
 }
 
-
+my-account{
+    height: 100vh;
+}
 
 
 .status-btn a{

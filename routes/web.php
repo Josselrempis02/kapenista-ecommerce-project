@@ -60,8 +60,14 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 // Display the user's account settings
 Route::get('/users/account', [UserController::class, 'UserAccountSettings'])->middleware('auth');
 
+//Display Purchase
+Route::get('/users/purchase', [UserController::class, 'UserPurchase'])
+->middleware('auth')
+->name('user.purchase');
+
 // Show a specific user's account
-Route::get('/user/account/{id}', [UserController::class, 'ShowUserAccount'])->name('user.account');
+Route::get('/user/account/{id}', [UserController::class, 'ShowUserAccount'])
+->name('user.account');
 
 // Update the user's profile
 Route::put('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');

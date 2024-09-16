@@ -21,6 +21,13 @@ class UserController extends Controller
         return view('users.signup');
     }
 
+
+
+     //Show user purchase page 
+     public function UserPurchase() {
+        return view('users.my_purchase');
+     }
+
     // New user
     public function store(Request $request) {
         $formFields = $request->validate([
@@ -162,4 +169,6 @@ class UserController extends Controller
 
         return back()->with('success', 'Change Password Successfully!');
        }
+
+      
 }
