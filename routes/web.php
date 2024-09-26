@@ -194,5 +194,14 @@ Route::middleware(['auth:admin'])->group(function () {
     // Update order status
     Route::post('/update-order-status', [AdminController::class, 'updateOrderStatus']);
 
+    
+    //Show Staff page
+    Route::get('/staff-list', [AdminController::class, 'staffList']);
+    Route::post('/add-staff', [AdminController::class, 'addStaff']);
+
+    //Edit staff 
+    Route::get('/staff/edit/{id}', [AdminController::class, 'staffEdit']);
+    //Update Staff
+    Route::post('/staff/update/{id}', [AdminController::class, 'staffUpdate']);
 });
 

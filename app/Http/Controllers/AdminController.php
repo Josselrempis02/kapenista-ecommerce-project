@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -127,4 +128,30 @@ class AdminController extends Controller
     }
     
 
+   
+
+    //Add Staff
+
+    public function addStaff(Request $request) {
+        //code.................
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $admin = new Admin;
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+
+        return back()->with('success', "Admin Succesfully Created");
+    }
+
+    public function staffList(){
+        $admins = Admin::all();
+        return view('admin.staff', compact('admins'));
+    }
 }
