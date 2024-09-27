@@ -9,6 +9,8 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
     <!-- Add your custom stylesheets -->
     <link rel="stylesheet" href="{{ asset('assets/css/admin-dashboard.css') }}">
@@ -16,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/order-list.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/order-details.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/inventory.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/staff.css') }}">
     
     <title>@yield('title', 'Admin Dashboard')</title>
 </head>

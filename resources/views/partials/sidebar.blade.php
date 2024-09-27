@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/staff-list" class="sidebar-link">
                     <i class="lni lni-user"></i>
                     <span>Staff</span>
                 </a>

@@ -24,7 +24,7 @@ class ShopController extends Controller
         return view('users.checkout');
     }
 
-
+   
 
     //Show ALl product
     public function showProducts() {

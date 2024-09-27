@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -127,4 +128,52 @@ class AdminController extends Controller
     }
     
 
+   
+
+    //Add Staff
+
+    public function addStaff(Request $request) {
+        //code.................
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:admins',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $admin = new Admin;
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+
+        return back()->with('success', "Admin Succesfully Created");
+    }
+
+    public function staffList(){
+        $admins = Admin::all();
+        return view('admin.staff', compact('admins'));
+    }
+
+    //edit single staff 
+    public function updateStaff(Request $request, $id)
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->update($request->only('name', 'email'));
+        
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Admin updated successfully');
+    }
+    
+
+   //Delete single staff 
+   public function destroy($id)
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+
+        return redirect()->back()->with('success', 'Admin deleted successfully');
+    }
+
+        
 }

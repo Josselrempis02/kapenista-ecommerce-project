@@ -22,7 +22,7 @@
 
 
 .table-container{
-    background-color: transparent;
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     justify-content:end ;
@@ -122,4 +122,130 @@
 .product-row{
     color: #5e5c5c;
     font-weight: 300;
+}
+
+
+
+.delivery-section{
+    
+    width: 100%;
+    max-width: 46%;
+  
+    background-color: #fff;
+    
+    
+}
+
+
+.delivery-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ceced8;;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #333;
+    outline: none;
+}
+
+
+.order-summary {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-summary th, .order-summary td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.payment-message {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.place-order-btn {
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    border: 2px solid transparent;
+    background-color: var(--hover);
+    padding: 12px 25px;
+    transition: all .42s ease;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.place-order-btn:hover{
+    background-color: #a56e41;
+    color: var(--primary);
+}
+
+
+.checkout-page{
+    display: flex;
+    gap: 50px;
+}
+
+.payment-options {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.payment-option {
+    margin-bottom: 10px;
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.payment-option label {
+    font-size: 16px;
+}
+
+.payment-options h3{
+    margin-bottom: 20px;
+}
+
+.order-details{
+    width: 46%;
 }

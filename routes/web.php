@@ -194,5 +194,16 @@ Route::middleware(['auth:admin'])->group(function () {
     // Update order status
     Route::post('/update-order-status', [AdminController::class, 'updateOrderStatus']);
 
+    
+    //Show Staff page
+    Route::get('/staff-list', [AdminController::class, 'staffList']);
+    Route::post('/add-staff', [AdminController::class, 'addStaff'])->name('admin.staff.store');
+
+    //Edit staff 
+    Route::put('/staff/edit/{id}', [AdminController::class, 'updateStaff'])->name('admin.staff.update');
+
+    //Delete Staff
+    Route::delete('/staff/delete/{id}', [AdminController::class, 'destroy'])->name('admin.staff.destroy');
+
 });
 
