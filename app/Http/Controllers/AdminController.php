@@ -154,4 +154,26 @@ class AdminController extends Controller
         $admins = Admin::all();
         return view('admin.staff', compact('admins'));
     }
+
+    //edit single staff 
+    public function updateStaff(Request $request, $id)
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->update($request->only('name', 'email'));
+        
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Admin updated successfully');
+    }
+    
+
+   //Delete single staff 
+   public function destroy($id)
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+
+        return redirect()->back()->with('success', 'Admin deleted successfully');
+    }
+
+        
 }

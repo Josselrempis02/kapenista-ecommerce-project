@@ -40,7 +40,7 @@
                     <div class="edit-container">
                         <div class="personal-info-section">
                             <label for="fname">Name</label>
-                            <input type="text" id="fname" name="name" value="{{ old('fname', $user->name) }}" placeholder="Name" required>
+                            <input type="text" id="fname" name="name" value="{{ old('fname', $admin->name) }}" placeholder="Name" required>
 
                             <label for="address">Address</label>
                             <input type="text" id="address" name="address" value="{{ old('address', $user->address) }}" placeholder="Address" required>

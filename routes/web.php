@@ -197,11 +197,13 @@ Route::middleware(['auth:admin'])->group(function () {
     
     //Show Staff page
     Route::get('/staff-list', [AdminController::class, 'staffList']);
-    Route::post('/add-staff', [AdminController::class, 'addStaff']);
+    Route::post('/add-staff', [AdminController::class, 'addStaff'])->name('admin.staff.store');
 
     //Edit staff 
-    Route::get('/staff/edit/{id}', [AdminController::class, 'staffEdit']);
-    //Update Staff
-    Route::post('/staff/update/{id}', [AdminController::class, 'staffUpdate']);
+    Route::put('/staff/edit/{id}', [AdminController::class, 'updateStaff'])->name('admin.staff.update');
+
+    //Delete Staff
+    Route::delete('/staff/delete/{id}', [AdminController::class, 'destroy'])->name('admin.staff.destroy');
+
 });
 

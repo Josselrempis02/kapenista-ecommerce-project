@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/order-list.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/order-details.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/inventory.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/staff.css') }}">
     
     <title>@yield('title', 'Admin Dashboard')</title>
 </head>
