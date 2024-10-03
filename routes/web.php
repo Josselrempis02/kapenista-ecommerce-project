@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\AdminResetPasswordController;
@@ -204,6 +205,18 @@ Route::middleware(['auth:admin'])->group(function () {
 
     //Delete Staff
     Route::delete('/staff/delete/{id}', [AdminController::class, 'destroy'])->name('admin.staff.destroy');
+
+    //Category List
+    Route::get('/category-list', [CategoryController::class, 'categoryList']);
+
+    //Add Category 
+    Route::post('/category-staff', [CategoryController::class, 'addCategory'])->name('admin.category.store');
+
+     //Edit category 
+     Route::put('/category/edit/{id}', [CategoryController::class, 'updateCategory'])->name('admin.category.update');
+
+     //Delete category
+     Route::delete('/category/delete/{id}', [CategoryController::class, 'destroyCategory'])->name('admin.category.destroy');
 
 });
 
