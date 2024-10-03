@@ -30,20 +30,35 @@
                         <div class="mb-3">
                             <label for="staffName" class="form-label">Staff Name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+                            <!-- Error message for staff name -->
+                            @if ($errors->has('name'))
+                                <div class="text-danger">{{ $errors->first('name') }}</div>
+                            @endif
                         </div>
+                        
                         <div class="mb-3">
                             <label for="staffEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" >
+                            <!-- Error message for staff email -->
+                            @if ($errors->has('email'))
+                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                            @endif
                         </div>
+                        
                         <div class="mb-3">
-                            <label for="staffpassword" class="form-label">Password</label>
+                            <label for="staffPassword" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                            <!-- Error message for staff password -->
+                            @if ($errors->has('password'))
+                                <div class="text-danger">{{ $errors->first('password') }}</div>
+                            @endif
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Staff</button>
+                        <button type="submit" class="btn btn-save">Add Staff</button>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -125,6 +140,11 @@
                                     <div class="mb-3">
                                         <label for="adminEmail{{ $admin->id }}" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="adminEmail{{ $admin->id }}" name="email" value="{{ old('email', $admin->email) }}" required>
+
+                                          <!-- Error message for staff email -->
+                                            @if ($errors->has('email'))
+                                                <div class="text-danger">{{ $errors->first('email') }}</div>
+                                            @endif
                                     </div>
                                 </div>
                                 <div class="modal-footer">

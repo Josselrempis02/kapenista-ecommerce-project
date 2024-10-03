@@ -47,22 +47,12 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                   data-bs-target="#auth" aria-expanded="true" aria-controls="auth">
-                    <span>Categories</span>
+                <a href="/category-list" class="sidebar-link">
+                <i class="lni lni-layers"></i>
+                    <span>Category</span>
                 </a>
-                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Cold Coffee</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Hot Coffee</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">Bottle Beverages</a>
-                    </li>
-                </ul>
             </li>
+            
         </ul>
         <!-- Sidebar Navigation Ends -->
         <div class="sidebar-footer">
