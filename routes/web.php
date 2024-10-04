@@ -93,6 +93,9 @@ Route::get('/shop-details/{product_id}', [ShopController::class, 'showProductDet
     ->middleware('auth')
     ->name('shop.details');
 
+//Filter by Category
+Route::get('/shop/category/{category}', [ShopController::class, 'showByCategory'])->name('shop.category');
+
 
 
 // Add product to cart
@@ -181,7 +184,14 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/products', [AdminController::class, 'showAll']);
 
     // Add products
-    Route::post('/add-products', [AdminController::class, 'add']);
+    Route::post('/add-products', [AdminController::class, 'add'])->name('products.store');
+    
+
+    // Edit products
+     Route::put('/products/edit/{product_id}', [AdminController::class, 'updateProduct'])->name('products.update');
+
+     //Delete category
+     Route::delete('/products/delete/{product_id}', [AdminController::class, 'destroyProduct'])->name('products.destroy');
 
     // Order list
     Route::get('/order-list', [AdminController::class, 'customerOrder']);
@@ -189,8 +199,6 @@ Route::middleware(['auth:admin'])->group(function () {
     // Order details
     Route::get('/order-list/order-details/{order_id}', [AdminController::class, 'orderDetails'])->name('order.details');
 
-    // Inventory
-    Route::get('/inventory', [AdminController::class, 'inventory'])->name('inventory');
 
     // Update order status
     Route::post('/update-order-status', [AdminController::class, 'updateOrderStatus']);
@@ -217,6 +225,12 @@ Route::middleware(['auth:admin'])->group(function () {
 
      //Delete category
      Route::delete('/category/delete/{id}', [CategoryController::class, 'destroyCategory'])->name('admin.category.destroy');
+
+     //Show Invetory
+    // Inventory
+    Route::get('/inventory', [AdminController::class, 'showInventory'])->name('inventory');
+
+    Route::put('/products/{id}', [AdminController::class, 'updateInventory'])->name('products.update');
 
 });
 
