@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\CategoryModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -55,33 +56,43 @@ class AdminController extends Controller
     {
     // Assuming you are fetching products from a Product model
     $products = Product::Simplepaginate(6); // 6 products per page
-    return view('admin.all-products', compact('products'));
+
+    $categories = CategoryModel::all();
+
+    return view('admin.all-products', compact('products', 'categories'));
+
+ 
+
+
     }
+
+
+
 
     //Add Product
 
     public function add(Request $request) {
-        $formFields = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'category' => 'required',
-            'stock' => 'required',
-            'price' => 'required',
+       // Validate the incoming data
+       $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'category_id' => 'required|exists:category,id',
+        'stock' => 'required|integer|min:0',
+        'price' => 'required|numeric|min:0',
+        'img' => 'nullable|image|max:2048',
+    ]);
 
-        ]);
-
-
-    $formFields = $request->all();
-    
-        if($request->hasFile('img')) {
-            $formFields['img'] = $request->file('img')->store('img', 'public');
-        }
-
-        Product::create($formFields);
-
-        return redirect('/products')->with('message', 'Add product successfully!');
-
+    // Handle product image upload if provided
+    if ($request->hasFile('img')) {
+        $validatedData['img'] = $request->file('img')->store('products', 'public');
     }
+
+    // Create the product
+    Product::create($validatedData);
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Product added successfully!');
+}
 
 
 
@@ -97,10 +108,13 @@ class AdminController extends Controller
 
     //show inventory
 
-    public function inventory(){
-        return view('admin.inventory');
+    public function showInventory() {
+        // Fetch all products with their categories
+        $products = Product::with('category')->get();
+        
+        return view('admin.inventory', compact('products'));
     }
-
+    
 
     //Show customer order
     public function customerOrder(){
@@ -175,5 +189,86 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Admin deleted successfully');
     }
 
-        
+
+
+    //EDIT PRODOCT 
+    public function updateProduct(Request $request, $id)
+{   
+    // Validate the incoming data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'category_id' => 'required|exists:category,id',
+        'stock' => 'required|integer|min:0',
+        'price' => 'required|numeric|min:0',
+        'img' => 'nullable|image|max:2048',
+    ]);
+
+    // Find the product by ID
+    $product = Product::findOrFail($id);
+
+    // Update product data
+    $product->name = $validatedData['name'];
+    $product->description = $validatedData['description'] ?? $product->description;
+    $product->category_id = $validatedData['category_id'];
+    $product->stock = $validatedData['stock'];
+    $product->price = $validatedData['price'];
+
+    // Handle product image upload if provided
+    if ($request->hasFile('img')) {
+        // Delete old image if exists
+        if ($product->img) {
+            \Storage::disk('public')->delete($product->img);
+        }
+        $product->img = $request->file('img')->store('products', 'public');
+    }
+
+    // Save the updated product back to the database
+    $product->save();
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Product updated successfully!');
+    }
+
+    //Delete Product 
+    public function destroyProduct($id)
+    {
+        // Find the product by ID
+        $product = Product::findOrFail($id);
+
+        // Delete the image if exists
+        if ($product->img) {
+            \Storage::disk('public')->delete($product->img);
+        }
+
+        // Delete the product
+        $product->delete();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Product deleted successfully!');
+    }
+
+
+    // Edit Inventory 
+    public function updateInventory(Request $request, $id)
+{
+    // Validate the incoming request data
+    $request->validate([
+        'stock' => 'required|integer|min:0',
+        // Add any other fields you'd like to update
+    ]);
+
+    // Find the product by its ID
+    $product = Product::findOrFail($id);
+
+    // Update the product's stock (and other fields if needed)
+    $product->stock = $request->input('stock');
+    
+    // Save the updated product
+    $product->save();
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Product updated successfully');
+}
+
 }

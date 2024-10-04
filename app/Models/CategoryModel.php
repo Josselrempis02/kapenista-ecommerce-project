@@ -10,4 +10,11 @@ class CategoryModel extends Model
     use HasFactory;
 
     protected $table = 'category';
+
+    // Add relationships if needed
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
 }
