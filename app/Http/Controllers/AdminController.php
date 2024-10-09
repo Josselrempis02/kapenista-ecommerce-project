@@ -191,8 +191,8 @@ class AdminController extends Controller
 
 
 
-    //EDIT PRODOCT 
-    public function updateProduct(Request $request, $id)
+   // Update the product details in the database
+public function updateProduct(Request $request, $id)
 {   
     // Validate the incoming data
     $validatedData = $request->validate([
@@ -216,19 +216,22 @@ class AdminController extends Controller
 
     // Handle product image upload if provided
     if ($request->hasFile('img')) {
-        // Delete old image if exists
+        // Delete the old image if it exists
         if ($product->img) {
             \Storage::disk('public')->delete($product->img);
         }
+        // Store the new image and save the path to the product
         $product->img = $request->file('img')->store('products', 'public');
     }
+
 
     // Save the updated product back to the database
     $product->save();
 
     // Redirect back with a success message
     return redirect()->back()->with('success', 'Product updated successfully!');
-    }
+}
+
 
     //Delete Product 
     public function destroyProduct($id)

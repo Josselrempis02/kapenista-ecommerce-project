@@ -15,14 +15,17 @@
             </div>
             
         @else
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Size</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
-                @foreach ($cartItems as $item)
+        <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($cartItems as $item)
                 <tr>
                     <td>
                         <div class="cart-info">
@@ -34,11 +37,14 @@
                         </div>
                     </td>
                     <td>{{ $item->options->size }}</td> <!-- Display size here -->
-                    <td><input type="number" value="{{ $item->qty }}" readonly></td>
-                    <td>₱{{ $item->subtotal }}</td>
+                    <td>
+                        <input type="number" value="{{ $item->qty }}" min="1" class="update-cart" data-row-id="{{ $item->rowId }}">
+                    </td>
+                    <td>₱<span class="subtotal">{{ $item->subtotal }}</span></td>
                 </tr>
-                @endforeach
-            </table>
+            @endforeach
+        </tbody>
+    </table>
 
             <div class="total-price cart-price">
                 <div class="table-container">
@@ -63,5 +69,33 @@
         @endif
     </div>
 </section>
+
+<!-- Include jQuery if you haven't already -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.update-cart').on('change', function() {
+            var rowId = $(this).data('row-id'); // Get the rowId of the item
+            var qty = $(this).val(); // Get the new quantity
+
+            // AJAX request to update cart quantity
+            $.ajax({
+                url: '{{ route("cart.update") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    rowId: rowId,
+                    qty: qty
+                },
+                success: function(response) {
+                    if (response.success) {
+                        location.reload(); // Reload the page to reflect updated totals
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 @endsection

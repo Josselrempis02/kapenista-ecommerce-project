@@ -18,7 +18,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/change-password.css') }}">
     
 
+    <!--  Header icon   -->
 
+   
+    <link rel="icon" href="{{ asset('assets/img/final-logo.png') }}"
+        type="image/x-icon" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

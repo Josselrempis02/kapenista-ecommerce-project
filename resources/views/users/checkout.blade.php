@@ -41,12 +41,9 @@
                     <input type="text" id="city" name="city" required>
                 </div>
             </div>
-
-            
         </div>
 
-       
- <!-- Order details section -->
+        <!-- Order details section -->
         <div class="order-details">
             <h2>Your order</h2>
 
@@ -58,22 +55,28 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach ($cartItems as $item)
                     <tr>
                         <td>
-                            Swiss Water Decaf - 500g, Whole Bean 
-                            <strong>× 1</strong>
+                        {{ $item->name }} 
+                            <strong> x {{ $item->qty }}</strong>
                         </td>
-                        <td>$19.00</td>
+                        <td>₱{{ $item->subtotal }}</td>
                     </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <td>Subtotal</td>
-                        <td>$19.00</td>
+                        <td>₱{{ $subtotal }}</td>
+                    </tr>
+                    <tr>
+                        <td>Delivery Fee</td>
+                        <td>₱{{ $deliveryFee }}</td> <!-- Delivery fee displayed here -->
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td><strong>$19.00</strong></td>
+                        <td><strong>₱{{ $total }}</strong></td> <!-- Total calculation -->
                     </tr>
                 </tfoot>
             </table>

@@ -120,6 +120,8 @@ Route::get('/cart/clear', [ShopController::class, 'clearCart'])
 
 
 
+    Route::post('/cart/update', [ShopController::class, 'update'])->name('cart.update');
+
 
 
 
@@ -188,7 +190,7 @@ Route::middleware(['auth:admin'])->group(function () {
     
 
     // Edit products
-     Route::put('/products/edit/{product_id}', [AdminController::class, 'updateProduct'])->name('products.update');
+     Route::put('/products/edit/{product_id}', [AdminController::class, 'updateProduct'])->name('update');
 
      //Delete category
      Route::delete('/products/delete/{product_id}', [AdminController::class, 'destroyProduct'])->name('products.destroy');
