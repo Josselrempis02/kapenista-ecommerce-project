@@ -178,109 +178,109 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('products.update', $product->product_id) }}" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
+                        <form method="POST" action="{{ route('update', $product->product_id) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
 
-                                <!-- Product Name -->
-                                <div class="mb-3">
-                                    <label for="editProductName-{{ $product->product_id }}" class="form-label">Product Name</label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control @error('name') is-invalid @enderror" 
-                                        id="editProductName-{{ $product->product_id }}" 
-                                        name="name" 
-                                        value="{{ old('name', $product->name) }}" 
-                                        required>
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <!-- Description -->
-                                <div class="mb-3">
-                                    <label for="editProductDescription-{{ $product->product_id }}" class="form-label">Description</label>
-                                    <textarea 
-                                        class="form-control @error('description') is-invalid @enderror" 
-                                        id="editProductDescription-{{ $product->product_id }}" 
-                                        name="description" 
-                                        rows="3">{{ old('description', $product->description) }}</textarea>
-                                    @error('description')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <!-- Category -->
-                                <div class="mb-3">
-                                    <label for="editProductCategory-{{ $product->product_id }}" class="form-label">Category</label>
-                                    <select name="category_id" class="form-select @error('category_id') is-invalid @enderror" required>
-                                        <option value="">Select Category</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ (old('category_id', $product->category_id) == $category->id) ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('category_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <!-- Stock -->
-                                <div class="mb-3">
-                                    <label for="editProductStock-{{ $product->product_id }}" class="form-label">Stock</label>
-                                    <input 
-                                        type="number" 
-                                        class="form-control @error('stock') is-invalid @enderror" 
-                                        id="editProductStock-{{ $product->product_id }}" 
-                                        name="stock" 
-                                        value="{{ old('stock', $product->stock) }}" 
-                                        min="0" 
-                                        required>
-                                    @error('stock')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <!-- Price -->
-                                <div class="mb-3">
-                                    <label for="editProductPrice-{{ $product->product_id }}" class="form-label">Price</label>
-                                    <input 
-                                        type="number" 
-                                        class="form-control @error('price') is-invalid @enderror" 
-                                        id="editProductPrice-{{ $product->product_id }}" 
-                                        name="price" 
-                                        value="{{ old('price', $product->price) }}" 
-                                        min="0" 
-                                        step="0.01" 
-                                        required>
-                                    @error('price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <!-- Product Image -->
-                                <div class="mb-3">
-                                    <label for="editProductImage-{{ $product->product_id }}" class="form-label">Product Image</label>
-                                    <input 
-                                        class="form-control @error('img') is-invalid @enderror" 
-                                        type="file" 
-                                        id="editProductImage-{{ $product->id }}"
-                                        name="img">
-                                    @error('img')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    @if($product->img)
-                                        <img src="{{ asset('storage/' . $product->img) }}" class="img-fluid mt-2" style="width: 100px; height: 150px;">
-                                    @endif
-                                </div>
-                                
-                                <!-- Modal Footer with Submit Button -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary custom-btn">Save Changes</button>
-                                </div>
-                            </form>
+                    <!-- Product Name -->
+                    <div class="mb-3">
+                        <label for="editProductName-{{ $product->product_id }}" class="form-label">Product Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control @error('name') is-invalid @enderror" 
+                            id="editProductName-{{ $product->product_id }}" 
+                            name="name" 
+                            value="{{ old('name', $product->name) }}" 
+                            required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="editProductDescription-{{ $product->product_id }}" class="form-label">Description</label>
+                        <textarea 
+                            class="form-control @error('description') is-invalid @enderror" 
+                            id="editProductDescription-{{ $product->product_id }}" 
+                            name="description" 
+                            rows="3">{{ old('description', $product->description) }}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="editProductCategory-{{ $product->product_id }}" class="form-label">Category</label>
+                        <select name="category_id" class="form-select @error('category_id') is-invalid @enderror" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ (old('category_id', $product->category_id) == $category->id) ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Stock -->
+                    <div class="mb-3">
+                        <label for="editProductStock-{{ $product->product_id }}" class="form-label">Stock</label>
+                        <input 
+                            type="number" 
+                            class="form-control @error('stock') is-invalid @enderror" 
+                            id="editProductStock-{{ $product->product_id }}" 
+                            name="stock" 
+                            value="{{ old('stock', $product->stock) }}" 
+                            min="0" 
+                            required>
+                        @error('stock')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3">
+                        <label for="editProductPrice-{{ $product->product_id }}" class="form-label">Price</label>
+                        <input 
+                            type="number" 
+                            class="form-control @error('price') is-invalid @enderror" 
+                            id="editProductPrice-{{ $product->product_id }}" 
+                            name="price" 
+                            value="{{ old('price', $product->price) }}" 
+                            min="0" 
+                            step="0.01" 
+                            required>
+                        @error('price')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Product Image -->
+                    <div class="mb-3">
+                        <label for="editProductImage-{{ $product->product_id }}" class="form-label">Product Image</label>
+                        <input 
+                            class="form-control @error('img') is-invalid @enderror" 
+                            type="file" 
+                            id="editProductImage-{{ $product->product_id }}" 
+                            name="img">
+                        @error('img')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        @if($product->img)
+                            <img src="{{ asset('storage/' . $product->img) }}" class="img-fluid mt-2" style="width: 100px; height: 150px;">
+                        @endif
+                    </div>
+
+                    <!-- Modal Footer with Submit Button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
                         </div>
                     </div>
                 </div>

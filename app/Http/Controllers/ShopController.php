@@ -42,31 +42,37 @@ class ShopController extends Controller
         return view('pages.shop-details', compact('product', 'otherProducts'));
     }
     
-    // Add product to the cart with selected size and quantity
-    public function store(Request $request) {
+  // Add product to the cart with selected size and quantity
+public function store(Request $request) {
+    // Validate the size and quantity fields
+    $request->validate([
+        'size' => 'required',
+        'quantity' => 'required|integer|min:1',
+    ], [
+        'size.required' => 'Please select a size before adding to the cart.',
+    ]);
 
-        // Validate the size and quantity fields
-        $request->validate([
-            'size' => 'required',
-            'quantity' => 'required|integer|min:1',
-        ], [
-            'size.required' => 'Please select a size before adding to the cart.',
-        ]);
-
-        // Find the product by its ID
-        $product = Product::findorFail($request->input('product_id'));
-        
-        // Add the product to the cart with the selected size and quantity
-        Cart::add(
-            $product->product_id,
-            $product->name,
-            $request->input('quantity'),
-            $product->price,
-            ['size' => $request->input('size')] // Storing size as an option
-        );
-        
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    // Find the product by its ID
+    $product = Product::findOrFail($request->input('product_id'));
+    
+    // Adjust the price based on the selected size
+    $price = $product->price;
+    if ($request->input('size') === '22oz') {
+        $price += 10; // Add 10 to the base price for the 22oz size
     }
+    
+    // Add the product to the cart with the adjusted price, selected size, and quantity
+    Cart::add(
+        $product->product_id,
+        $product->name,
+        $request->input('quantity'),
+        $price, // Use the adjusted price
+        ['size' => $request->input('size')] // Store size as an option
+    );
+    
+    return redirect()->back()->with('success', 'Product added to cart successfully!');
+}
+
     
     // Show the current cart contents
     public function showCart()
@@ -120,4 +126,11 @@ class ShopController extends Controller
     
         return view('pages.shop', compact('products'));
     }
+
+
+    public function update(Request $request)
+{
+    \Cart::update($request->rowId, $request->qty);
+    return response()->json(['success' => true]);
+}
 }
