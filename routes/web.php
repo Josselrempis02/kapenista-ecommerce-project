@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
@@ -106,6 +107,10 @@ Route::post('/shop-cart/cart', [ShopController::class, 'store'])
 // Show the checkout page
 Route::get('/shop-checkout', [ShopController::class, 'ShowCheckout'])->middleware('auth');
 
+
+Route::post('/shop-checkout/place-order', [PaymentController::class, 'placeOrder'])
+->name('checkout.process');
+
 Route::get('/shop-cart', [ShopController::class, 'showCart'])
     ->middleware('auth')
     ->name('shop.cart');
@@ -120,7 +125,7 @@ Route::get('/cart/clear', [ShopController::class, 'clearCart'])
 
 
 
-    Route::post('/cart/update', [ShopController::class, 'update'])->name('cart.update');
+Route::post('/cart/update', [ShopController::class, 'update'])->name('cart.update');
 
 
 
@@ -235,4 +240,6 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/products/{id}', [AdminController::class, 'updateInventory'])->name('products.update');
 
 });
+
+// User Place ORder
 

@@ -50,7 +50,7 @@
 }
 
 /* Style the logout link inside the form */
-.dropdown-content form a {
+.dropdown-content .form  {
     display: block;
     width: 100%;
     padding: 0;

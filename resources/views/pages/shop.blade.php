@@ -5,6 +5,16 @@
 <section class="Shop">
     <h1 class="page-title">Shop</h1>
 
+    {{-- Success message display --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+            
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+
     <div class="shop-container">
         <div class="product-categories">
             <ul>

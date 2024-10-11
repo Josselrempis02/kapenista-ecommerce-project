@@ -57,7 +57,7 @@
                     </a>
                 <div class="dropdown-content">
                     <a href="{{ route('user.account', Auth::user()->id) }}">See My Account</a>
-                    <form  method="POST" action="/logout">
+                    <form class="form" method="POST" action="/logout">
                         <a href="/logout">Logout</a>
                     </form>
                     

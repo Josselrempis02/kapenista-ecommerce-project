@@ -14,11 +14,12 @@ class OrdersProduct extends Model
     protected $primaryKey = 'orders_product_id';
 
     protected $fillable = [
-        'product_id',
         'order_id',
-        'payment_id',
+        'product_id',
+        'size',
         'quantity',
         'price',
+        'total_price',
     ];
 
     public function product()
