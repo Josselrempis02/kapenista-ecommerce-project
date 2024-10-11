@@ -9,23 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('orders_product', function (Blueprint $table) {
-            $table->id('orders_product_id');
-            $table->unsignedBigInteger('product_id');
+            $table->id('order_product_id');
             $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('product_id');
+            $table->enum('size', ['16oz', '22oz']);
             $table->integer('quantity');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 8, 2);
+            $table->decimal('total_price', 10, 2);
             $table->timestamps();
 
-            // Foreign key constraints
-            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
-            $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
-
 
     /**
      * Reverse the migrations.

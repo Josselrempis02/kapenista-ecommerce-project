@@ -20,35 +20,16 @@ class Order extends Model
 
     // Specify the fields that can be mass assigned
     protected $fillable = [
-        'admin_id',
         'user_id',
-        'payment_id',
-        'orderDate',
-        'TotalAmount',
-        'order_status'
+        'first_name',
+        'last_name',
+        'address',
+        'apartment',
+        'city',
+        'payment_method',
     ];
 
-    // Define the relationship with the Admin model
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class, 'admin_id');
-    }
-
-    // Define the relationship with the User model
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function payment()
-    {
-        return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
-    }
-
-    public function orderProducts()
-    {
-        return $this->hasMany(OrdersProduct::class, 'order_id', 'order_id');
-    }
+ 
 
   
 }
