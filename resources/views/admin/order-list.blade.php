@@ -16,30 +16,31 @@
                 </button>
             </div>
             <hr>
-            <table class="table table-striped">
+                        <table class="table table-striped">
                 <thead>
                     <tr class="orders-header">
-                        
                         <th scope="col">Order ID</th>
-                        <th scope="col">Date</th>
+                        <th scope="col">Order Date</th>
                         <th scope="col">Customer Name</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Amount</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($orders as $order)
-                    <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details', ['order_id' => $order->order_id]) }}'" style="cursor: pointer;">
-                        <td>{{ $order->order_id }}</td>
-                        <td>{{ $order->orderDate }}</td>
-                        <td>{{ $order->user->name }}</td>
-                        <td><span class="badge bg-success">{{ $order->order_status }}</span></td>
-                        <td>{{ $order->TotalAmount }}</td>
-                    </tr>
-                    <!-- Repeat similar rows for other products -->
+                        @foreach($order->orderProducts as $orderProduct)
+                            <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details', ['order_id' => $order->order_id]) }}'" style="cursor: pointer;">
+                                <td>{{ $order->order_id }}</td>
+                                <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                                <td>{{ $order->user->name }}</td>
+                                <td><span class="badge bg-success">{{ $order->order_status }}</span></td>
+                                <td>₱{{ number_format($orderProduct->total_price, 2) }}</td> <!-- Display total_price directly from orderProduct -->
+                            </tr>
+                        @endforeach
                     @endforeach
                 </tbody>
             </table>
+
         </div>
     </section>
 </section>

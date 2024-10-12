@@ -32,10 +32,7 @@ class OrdersProduct extends Model
         return $this->belongsTo(Order::class, 'order_id', 'order_id');
     }
 
-    public function payment()
-    {
-        return $this->belongsTo(Payment::class, 'payment_id', 'payment_id');
-    }
+   
 
     
 

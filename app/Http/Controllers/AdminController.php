@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
+use App\Models\OrdersProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -97,13 +98,23 @@ class AdminController extends Controller
 
 
     public function orderDetails($order_id) {
-        $orders = Order::where('order_id', $order_id)->with('orderProducts.product')->firstOrFail();
-    
+       // Fetch the order using the order ID
+        $orders = Order::with('user', 'orderProducts.product')->find($order_id);
+
+        if (!$orders) {
+            return redirect()->back()->with('error', 'Order not found.');
+        }
+
+        // Calculate the subtotal for products in the order
         $subtotal = $orders->orderProducts->sum(function ($orderProduct) {
             return $orderProduct->quantity * $orderProduct->price;
         });
+
+        // Fetch related products if needed
+        $orderProducts = $orders->orderProducts;
+        
     
-        return view('admin.order-details', compact('orders', 'subtotal'));
+        return view('admin.order-details', compact('orders', 'subtotal','orderProducts'));
     }
 
     //show inventory
@@ -118,8 +129,8 @@ class AdminController extends Controller
 
     //Show customer order
     public function customerOrder(){
-        $orders = Order::all();
-        return view('admin.order-list', compact('orders'));
+        $orders = Order::with(['user', 'orderProducts.product'])->get();
+    return view('admin.order-list', compact('orders'));
     }
 
     public function updateOrderStatus(Request $request)
