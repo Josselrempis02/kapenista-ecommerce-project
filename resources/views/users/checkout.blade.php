@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- cart-section-starts -->
 <section class="cart" id="cart">
     <h1 class="page-title">Checkout</h1>
 
     <div class="checkout-page">
-
-        <!-- Delivery information section -->
         <div class="delivery-section">
-            <form action="{{ route ('checkout.process') }}" method="POST">
+            <form action="{{ route('checkout.process') }}" method="POST" id="checkout-form" enctype="multipart/form-data">
                 @csrf  
                 <h2>Delivery</h2>
                 <div class="form-row">
@@ -41,10 +38,8 @@
                 </div>
         </div>
 
-        <!-- Order details section -->
         <div class="order-details">
             <h2>Your order</h2>
-
             <table class="order-summary">
                 <thead>
                     <tr>
@@ -59,22 +54,22 @@
                         {{ $item->name }} 
                             <strong> x {{ $item->qty }}</strong>
                         </td>
-                        <td>₱{{ $item->subtotal }}</td>
+                        <td>₱{{ number_format($item->price * $item->qty, 2) }}</td>
                     </tr>
-                    @endforeach
+                @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <td>Subtotal</td>
-                        <td>₱{{ $subtotal }}</td>
+                        <td>₱{{ number_format($subtotal, 2) }}</td>
                     </tr>
                     <tr>
                         <td>Delivery Fee</td>
-                        <td>₱{{ $deliveryFee }}</td> <!-- Delivery fee displayed here -->
+                        <td>₱{{ number_format($deliveryFee, 2) }}</td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td><strong>₱{{ $total }}</strong></td> <!-- Total calculation -->
+                        <td><strong>₱{{ number_format($total, 2) }}</strong></td>
                     </tr>
                 </tfoot>
             </table>
@@ -83,29 +78,54 @@
                 <h3>Select Payment Method</h3>
                 
                 <div class="payment-option">
-                    <input type="radio" id="gcash" name="payment_method" value="GCash" required>
+                    <input type="radio" id="gcash" name="payment_method" value="GCash" required onchange="toggleGcashQR(true)">
                     <label for="gcash">GCash</label>
                 </div>
                 
                 <div class="payment-option">
-                    <input type="radio" id="cod" name="payment_method" value="COD" required>
+                    <input type="radio" id="cod" name="payment_method" value="COD" required onchange="toggleGcashQR(false)">
                     <label for="cod">Cash on Delivery (COD)</label>
                 </div>
             </div>
 
-            <!-- Payment method unavailable notice -->
-            <div class="payment-message">
-                <p>
-                    Sorry, it seems that there are no available payment methods. Please contact us if you require assistance or wish to make alternate arrangements.
-                </p>
+            <div id="gcash-qr-section" style="display: none;">
+                <h3>Scan this QR Code to Pay with GCash</h3>
+                <img src="{{ asset('assets/img/test.png') }}" alt="GCash QR Code" class="gcash-qr-code">
+                <p>Please scan the QR code using your GCash app to complete the payment.</p>
+
+                <div class="form-group gcash-form">
+                    <label for="gcash_reference_number">GCash Reference Number:</label>
+                    <input type="text" id="gcash_reference_number" name="gcash_reference_number" required>
+
+                    <label for="gcash_receipt">Upload GCash Receipt:</label>
+                    <input type="file" id="gcash_receipt" name="gcash_receipt" accept="image/*" required>
+                    <p>After scanning the QR code, please upload a screenshot or photo of your GCash receipt.</p>
+                </div>
             </div>
 
-            <!-- Place Order button -->
+            <input type="hidden" name="total" value="{{ $total }}">
             <button type="submit" class="place-order-btn">Place Order</button>
-           
         </div>
         </form>
     </div>
 </section>
-<!-- cart-section-ends -->
+
+<script>
+   function toggleGcashQR(show) {
+    const qrSection = document.getElementById('gcash-qr-section');
+    const gcashReferenceNumber = document.getElementById('gcash_reference_number');
+    const gcashReceipt = document.getElementById('gcash_receipt');
+
+    if (show) {
+        qrSection.style.display = 'block';
+        gcashReferenceNumber.required = true;
+        gcashReceipt.required = true;
+    } else {
+        qrSection.style.display = 'none';
+        gcashReferenceNumber.required = false;
+        gcashReceipt.required = false;
+    }
+}
+
+</script>
 @endsection

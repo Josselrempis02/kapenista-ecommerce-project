@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('address');
-            $table->string('apartment')->nullable();
             $table->string('city');
             $table->enum('payment_method', ['GCash', 'COD']);
             $table->timestamps();
