@@ -19,16 +19,20 @@ class UserController extends Controller
     }
 
      //Show ORder Message
-     public function showOrderMessage($order_id)
+     public function showOrderMessage($order_number)
      {
-         $order = Order::find($order_id);
-     
+         // Find the order by the custom order_number
+         $order = Order::where('order_number', $order_number)->first();
+         
          if (!$order) {
+             // Redirect to the shop page if the order is not found
              return redirect()->route('shop')->with('error', 'Order not found.');
          }
      
+         // Return the success view with the order data
          return view('payment.success', compact('order'));
      }
+     
 
 
     
