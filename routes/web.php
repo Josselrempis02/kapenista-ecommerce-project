@@ -241,5 +241,11 @@ Route::middleware(['auth:admin'])->group(function () {
 
 });
 
-// User Place ORder
+
+Route::get('/my-purchase', [UserController::class, 'showMyPurchase'])->name('mypurchases');
+
+Route::get('/order-message/{order_id}', [UserController::class, 'showOrderMessage'])->name('OrderMessage');
+
+
+
 

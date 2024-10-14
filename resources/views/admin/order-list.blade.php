@@ -33,7 +33,7 @@
                                 <td>{{ $order->order_id }}</td>
                                 <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
                                 <td>{{ $order->user->name }}</td>
-                                <td><span class="badge bg-success">{{ $order->order_status }}</span></td>
+                                <td><span class="badge bg-success">{{ $order->status }}</span></td>
                                 <td>₱{{ number_format($orderProduct->total_price, 2) }}</td> <!-- Display total_price directly from orderProduct -->
                             </tr>
                         @endforeach

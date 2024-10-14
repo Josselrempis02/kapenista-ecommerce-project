@@ -27,6 +27,10 @@ class Order extends Model
         'apartment',
         'city',
         'payment_method',
+        'gcash_reference_number',
+        'gcash_receipt',
+        'status',
+
     ];
 
     public function user()

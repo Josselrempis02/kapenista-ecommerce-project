@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,26 @@ use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
+
+    //Show User MyPurchase 
+    public function showMyPurchase() {
+        return view('users.my_purchase');
+    }
+
+     //Show ORder Message
+     public function showOrderMessage($order_id)
+     {
+         $order = Order::find($order_id);
+     
+         if (!$order) {
+             return redirect()->route('shop')->with('error', 'Order not found.');
+         }
+     
+         return view('payment.success', compact('order'));
+     }
+
+
+    
     // Show Login Form
     public function login() {
         return view('users.login');
