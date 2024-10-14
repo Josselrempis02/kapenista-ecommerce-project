@@ -254,3 +254,8 @@ th:last-child{
     transition: all .42s ease;
     border-radius: 5px;
 }
+
+.message{
+    text-align: justify;
+  text-justify: inter-word;
+}

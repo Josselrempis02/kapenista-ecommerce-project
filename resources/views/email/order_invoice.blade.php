@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h3 class="mb-0">Order Invoice</h3>
-                <p class="mb-0">Order #{{ $order->order_id }}</p>
+                <p class="mb-0">Order #{{ $order->order_number }}</p>
                 <small class="text-light">Order Date: {{ $order->created_at->format('F d, Y') }}</small>
             </div>
             <div class="card-body">
