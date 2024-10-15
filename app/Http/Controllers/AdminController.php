@@ -343,4 +343,60 @@ public function updateProduct(Request $request, $id)
             return redirect()->back()->with('success', 'User deleted successfully');
         }
 
+        //Show Dashboard
+        public function showDashboard(Request $request)
+        {
+            // Get all orders with their associated order products using eager loading
+            $totalOrder = Order::with('orderProducts')->get(); 
+            $orderCount = $totalOrder->count();
+        
+            // Calculate total sales by summing the price from the associated order products
+            $priceCount = $totalOrder->sum(function ($order) {
+                return $order->orderProducts->sum('total_price'); // Sum the price for each order's products
+            });
+        
+            // Fetch all orders with the status of 'complete'
+            $completedOrders = Order::where('status', 'Completed')->get();
+            $completedOrderCount = $completedOrders->count();
+        
+            // Get the best-selling product
+            $bestSellingProduct = OrdersProduct::select('product_id', \DB::raw('COUNT(*) as total_sales'))
+                ->groupBy('product_id')
+                ->orderBy('total_sales', 'DESC')
+                ->first();
+        
+            // If you want to get more details about the product, you may join with the products table
+            if ($bestSellingProduct) {
+                $bestSellingProductDetails = Product::find($bestSellingProduct->product_id);
+            }
+        
+            // Calculate total sales amount by month for the graph
+            $salesData = OrdersProduct::select(
+                    \DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), 
+                    \DB::raw('SUM(total_price) as total_sales')
+                )
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+        
+            // Prepare labels and data for the graph
+            $labels = $salesData->pluck('month')->map(function ($month) {
+                return \Carbon\Carbon::parse($month)->format('F Y'); // Format month for display
+            });
+            $data = $salesData->pluck('total_sales');
+
+            $query = Order::with(['user', 'orderProducts.product']);
+
+            //Order by latest first
+            $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10); // Adjust pagination as needed
+
+            // Preserve query parameters in pagination links
+            $orders->appends($request->all());
+        
+            // Return the view with all necessary data
+            return view('admin.dashboard', compact('orderCount', 'totalOrder', 'priceCount', 'completedOrders', 'completedOrderCount', 'bestSellingProduct', 'bestSellingProductDetails', 'labels', 'data', 'orders'));
+        }
+        
+
+        
 }

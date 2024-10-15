@@ -11,7 +11,7 @@
         <li>
             <i class="lni lni-shopping-basket"></i>
             <span class="text">
-                <h3>1230</h3>
+                <h3>{{ $orderCount }}</h3>
                 <p>Total Order</p>
             </span>
         </li>
@@ -19,7 +19,7 @@
         <li>
             <i class="lni lni-shopping-basket"></i>
             <span class="text">
-                <h3>1230</h3>
+                <h3>₱{{ $priceCount }}</h3>
                 <p>Total Sales</p>
             </span>
         </li>
@@ -27,7 +27,7 @@
         <li>
             <i class="lni lni-shopping-basket"></i>
             <span class="text">
-                <h3>1230</h3>
+                <h3>{{ $completedOrderCount }}</h3>
                 <p>Complete Orders</p>
             </span>
         </li>
@@ -45,6 +45,7 @@
                 </div>
             </div>
 
+            @if ($bestSellingProductDetails)
             <div class="item1">
                 <div class="p-3 border bg-light fw-bold" style="border-radius: 10px;">
                     <div class="d-flex justify-content-between align-items-center">
@@ -55,123 +56,112 @@
                     </div>
                     <hr>
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset('assets/img/menu3.jfif') }}" alt="Cafe latte" style="width: 100px; height: 150px; border-radius: 5px;">
+                        <img src="{{ asset('storage/' . $bestSellingProductDetails->img) }}" 
+                            alt="{{ $bestSellingProductDetails->name }}" 
+                            style="width: 100px; height: 150px; border-radius: 5px;">
+                        
                         <div class="ms-3">
-                            <p class="mb-0 fw-bold">Cafe latte</p>
-                            <p class="mb-0 text-muted">₱126.500</p>
+                            <p class="mb-0 fw-bold">{{ $bestSellingProductDetails->name }}</p>
+                            <p class="mb-0 text-muted">₱{{ $bestSellingProductDetails->price }}</p>
                         </div>
+
                         <div class="ms-auto text-end">
-                            <p class="mb-0 fw-bold">₱126.50</p>
-                            <p class="mb-0 text-muted">999 sales</p>
+                            <p class="mb-0 fw-bold">₱{{ $bestSellingProductDetails->price }}</p>
+                            <p class="mb-0 text-muted">{{ $bestSellingProduct->total_sales }} Sales</p>
                         </div>
                     </div>
-                    <button class="btn btn-warning mt-3 fw-bold" style="border-radius: 5px;">REPORT</button>
                 </div>
             </div>
+            @else
+                <p>No Best Seller data available.</p>
+            @endif
+
         </div>
-
-     
-
     </div>
-</section>
 
-<section class="dashboard-container">
-<div class="recent-orders p-3 border bg-light fw-bold" style="border-radius: 10px;">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="card-title mb-0">Recent Order</h4>
-        <button class="btn btn-link text-dark p-0">
-            <i class="fas fa-ellipsis-h"></i>
-        </button>
-    </div>
-    <hr>
-    <table class="table table-striped">
-        <thead>
-            <tr class="orders-header">
-                <th scope="col">Product</th>
-                <th scope="col">Order ID</th>
-                <th scope="col">Date</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Status</th>
-                <th scope="col">Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
+    <section class="dashboard-container">
+        <div class="recent-orders p-3 border bg-light fw-bold" style="border-radius: 10px;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title mb-0">Latest Orders</h4>
+                <button class="btn btn-link text-dark p-0">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
 
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
 
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="orders-header">
+                        <th scope="col">Order #</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($orders as $order)
+                        <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details', ['order_id' => $order->order_id]) }}'" style="cursor: pointer;">
+                            <td>{{ $order->order_number }}</td>
+                            <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                            <td>{{ $order->user->name }}</td>
+                            <td>
+                                @php
+                                    $badgeClass = match($order->status) {
+                                        'Pending' => 'bg-warning',
+                                        'Processing' => 'bg-info',
+                                        'Completed' => 'bg-success',
+                                        'Cancelled' => 'bg-danger',
+                                        default => 'bg-secondary',
+                                    };
+                                @endphp
+                                <span class="badge {{ $badgeClass }}">{{ $order->status }}</span>
+                            </td>
+                            <td>₱{{ number_format($order->orderProducts->sum('total_price'), 2) }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">No orders found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
 
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
+            <!-- Pagination Links -->
+            <div class="d-flex justify-content-end">
+                {{ $orders->withQueryString()->links() }}
+            </div>
+        </div>
+    </section>
 
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = {!! json_encode($labels) !!};
+        const data = {!! json_encode($data) !!};
 
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
-
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
-
-            <tr class="recent-orders-tr">
-                <td>Cafe latte</td>
-                <td>#25426</td>
-                <td>Nov 8th, 2023</td>
-                <td><img src="customer-image.jpg" alt="Kavin" class="rounded-circle" style="width: 30px;"> Kavin</td>
-                <td><span class="badge bg-success">Delivered</span></td>
-                <td>₱110.40</td>
-            </tr>
-            
-            <!-- Repeat similar rows for other products -->
-        </tbody>
-    </table>
-</div>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line', // You can change this to 'bar' or 'pie' as needed
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Sales Amount',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 </section>
 @endsection

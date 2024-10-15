@@ -182,10 +182,10 @@ Route::post('admin/reset-password', [AdminResetPasswordController::class, 'reset
 // ==================
 
 Route::middleware(['auth:admin'])->group(function () {
-    // Admin dashboard
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+ 
+
+    // Show Dashboard
+    Route::get('/admin/dashboard', [AdminController::class, 'showDashboard']);
 
     // Show all products
     Route::get('/products', [AdminController::class, 'showAll']);
@@ -213,6 +213,7 @@ Route::middleware(['auth:admin'])->group(function () {
     
     //Show Staff page
     Route::get('/staff-list', [AdminController::class, 'staffList']);
+    
     Route::post('/add-staff', [AdminController::class, 'addStaff'])->name('admin.staff.store');
 
     //Edit staff 
@@ -252,9 +253,9 @@ Route::middleware(['auth:admin'])->group(function () {
 });
 
 
-Route::get('/my-purchase', [UserController::class, 'showMyPurchase'])->name('mypurchases');
+Route::get('/my-purchase', [UserController::class, 'showMyPurchase'])->middleware('auth')->name('mypurchases');
 
-Route::get('/order-message/{order_number}', [UserController::class, 'showOrderMessage'])->name('OrderMessage');
+Route::get('/order-message/{order_number}', [UserController::class, 'showOrderMessage'])->middleware('auth')->name('OrderMessage');
 
 
 
