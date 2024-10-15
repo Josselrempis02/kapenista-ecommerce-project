@@ -17,36 +17,40 @@
                 </button>
             </div>
 
-            <form action="/update-order-status" method="POST">
+                        <!-- Display Success Message -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- Display Error Messages -->
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('order.updateStatus', $orders->order_id) }}" method="POST">
                 @csrf
-                <input type="hidden" name="order_id" value="{{ $orders->order_id }}">
                 <div class="d-flex flex-column flex-md-row gap-3">
-                    <div class="dropdown ms-md-auto d-flex">
-                        <button 
-                            class="btn custon-btn-admin dropdown-toggle d-flex align-items-center no-dropdown-icon" 
-                            type="button" 
-                            id="dropdownMenuButton" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
-                            <span class="me-2">Change Status</span>
-                            <i class="bi bi-chevron-down"></i> 
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li>
-                                <button class="dropdown-item" type="button" onclick="document.getElementById('order_status').value='Processing';">Processing</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button" onclick="document.getElementById('order_status').value='Completed';">Completed</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button" onclick="document.getElementById('order_status').value='Cancelled';">Cancelled</button>
-                            </li>
-                        </ul>
+                    <div class="ms-md-auto d-flex">
+                        <select name="status" class="form-select" required>
+                            <option value="" disabled selected>Select Status</option>
+                            <option value="Processing" {{ old('order_status') == 'Processing' ? 'selected' : '' }}>Processing</option>
+                            <option value="Delivered" {{ old('order_status') == 'Delivered' ? 'selected' : '' }}>Delivered</option>
+                            <option value="Completed" {{ old('order_status') == 'Completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="Cancelled" {{ old('order_status') == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        </select>
                     </div>
-                    <input type="hidden" id="order_status" name="order_status" value="{{ old('order_status') }}">
                     <button type="submit" class="btn btn-secondary mt-3 mt-md-0">Save</button>
                 </div>
             </form>
+
 
             <div class="container">
                 <div class="row mt-4">

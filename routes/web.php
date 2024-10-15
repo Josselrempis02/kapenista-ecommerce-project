@@ -201,14 +201,14 @@ Route::middleware(['auth:admin'])->group(function () {
      Route::delete('/products/delete/{product_id}', [AdminController::class, 'destroyProduct'])->name('products.destroy');
 
     // Order list
-    Route::get('/order-list', [AdminController::class, 'customerOrder']);
+    Route::get('/order-list', [AdminController::class, 'customerOrder'])->name('admin.orders.index');
 
     // Order details
     Route::get('/order-list/order-details/{order_id}', [AdminController::class, 'orderDetails'])->name('order.details');
 
 
     // Update order status
-    Route::post('/update-order-status', [AdminController::class, 'updateOrderStatus']);
+    Route::post('/orders/{order}/status', [AdminController::class, 'updateOrderStatus'])->name('order.updateStatus');
 
     
     //Show Staff page
@@ -238,6 +238,16 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/inventory', [AdminController::class, 'showInventory'])->name('inventory');
 
     Route::put('/products/{id}', [AdminController::class, 'updateInventory'])->name('products.update');
+
+    //Show Customer list
+
+    Route::get('/customer-list', [AdminController::class, 'showCustomerList'])->name('CustomerList');
+
+     //Delete Staff
+     Route::delete('/user/delete/{id}', [AdminController::class, 'destroyCustomer'])->name('customer.destroy');
+
+
+
 
 });
 

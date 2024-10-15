@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Product;
@@ -10,6 +11,8 @@ use App\Models\CategoryModel;
 use App\Models\OrdersProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\OrderStatusUpdated;
+use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
 {
@@ -128,31 +131,43 @@ class AdminController extends Controller
     
 
     //Show customer order
-    public function customerOrder(){
-        $orders = Order::with(['user', 'orderProducts.product'])->get();
-    return view('admin.order-list', compact('orders'));
-    }
-
-    public function updateOrderStatus(Request $request)
+    public function customerOrder(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'order_id' => 'required|exists:orders,order_id',
-            'order_status' => 'required|in:Processing,Completed,Cancelled',
-        ]);
-    
-        // Find the order by ID
-        $order = Order::find($request->order_id);
-    
-        // Update the order status
-        $order->order_status = $request->order_status;
-        $order->save();
-    
-        // Redirect back with a success message
-        return back()->with('success', 'Order status updated successfully!');
-    }
-    
+        // Retrieve filter inputs
+        $search = $request->input('search');
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
 
+        // Build the query
+        $query = Order::with(['user', 'orderProducts.product']);
+
+        // Apply search filter
+        if ($search) {
+            $query->where('order_number', 'like', "%{$search}%")
+                  ->orWhereHas('user', function ($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+        }
+
+        // Apply date filters
+        if ($fromDate) {
+            $query->whereDate('created_at', '>=', $fromDate);
+        }
+
+        if ($toDate) {
+            $query->whereDate('created_at', '<=', $toDate);
+        }
+
+        // Order by latest first
+        $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10); // Adjust pagination as needed
+
+        // Preserve query parameters in pagination links
+        $orders->appends($request->all());
+
+        return view('admin.order-list', compact('orders', 'search', 'fromDate', 'toDate'));
+    }
+
+  
    
 
     //Add Staff
@@ -284,5 +299,48 @@ public function updateProduct(Request $request, $id)
     // Redirect back with a success message
     return redirect()->back()->with('success', 'Product updated successfully');
 }
+
+    //Order UPdate status 
+
+    public function updateOrderStatus(Request $request, $order_id)
+        {
+            // Validate the incoming request
+            $request->validate([
+                'status' => 'required|in:Processing,Delivered,Completed,Cancelled',
+            ]);
+
+            // Find the order by ID
+            $order = Order::findOrFail($order_id);
+
+            // Update the order status
+            $order->status = $request->status;
+            $order->save();
+
+            // Notify the user via email
+            $user = $order->user; // Assuming the order has a relationship with the user
+            Notification::send($user, new OrderStatusUpdated($order));
+
+
+            // Redirect back with a success message
+            return back()->with('success', 'Order status updated successfully.');
+        }
+
+        //Show Customer list 
+        public function showCustomerList(){
+
+            $users = User::all();
+           
+            return view('admin.customer-list', compact('users'));
+        }
+
+        //Delet single Customer 
+       
+        public function destroyCustomer($id)
+        {
+            $user = User::findOrFail($id);
+            $user->delete();
+
+            return redirect()->back()->with('success', 'User deleted successfully');
+        }
 
 }

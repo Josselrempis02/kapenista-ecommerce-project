@@ -11,6 +11,13 @@ class Order extends Model
 {
     use HasFactory;
 
+    const STATUS_PENDING = 'pending';
+    const STATUS_PROCESSING = 'processing';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CANCELLED = 'cancelled';
+    
+    
+
    
     // Specify the table name (optional if it follows Laravel's naming convention)
     protected $table = 'orders';
