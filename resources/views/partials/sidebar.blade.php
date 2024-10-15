@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="{{ route ('CustomerList')}}" class="sidebar-link">
                     <i class="lni lni-users"></i>
                     <span>Customer</span>
                 </a>
