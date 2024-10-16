@@ -13,10 +13,75 @@ use Laravel\Socialite\Facades\Socialite;
 class UserController extends Controller
 {
 
-    //Show User MyPurchase 
     public function showMyPurchase() {
-        return view('users.my_purchase');
+        // Retrieve orders for the authenticated user, with pagination
+        $orders = Order::where('user_id', auth()->id())  // Filter by logged-in user
+            ->with('orderProducts.product')  // Eager load related products
+            ->orderBy('created_at', 'desc')
+            ->simplepaginate(5);
+        
+        // Pass the $orders variable to the view
+        return view('users.my_purchase', compact('orders'));
     }
+
+    public function showOrderDetails($orderId) {
+        // Retrieve the specific order with user and product details
+        $order = Order::with(['user', 'orderProducts.product'])
+            ->where('order_id', $orderId)
+            ->firstOrFail();
+        
+        // Pass the $order variable to the view
+        return view('users.order.order-details', compact('order'));
+    }
+    
+
+    public function markAsReceived($order_id)
+        {
+            // Find the order by ID
+            $order = Order::findOrFail($order_id);
+
+            // Ensure the order is delivered before allowing the status to be marked as completed
+            if ($order->user_id !== auth()->id()) {
+                return redirect()->back()->with('error', 'You are not authorized to update this order.');
+            }
+
+            if ($order->status === 'Delivered') {
+                // Update the order status to 'Completed'
+                $order->status = Order::STATUS_COMPLETED;
+                $order->save();
+
+                return redirect()->back()->with('success', 'Order has been marked as completed.');
+            }
+
+            return redirect()->back()->with('error', 'This order cannot be marked as completed.');
+        }
+
+        public function cancelOrder($order_id)
+        {
+            // Find the order by ID
+            $order = Order::findOrFail($order_id);
+
+            // Ensure the order is delivered before allowing the status to be marked as completed
+            if ($order->user_id !== auth()->id()) {
+                return redirect()->back()->with('error', 'You are not authorized to update this order.');
+            }
+
+            if ($order->status === 'Pending') {
+                // Update the order status to 'Completed'
+                $order->status = Order::STATUS_CANCELLED;
+                $order->save();
+
+                return redirect()->back()->with('success', 'Order has been cancel.');
+            }
+
+            return redirect()->back()->with('error', 'This order cannot be marked as cancel.');
+        }
+
+
+    
+
+    
+    
 
      //Show ORder Message
      public function showOrderMessage($order_number)

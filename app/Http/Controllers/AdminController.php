@@ -11,6 +11,7 @@ use App\Models\CategoryModel;
 use App\Models\OrdersProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\OrderDelivered;
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 
@@ -303,27 +304,36 @@ public function updateProduct(Request $request, $id)
     //Order UPdate status 
 
     public function updateOrderStatus(Request $request, $order_id)
-        {
-            // Validate the incoming request
-            $request->validate([
-                'status' => 'required|in:Processing,Delivered,Completed,Cancelled',
-            ]);
+    {
+        // Validate the incoming request
+        $request->validate([
+            'status' => 'required|in:Processing,Delivered,Completed,Cancelled',
+        ]);
 
-            // Find the order by ID
-            $order = Order::findOrFail($order_id);
+        // Find the order by ID
+        $order = Order::findOrFail($order_id);
 
-            // Update the order status
-            $order->status = $request->status;
-            $order->save();
+        // Store the old status to compare later
+        $oldStatus = $order->status;
 
-            // Notify the user via email
-            $user = $order->user; // Assuming the order has a relationship with the user
-            Notification::send($user, new OrderStatusUpdated($order));
+        // Update the order status
+        $order->status = $request->status;
+        $order->save();
 
+        // Get the user associated with the order
+        $user = $order->user; // Ensure the Order model has a 'user' relationship
 
-            // Redirect back with a success message
-            return back()->with('success', 'Order status updated successfully.');
+        // Always send a general status update notification
+        $user->notify(new OrderStatusUpdated($order));
+
+        // If the status is changed to 'Delivered', send an additional notification
+        if ($oldStatus !== 'Delivered' && $order->status === 'Delivered') {
+            $user->notify(new OrderDelivered($order));
         }
+
+        // Redirect back with a success message
+        return back()->with('success', 'Order status updated successfully.');
+    }
 
         //Show Customer list 
         public function showCustomerList(){

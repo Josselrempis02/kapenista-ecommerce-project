@@ -29,7 +29,7 @@
                         <input type="date" name="to_date" class="form-control" placeholder="To Date" value="{{ request('to_date') }}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        <button type="submit" class="btn btn-save w-100">Filter</button>
                     </div>
                 </div>
             </form>

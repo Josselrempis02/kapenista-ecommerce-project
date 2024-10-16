@@ -254,6 +254,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
 
 Route::get('/my-purchase', [UserController::class, 'showMyPurchase'])->middleware('auth')->name('mypurchases');
+Route::get('/orders/{order_id}/details', [UserController::class, 'showOrderDetails'])->middleware('auth')->name('orders.details');
+Route::put('/order/{order}/received', [UserController::class, 'markAsReceived'])->middleware('auth')->name('order.received');
+Route::put('/order/{order}/cancelled', [UserController::class, 'cancelOrder'])->middleware('auth')->name('order.cancel');
+
 
 Route::get('/order-message/{order_number}', [UserController::class, 'showOrderMessage'])->middleware('auth')->name('OrderMessage');
 

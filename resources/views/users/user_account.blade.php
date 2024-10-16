@@ -28,7 +28,7 @@
                 <a href="">My Profile</a>
 
                 <h1>My Orders</h1>
-                <a href="{{ route('user.purchase') }}">My Purchase</a>
+                <a href="{{ route('mypurchases') }}">My Purchase</a>
             </div>
 
             <div class="my-account-profile-edit">
