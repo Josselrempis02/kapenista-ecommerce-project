@@ -11,13 +11,10 @@
                 <h2>Delivery</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="first_name">First name (optional)</label>
-                        <input type="text" id="first_name" name="first_name">
+                        <label for="first_name">Name</label>
+                        <input type="text" id="Name" name="Name" >
                     </div>
-                    <div class="form-group">
-                        <label for="last_name">Last name</label>
-                        <input type="text" id="last_name" name="last_name" required>
-                    </div>
+
                 </div>
 
                 <div class="form-group">
@@ -33,7 +30,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="city">City</label>
-                        <input type="text" id="city" name="city" required>
+                        <input type="text" id="city" name="city" >
                     </div>
                 </div>
         </div>

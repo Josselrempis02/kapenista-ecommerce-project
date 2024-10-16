@@ -17,8 +17,7 @@ class PaymentController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'Name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'payment_method' => 'required|in:GCash,COD',
@@ -47,8 +46,7 @@ class PaymentController extends Controller
             // Create a new order
             $order = new Order;
             $order->user_id = Auth::id();
-            $order->first_name = $request->first_name;
-            $order->last_name = $request->last_name;
+            $order->Name = $request->Name;
             $order->address = $request->address;
             $order->city = $request->city;
             $order->payment_method = $request->payment_method;

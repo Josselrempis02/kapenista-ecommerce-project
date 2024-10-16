@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SalesReportController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\AdminResetPasswordController;
@@ -246,6 +247,12 @@ Route::middleware(['auth:admin'])->group(function () {
 
      //Delete Staff
      Route::delete('/user/delete/{id}', [AdminController::class, 'destroyCustomer'])->name('customer.destroy');
+
+     //Show Sales-report
+     Route::get('/sales-report', [SalesReportController::class, 'showSalesReport'])->name('showSalesReport');
+
+     Route::get('/export-sales-report', [SalesReportController::class, 'exportPDF'])->name('export.sales.report');
+
 
 
 

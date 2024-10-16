@@ -19,7 +19,7 @@
         <li>
             <i class="lni lni-shopping-basket"></i>
             <span class="text">
-                <h3>₱{{ $priceCount }}</h3>
+                <h3>₱{{ number_format($priceCount, 2 )}}</h3>
                 <p>Total Sales</p>
             </span>
         </li>
