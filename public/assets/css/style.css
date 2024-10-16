@@ -188,7 +188,10 @@ header.sticky{
 }
 
 /* About-us-css-starts */
+
+
 .about-us-text h2{
+    margin-top: 40px;
     text-align: center;
     color: var(--text);
     font-size: 45px;
@@ -250,7 +253,7 @@ header.sticky{
     font-size: 45px;
     text-transform: capitalize;
     font-weight: 700;
-    margin-bottom: 10px;
+    padding-top: 40px;
     font-family: "Playfair Display", serif;
 }
 

@@ -43,7 +43,7 @@
                     <option value="22oz">22oz</option>
                 </select>
                 <br>
-                <input type="number" name="quantity" value="1" min="1">
+                <input type="number" name="quantity" value="1" min="1" max="25" oninput="validateQuantity(this)">
                 <br>
                 <button class="button2">Add to Cart</button>
             </form>
@@ -63,6 +63,13 @@
 
         document.getElementById('product-price').innerText = '₱' + updatedPrice.toFixed(2);
     }
+
+    function validateQuantity(input) {
+    input.value = input.value.replace(/[^0-9]/g, ''); // Only allows digits
+    if (input.value.length > 2) {
+        input.value = input.value.slice(0, 2); // Limits to 2 digits
+    }
+}
 </script>
 
 

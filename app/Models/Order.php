@@ -28,8 +28,7 @@ class Order extends Model
     // Specify the fields that can be mass assigned
     protected $fillable = [
         'user_id',
-        'first_name',
-        'last_name',
+        'Name',
         'address',
         'apartment',
         'city',

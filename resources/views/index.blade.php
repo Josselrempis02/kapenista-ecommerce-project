@@ -16,7 +16,7 @@
     <!-- Main-Section-Ends -->
 
     <!-- About-us-section-starts -->
-    <section class="about-us" id="about-us">
+    <section class="about-us"  id="about-us">
         <div data-aos="fade-up" class="about-us-text">
             <h2>About Us</h2>
             <center>
@@ -94,15 +94,15 @@
                 <h3>Get in touch</h3>
                 <div class="inputbox">
                     <span class="fas fa-user"></span>
-                    <input type="text" placeholder="name">
+                    <input type="text" placeholder="Name">
                 </div>
                 <div class="inputbox">
                     <span class="fa-solid fa-envelope"></span>
-                    <input type="email" placeholder="email">
+                    <input type="email" placeholder="Email">
                 </div>
                 <div class="inputbox">
                     <span class="fa-solid fa-message"></span>
-                    <input type="text" placeholder="message">
+                    <input type="text" placeholder="Message">
                 </div>
                 <div class="order-btn">
                     <a href="{{ url('Shop') }}" class="order-btn">Send us message</a>
