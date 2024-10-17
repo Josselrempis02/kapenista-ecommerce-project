@@ -47,7 +47,7 @@
             <tr>
                 <td>{{ $sale->sale_date }}</td>
                 <td>{{ $sale->total_quantity }}</td>
-                <td>₱{{ number_format($sale->total_sales, 2) }}</td>
+                <td>{{ number_format($sale->total_sales, 2) }}</td>
             </tr>
             @endforeach
         </tbody>

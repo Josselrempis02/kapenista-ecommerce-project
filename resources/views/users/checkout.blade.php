@@ -12,7 +12,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="first_name">Name</label>
-                        <input type="text" id="Name" name="Name" >
+                        <input type="text" id="Name" name="Name" required>
+
+                        @error('Name')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
                     </div>
 
                 </div>
@@ -20,6 +24,9 @@
                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" required>
+                    @error('address')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -30,7 +37,10 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="city">City</label>
-                        <input type="text" id="city" name="city" >
+                        <input type="text" id="city" name="city" required>
+                        @error('city')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
                     </div>
                 </div>
         </div>
