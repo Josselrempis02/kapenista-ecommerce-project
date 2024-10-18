@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Staff;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
@@ -22,6 +23,7 @@ class AdminController extends Controller
         return view('admin.admin-login');
     }
 
+    //LOGIN STAF,ADMIN
     public function store(Request $request)
     {
         $request->validate([
@@ -37,6 +39,12 @@ class AdminController extends Controller
             return redirect()->intended('/admin/dashboard')->with('success', 'Logged in successfully');
         }
 
+        if (Auth::guard('staff')->attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/admin/dashboard')->with('success', 'Logged in successfully');
+        }
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
@@ -44,13 +52,23 @@ class AdminController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
-
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+            $redirectTo = '/admin/login';
+        } elseif (Auth::guard('staff')->check()) {
+            Auth::guard('staff')->logout();
+            $redirectTo = '/admin/login';
+        } else {
+            $redirectTo = '/login';
+        }
+    
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect('/admin/login')->with('success', 'Logged out successfully');
+    
+        return redirect($redirectTo)->with('success', 'Logged out successfully');
     }
+    
+
 
     //Show All products 
     // public function allproducts(){
@@ -172,17 +190,15 @@ class AdminController extends Controller
    
 
     //Add Staff
-
     public function addStaff(Request $request) {
-        //code.................
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
+            'email' => 'required|string|email|max:255|unique:staff',
             'password' => 'required|string|min:8',
         ]);
 
-        $admin = new Admin;
+        $admin = new Staff;
         $admin->name = $request->name;
         $admin->email = $request->email;
         $admin->password = Hash::make($request->password);
@@ -192,28 +208,28 @@ class AdminController extends Controller
     }
 
     public function staffList(){
-        $admins = Admin::all();
+        $admins = Staff::all();
         return view('admin.staff', compact('admins'));
     }
 
     //edit single staff 
     public function updateStaff(Request $request, $id)
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Staff::findOrFail($id);
         $admin->update($request->only('name', 'email'));
         
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Admin updated successfully');
+        return redirect()->back()->with('success', 'Staff updated successfully');
     }
     
 
    //Delete single staff 
    public function destroy($id)
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Staff::findOrFail($id);
         $admin->delete();
 
-        return redirect()->back()->with('success', 'Admin deleted successfully');
+        return redirect()->back()->with('success', 'Staff deleted successfully');
     }
 
 

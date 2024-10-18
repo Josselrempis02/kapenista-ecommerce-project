@@ -56,3 +56,67 @@ td img{
     }
     
 }
+
+/* Filter-Form */
+
+.row-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 10px;
+}
+
+.row-form input{
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* pagination */
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination */
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+.pagination li {
+    margin: 0 6px; /* Spacing between pagination items */
+    transition: all 0.3s ease;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: #555; /* Neutral text color */
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 50px; /* Rounded buttons */
+    background-color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: all 0.3s ease;
+}
+
+.pagination li a:hover {
+    background-color: #f8f9fa; /* Light hover effect */
+    color: #007bff; /* Accent hover color */
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+}
+
+.pagination .active a {
+    background-color: #007bff; /* Active button color */
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Highlight active item */
+}
+
+.pagination li a.disabled {
+    pointer-events: none;
+    color: #ccc;
+    background-color: #f0f0f0;
+    border-color: #ddd;
+}

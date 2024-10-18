@@ -93,24 +93,24 @@
             </thead>
             <tbody>
                 <!-- Table displaying admin data -->
-                @foreach($admins as $admin)
+                @foreach($admins as $staff)
                 <tr class="recent-orders-tr">
-                    <td>{{ $admin->id }}</td>
-                    <td>{{ $admin->name }}</td>
-                    <td>{{ $admin->email }}</td>
+                    <td>{{ $staff->id }}</td>
+                    <td>{{ $staff->name }}</td>
+                    <td>{{ $staff->email }}</td>
                     <td>
                         <!-- Edit Button -->
                         <a href="#" 
                            class="btn btn-link text-dark p-0 me-2" 
                            title="Edit" 
                            data-bs-toggle="modal" 
-                           data-bs-target="#editAdminModal{{ $admin->id }}">
+                           data-bs-target="#editAdminModal{{ $staff->id }}">
                             <i class="fas fa-edit"></i>
                         </a>
 
                         <!-- Delete Button (Optional) -->
                          <!-- Delete Button -->
-                        <form action="{{ route('admin.staff.destroy', $admin->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.staff.destroy', $staff->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-link text-dark p-0 me-2" title="Delete" onclick="return confirm('Are you sure you want to delete this staff?')">
@@ -122,24 +122,24 @@
                 </tr>
 
                 <!-- Modal for Editing Each Admin -->
-                <div class="modal fade" id="editAdminModal{{ $admin->id }}" tabindex="-1" aria-labelledby="editAdminModalLabel{{ $admin->id }}" aria-hidden="true">
+                <div class="modal fade" id="editAdminModal{{ $staff->id }}" tabindex="-1" aria-labelledby="editAdminModalLabel{{ $staff->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form action="{{ route('admin.staff.update', $admin->id) }}" method="POST">
+                            <form action="{{ route('admin.staff.update', $staff->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editAdminModalLabel{{ $admin->id }}">Edit Staff</h5>
+                                    <h5 class="modal-title" id="editAdminModalLabel{{ $staff->id }}">Edit Staff</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label for="adminName{{ $admin->id }}" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="adminName{{ $admin->id }}" name="name" value="{{ old('name', $admin->name) }}" required>
+                                        <label for="adminName{{ $staff->id }}" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="adminName{{ $staff->id }}" name="name" value="{{ old('name', $staff->name) }}" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="adminEmail{{ $admin->id }}" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="adminEmail{{ $admin->id }}" name="email" value="{{ old('email', $admin->email) }}" required>
+                                        <label for="adminEmail{{ $staff->id }}" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="adminEmail{{ $staff->id }}" name="email" value="{{ old('email', $staff->email) }}" required>
 
                                           <!-- Error message for staff email -->
                                             @if ($errors->has('email'))

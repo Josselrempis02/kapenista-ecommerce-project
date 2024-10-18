@@ -31,12 +31,20 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+Route::middleware('guest:web')->group(function () {
+   // Show the login page for users
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    
+    // Authenticate the user (log in)
+    Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+    
+    });
 // ==================
 // User Authentication Routes
 // ==================
 
-// Show the login page for users
-Route::get('/login', [UserController::class, 'login'])->name('login');
+
 
 // Show the signup page for new users
 Route::get('/signup', [UserController::class, 'signup']);
@@ -50,8 +58,7 @@ Route::get('auth/google/callback', [UserController::class, 'handleGoogleCallback
 // Create a new user
 Route::post('/users', [UserController::class, 'store']);
 
-// Authenticate the user (log in)
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
 
 // Log out the user (requires authentication)
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
@@ -77,6 +84,9 @@ Route::put('/user/update-profile', [UserController::class, 'updateProfile'])->na
 
 // Update the user's password
 Route::put('/user/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+
+// User Order list
+Route::get('/user/order-list', [UserController::class, 'UserOrder'])->name('user.orders.index');
 
 // ==================
 // Shop Routes (Protected)
@@ -152,12 +162,24 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 // ==================
 // Admin Authentication Routes
 // ==================
-
+Route::middleware('guest:admin')->group(function () {
 // Show the admin login page
 Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin-login');
 
 // Handle admin login submission
 Route::post('/admin/login', [AdminController::class, 'store'])->name('admin');
+
+
+});
+
+Route::middleware('guest:staff')->group(function () {
+    // Show the admin login page
+    Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin-login');
+    
+    // Handle admin login submission
+    Route::post('/admin/login', [AdminController::class, 'store'])->name('admin');
+    
+    });
 
 // Log out the admin
 Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin-logout');
@@ -182,7 +204,7 @@ Route::post('admin/reset-password', [AdminResetPasswordController::class, 'reset
 // Admin Routes (Protected)
 // ==================
 
-Route::middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth:admin,staff'])->group(function () {
  
 
     // Show Dashboard
@@ -253,11 +275,8 @@ Route::middleware(['auth:admin'])->group(function () {
 
      Route::get('/export-sales-report', [SalesReportController::class, 'exportPDF'])->name('export.sales.report');
 
-
-
-
-
 });
+
 
 
 Route::get('/my-purchase', [UserController::class, 'showMyPurchase'])->middleware('auth')->name('mypurchases');

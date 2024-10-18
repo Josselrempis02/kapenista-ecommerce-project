@@ -136,6 +136,8 @@ a.sidebar-link:hover {
     background-color: transparent;
     color: var(--text);
     border: 1px solid var(--text);
+    padding: 8px;
+    border-radius: 5px;
 }
 
 .click:hover{

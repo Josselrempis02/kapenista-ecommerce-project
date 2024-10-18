@@ -131,6 +131,7 @@
                         <thead>
                             <tr class="orders-header">
                                 <th scope="col">Product Name</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Order ID</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Total</th>
@@ -140,6 +141,7 @@
                             @foreach($orderProducts as $orderProduct)
                                 <tr class="recent-orders-tr">
                                     <td>{{ $orderProduct->product->name ?? 'N/A' }}</td> 
+                                    <td>{{ $orderProduct->product->category->name }}</td> 
                                     <td>#{{ $orderProduct->order_id }}</td>
                                     <td>{{ $orderProduct->quantity }}</td>
                                     <td>{{ number_format($orderProduct->quantity * $orderProduct->price, 2) }}</td>

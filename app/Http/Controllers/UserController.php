@@ -13,16 +13,50 @@ use Laravel\Socialite\Facades\Socialite;
 class UserController extends Controller
 {
 
-    public function showMyPurchase() {
-        // Retrieve orders for the authenticated user, with pagination
-        $orders = Order::where('user_id', auth()->id())  // Filter by logged-in user
-            ->with('orderProducts.product')  // Eager load related products
-            ->orderBy('created_at', 'desc')
-            ->simplepaginate(5);
-        
-        // Pass the $orders variable to the view
-        return view('users.my_purchase', compact('orders'));
+    public function showMyPurchase(Request $request) {
+        // Retrieve filter parameters
+        $search = $request->input('search');
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+    
+        // Start building the query for orders
+        $query = Order::where('user_id', auth()->id()) // Filter by logged-in user
+            ->with('orderProducts.product.category') // Eager load related products
+            ->orderBy('created_at', 'desc');
+    
+        // Apply search filter for status or product name
+        if ($search) {
+            $query->where('status', 'like', "%{$search}%")
+                  ->orWhereHas('orderProducts.product', function ($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%"); // Assuming 'name' is the product name column
+                  });
+        }
+    
+        // Apply date filters
+        if ($fromDate) {
+            $query->whereDate('created_at', '>=', $fromDate);
+        }
+    
+        if ($toDate) {
+            $query->whereDate('created_at', '<=', $toDate);
+        }
+    
+        // Retrieve orders with pagination
+        $orders = $query->Paginate(5);
+
+         // Check if orders exist
+    if ($orders->isEmpty()) {
+        $noOrdersMessage = "No orders found for the selected date range.";
+    } else {
+        $noOrdersMessage = null; // No message if orders exist
     }
+
+    
+    
+        // Pass the $orders variable to the view
+        return view('users.my_purchase', compact('orders', 'noOrdersMessage'));
+    }
+    
 
     public function showOrderDetails($orderId) {
         // Retrieve the specific order with user and product details
@@ -261,4 +295,6 @@ class UserController extends Controller
        }
 
       
+       
 }
+ 

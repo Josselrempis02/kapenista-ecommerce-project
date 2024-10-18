@@ -102,7 +102,7 @@
 
                 <div class="form-group gcash-form">
                     <label for="gcash_reference_number">GCash Reference Number:</label>
-                    <input type="text" id="gcash_reference_number" name="gcash_reference_number" required>
+                    <input type="number" id="gcash_reference_number" name="gcash_reference_number" required>
 
                     <label for="gcash_receipt">Upload GCash Receipt:</label>
                     <input type="file" id="gcash_receipt" name="gcash_receipt" accept="image/*" required>

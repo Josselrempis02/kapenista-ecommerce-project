@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CategoryModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrdersProduct extends Model
 {
@@ -25,6 +26,11 @@ class OrdersProduct extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryModel::class, 'id', 'id');
     }
 
     public function order()

@@ -192,6 +192,9 @@
     transition: all .42s ease;
     border-radius: 5px;
     cursor: pointer;
+    display: inline-block;
+    
+    white-space: nowrap;
 }
 
 .btn-save:hover{

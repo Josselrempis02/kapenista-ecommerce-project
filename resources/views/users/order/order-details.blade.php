@@ -75,6 +75,7 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
+                                <th>Category</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Total</th>
@@ -89,6 +90,7 @@
                                         <p>{{ $orderProduct->product->name }}</p>
                                     </div>
                                 </td>
+                                <td>{{ $orderProduct->product->category->name }}</td>
                                 <td>{{ $orderProduct->quantity }}</td>
                                 <td>₱{{ number_format($orderProduct->product->price, 2) }}</td>
                                 <td>₱{{ number_format($orderProduct->quantity * $orderProduct->product->price, 2) }}</td>
@@ -106,7 +108,8 @@
                     <p><strong>GCash Reference Number:</strong> {{ $order->gcash_reference_number }}</p>
                     <p><strong>GCash Receipt:</strong> 
                         <!-- Button to open the modal -->
-                        <button id="openModalButton" class="view-receipt-btn">View Receipt</button>
+                        
+                        <a href="" id="openModalButton" >View Receipt</a>
                     </p>
                 @endif
 
