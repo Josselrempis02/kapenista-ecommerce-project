@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Report</title>
+    <title>Sales Report for {{ Carbon\Carbon::parse($month)->format('F Y') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -33,7 +33,11 @@
     </style>
 </head>
 <body>
-    <h1>Sales Report</h1>
+    <h1>Sales Report for {{ Carbon\Carbon::parse($month)->format('F Y') }}</h1>
+
+    <h3>Total Sales: {{ number_format($totalSales, 2) }}</h3>
+    <h3>Total Profit: {{ number_format($totalProfit, 2) }}</h3>
+
     <table class="table">
         <thead>
             <tr>

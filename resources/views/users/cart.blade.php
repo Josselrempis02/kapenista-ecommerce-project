@@ -74,28 +74,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('.update-cart').on('change', function() {
-            var rowId = $(this).data('row-id'); // Get the rowId of the item
-            var qty = $(this).val(); // Get the new quantity
-
-            // AJAX request to update cart quantity
-            $.ajax({
-                url: '{{ route("cart.update") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    rowId: rowId,
-                    qty: qty
-                },
-                success: function(response) {
-                    if (response.success) {
-                        location.reload(); // Reload the page to reflect updated totals
-                    }
-                }
-            });
-        });
-    });
+   
 </script>
 
 @endsection
