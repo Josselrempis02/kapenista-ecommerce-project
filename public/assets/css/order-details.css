@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+:root{
+    --primary: white;
+    --text: black;
+    --hover: #DB975F;
+    --red: #F84E4E;
+    --green: #009406;
+    --background-color: #e2e2e2;
+    --text-effect: #70706E;
+    --icon-color: #232321;
+
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.custon-btn-admin{
+    border: none;
+    background-color: var(--background-color);
+    padding: 10px 10px 10px 10px;
+}
+
+.no-dropdown-icon::after {
+    display: none;
+}
+
+.me-2{
+    padding: 0px 30px 0px 10px;
+}
+
+.bi{
+    padding-right: 10px;
+}
+
+.custon-btn-admin:hover{
+    background-color: var(--background-color);
+}
+
+.custon-btn-admin:after{
+    background-color: var(--background-color);
+}
+
+.details h5{
+    color: var(--text-effect);
+    font-size: 16px;
+
+}
+
+.details h4{
+    
+    font-size: 20px;
+
+}
+
+.custom-icon{
+    background-color: var(--icon-color);
+    color: var(--primary);
+    padding: 10px;
+    margin-bottom: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+
+
+

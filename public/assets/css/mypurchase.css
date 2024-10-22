@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: "Raleway", sans-serif;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+}
+
+:root{
+    --primary: white;
+    --text: black;
+    --hover: #DB975F;
+    --red: #F84E4E;
+    --green: #009406;
+    --background-color: #e2e2e2;
+
+}
+
+
+
+
+
+.purchase-table{
+padding: 0;
+margin-bottom: 100px;
+}
+
+my-account{
+    height: 100vh;
+}
+
+
+.status-btn a{
+    display: inline-block;
+    border: 1px solid var(--green);
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--green);
+    color: var(--primary);
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+
+td img{
+    display: none;
+}
+@media (max-width: 480px){
+    td img{
+        display: none;
+        
+        
+    }
+    
+}
+
+/* Filter-Form */
+
+.row-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 10px;
+}
+
+.row-form input{
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* pagination */
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination */
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+.pagination li {
+    margin: 0 6px; /* Spacing between pagination items */
+    transition: all 0.3s ease;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: #555; /* Neutral text color */
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 50px; /* Rounded buttons */
+    background-color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: all 0.3s ease;
+}
+
+.pagination li a:hover {
+    background-color: #f8f9fa; /* Light hover effect */
+    color: #007bff; /* Accent hover color */
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+}
+
+.pagination .active a {
+    background-color: #007bff; /* Active button color */
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Highlight active item */
+}
+
+.pagination li a.disabled {
+    pointer-events: none;
+    color: #ccc;
+    background-color: #f0f0f0;
+    border-color: #ddd;
+}

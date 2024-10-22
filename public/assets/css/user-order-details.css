@@ -1,0 +1,266 @@
+:root{
+    --primary: white;
+    --text: black;
+    --hover: #DB975F;
+    --red: #F84E4E;
+    --green: #009406;
+    --background-color: #e2e2e2;
+
+}
+
+/* Order Details Container */
+.order-details-container {
+    flex: 3 1 600px;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* User Information */
+.order-user-info p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.order-user-info .badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+
+.order-details {
+    padding: 20px;
+}
+
+.order-details-container {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.order-user-info, .order-products, .order-payment-info {
+    margin-bottom: 20px;
+}
+
+.order-products table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-products th,
+.order-products td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.order-products th {
+    background-color: #f1f1f1;
+    font-weight: 600;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-info img {
+    border-radius: 4px;
+}
+
+.order-products tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Payment Information */
+.order-payment-info {
+    margin-top: 30px;
+}
+
+.order-payment-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+.order-payment-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.order-payment-info a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.order-payment-info a:hover {
+    color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .my-account-container {
+        flex-direction: column;
+    }
+}
+
+/* Alerts */
+.alert {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.badge-success {
+    background-color: #218838;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #17A2B8;
+    color: white;
+}
+
+.badge-info{
+    background-color: #28A745;
+    color: white;
+}
+
+.badge-secondary{
+    
+    background-color: #FFA500;
+    color: white;
+}
+
+.badge-cancel{
+    background-color: #D9534F;
+    color: white;
+}
+
+
+.btn {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+
+
+
+.btn-save {
+    color: var(--primary);
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    border: 2px solid transparent;
+    background-color: var(--hover);
+    transition: all .42s ease;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    
+    white-space: nowrap;
+}
+
+.btn-save:hover{
+    background-color: #a56e41;
+    color: var(--primary);
+}
+
+
+.custom-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+/* Modal Content */
+.custom-modal-content {
+    background-color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Adjust modal width as needed */
+    max-width: 500px; /* Max width */
+    position: relative;
+    border-radius: 8px;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+}
+
+/* Button to trigger modal */
+.view-receipt-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.view-receipt-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive image */
+.receipt-img {
+    width: 100%;
+    height: auto;
+    max-height: 50vh; /* Ensure the image doesn't go beyond viewport height */
+    display: block;
+    margin: 0 auto;
+}
