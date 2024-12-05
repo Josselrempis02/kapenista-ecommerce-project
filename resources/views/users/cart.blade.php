@@ -26,22 +26,29 @@
         </thead>
         <tbody>
             @foreach ($cartItems as $item)
-                <tr>
-                    <td>
-                        <div class="cart-info">
-                            <img src="{{ asset('assets/img/menu3.jfif') }}" alt="">
-                            <div>
-                                <p>{{ $item->name }}</p>
-                                <a href="{{ route('cart.remove', $item->rowId) }}">remove</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>{{ $item->options->size }}</td> <!-- Display size here -->
-                    <td>
-                        <input type="number" value="{{ $item->qty }}" min="1" class="update-cart" data-row-id="{{ $item->rowId }}">
-                    </td>
-                    <td>₱<span class="subtotal">{{ $item->subtotal }}</span></td>
-                </tr>
+            <tr>
+    <td>
+        <div class="cart-info">
+            <img src="{{ asset('assets/img/menu3.jfif') }}" alt="">
+            <div>
+                <p>{{ $item->name }}</p>
+                <a href="{{ route('cart.remove', $item->rowId) }}">remove</a>
+            </div>
+        </div>
+    </td>
+    <td>{{ $item->options->size }}</td> <!-- Display size here -->
+    <td>
+        <!-- Quantity input with onchange event -->
+        <input type="number" value="{{ $item->qty }}" min="1" class="update-cart" onchange="updatePrice(this)" oninput="validateQuantity(this)" data-row-id="{{ $item->rowId }}">
+    </td>
+    <td>
+        <!-- Subtotal span where price will be updated -->
+        ₱<span class="subtotal">{{ $item->subtotal }}</span>
+        <!-- Hidden price stored as data attribute for easy retrieval -->
+        <span class="hidden-price" data-base-price="{{ $item->price }}" style="display: none;"></span>
+    </td>
+</tr>
+
             @endforeach
         </tbody>
     </table>
@@ -74,7 +81,28 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-   
+function updatePrice(element) {
+    // Get the current quantity from the input element
+    let quantity = element.value;
+    
+    // Get the base price from the hidden price element (converted to float)
+    let basePrice = parseFloat(element.closest('tr').querySelector('.hidden-price').dataset.basePrice); 
+    
+    // Calculate the updated price (base price multiplied by quantity)
+    let updatedPrice = basePrice * quantity;
+    
+    // Update the subtotal (price) in the corresponding row
+    element.closest('tr').querySelector('.subtotal').innerText =  + updatedPrice.toFixed(2);
+}
+
+function validateQuantity(input) {
+    input.value = input.value.replace(/[^0-9]/g, ''); // Only allows digits
+    if (input.value.length > 2) {
+        input.value = input.value.slice(0, 2); // Limits to 2 digits
+    }
+}
+
+
 </script>
 
 @endsection

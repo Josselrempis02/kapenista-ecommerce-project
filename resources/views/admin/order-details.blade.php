@@ -11,7 +11,22 @@
         <div class="recent-orders p-3 border bg-light fw-bold" style="border-radius: 10px;">
             <div class="d-flex flex-column flex-md-row gap-3 align-items-center mb-3">
                 <h4 class="card-title mb-0 fs-4">Order ID: #{{ $orders->order_id }}</h4>
-                <div class="badge bg-warning text-dark">{{ $orders->status }}</div>
+                <div class="badge 
+                        @if($orders->status == 'Processing')
+                            bg-warning text-dark
+                        @elseif($orders->status == 'Delivered')
+                            bg-success text-white
+                        @elseif($orders->status == 'Completed')
+                            bg-primary text-white
+                        @elseif($orders->status == 'Cancelled')
+                            bg-danger text-white
+                        @else
+                            bg-info text-dark
+                        @endif
+                    ">
+                        {{ $orders->status }}
+                    </div>
+
                 <button class="btn btn-link text-dark p-0">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>

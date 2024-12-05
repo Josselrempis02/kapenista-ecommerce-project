@@ -244,8 +244,12 @@ class UserController extends Controller
   
         //Show Single User Account
         public function ShowUserAccount($id) {
-            $user = User::where('id', $id)->firstOrFail();
+            if (Auth::check() && Auth::id() == $id) {
+     
+                $user = User::findOrFail($id);
             return view('users.user_account', compact('user'));
+            }
+            return back()->with('success');
         }
         
        //Update profile

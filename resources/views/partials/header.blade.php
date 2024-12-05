@@ -1,3 +1,8 @@
+<?php
+
+use Gloudemans\Shoppingcart\Facades\Cart;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,12 +72,12 @@
 
             <a href="/shop-cart" class="cart-icon">
                 <i class='bx bxs-cart-alt'></i>
-                <span class="cart-count">{{ Cart::content()->count(); }}</span>
+                <span class="cart-count">{{ Cart::content()->count() }}</span>
             </a>
 
-             <div class="bx bx-menu" id="menu-icon"></div>
+            <div class="bx bx-menu" id="menu-icon"></div>
 
-             @else
+            @else
 
 
             <a href="/login"><i class='bx bxs-user'></i></a>
