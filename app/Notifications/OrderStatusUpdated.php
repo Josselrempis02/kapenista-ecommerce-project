@@ -28,7 +28,7 @@ class OrderStatusUpdated extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -51,7 +51,11 @@ class OrderStatusUpdated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'title' => 'Order Approved',
+            'message' => 'Your Order Has Been Approved.',
+            'order_id' => $this->order->id,
+            'order_number' => $this->order->order_number,
+            'status' => $this->order->status,
         ];
     }
 }

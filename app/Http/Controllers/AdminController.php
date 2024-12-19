@@ -321,33 +321,31 @@ public function updateProduct(Request $request, $id)
 
     public function updateOrderStatus(Request $request, $order_id)
     {
-        // Validate the incoming request
         $request->validate([
             'status' => 'required|in:Processing,Delivered,Completed,Cancelled',
         ]);
 
-        // Find the order by ID
+       
         $order = Order::findOrFail($order_id);
 
-        // Store the old status to compare later
+     
         $oldStatus = $order->status;
 
-        // Update the order status
+     
         $order->status = $request->status;
         $order->save();
 
-        // Get the user associated with the order
-        $user = $order->user; // Ensure the Order model has a 'user' relationship
+      
+        $user = $order->user;
 
-        // Always send a general status update notification
+
         $user->notify(new OrderStatusUpdated($order));
 
-        // If the status is changed to 'Delivered', send an additional notification
         if ($oldStatus !== 'Delivered' && $order->status === 'Delivered') {
             $user->notify(new OrderDelivered($order));
         }
 
-        // Redirect back with a success message
+        
         return back()->with('success', 'Order status updated successfully.');
     }
 

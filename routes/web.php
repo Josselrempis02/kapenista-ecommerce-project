@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -275,6 +276,10 @@ Route::middleware(['auth:admin,staff'])->group(function () {
 
      Route::get('/export-sales-report', [SalesReportController::class, 'exportPDF'])->name('export.sales.report');
 
+     Route::get('/admin/notifications', [NotificationController::class, 'indexAdmin'])->name('admin.notifications');
+     Route::post('/admin/notifications/{id}', [NotificationController::class, 'markAsReadAdmin'])->name('admin.notifications.read');
+ 
+
 });
 
 
@@ -288,5 +293,12 @@ Route::put('/order/{order}/cancelled', [UserController::class, 'cancelOrder'])->
 Route::get('/order-message/{order_number}', [UserController::class, 'showOrderMessage'])->middleware('auth')->name('OrderMessage');
 
 
+Route::middleware(['auth'])->group(function () {
 
+    Route::get('/notification', [NotificationController::class, 'showNotif'])->name('notif.index');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+
+
+});
 

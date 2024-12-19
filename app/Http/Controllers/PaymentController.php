@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Order;
-use App\Models\OrdersProduct;
+use App\Models\Staff;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\OrdersProduct;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\OrderInvoice;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Str;
+use App\Notifications\NewOrderNotification;
 
 class PaymentController extends Controller
 {
@@ -83,6 +86,16 @@ class PaymentController extends Controller
     
         // Send the order invoice notification to the user
         Auth::user()->notify(new OrderInvoice($order));
+
+        $admins = Admin::all();
+        foreach ($admins as $admin) {
+            $admin->notify(new NewOrderNotification($order));
+        }
+
+        $staffMembers = Staff::all();
+        foreach ($staffMembers as $staff) {
+            $staff->notify(new NewOrderNotification($order));
+        }
     
         // Redirect to the order message with the custom order number
         return redirect()->route('OrderMessage', ['order_number' => $order->order_number])

@@ -22,6 +22,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
     <link rel="stylesheet" href="{{ asset('assets/css/mypurchase.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/change-password.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/user-order-details.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/notifications.css') }}">
     
 
     <!--  Header icon   -->
@@ -70,6 +71,21 @@ use Gloudemans\Shoppingcart\Facades\Cart;
                 </div>
             </div>
 
+            <!-- Notification Icon -->
+            <a href="{{ route('notif.index') }}" class="cart-icon">
+                <i class='bx bxs-bell fs-4 text-dark'></i>
+                @php
+                    $unreadCount = auth()->check() ? auth()->user()->unreadNotifications()->count() : 0;
+                @endphp
+                @if ($unreadCount > 0)
+                    <span class="notification-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ $unreadCount }}
+                    </span>
+                @endif
+            </a>
+
+
+
             <a href="/shop-cart" class="cart-icon">
                 <i class='bx bxs-cart-alt'></i>
                 <span class="cart-count">{{ Cart::content()->count() }}</span>
@@ -86,6 +102,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
             @endauth
         </div>
+
+
     </header>
 
     

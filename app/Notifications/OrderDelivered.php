@@ -33,7 +33,7 @@ class OrderDelivered extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -61,6 +61,8 @@ class OrderDelivered extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'title' => 'Order Delivered',
+            'message' => 'Your order has been delivered.',
             'order_id' => $this->order->id,
             'status' => $this->order->status,
         ];

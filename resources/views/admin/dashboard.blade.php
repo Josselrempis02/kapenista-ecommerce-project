@@ -7,31 +7,32 @@
         <h3>Home > Dashboard</h3>
     </div>
 
-    <ul class="box-info">
-        <li>
-            <i class="lni lni-shopping-basket"></i>
-            <span class="text">
-                <h3>{{ $orderCount }}</h3>
-                <p>Total Order</p>
-            </span>
-        </li>
+            <ul class="box-info">
+            <li>
+                <i class="material-icons lni">shopping_cart</i>
+                <span class="text">
+                    <h3>{{ $orderCount }}</h3>
+                    <p>Total Order</p>
+                </span>
+            </li>
 
-        <li>
-            <i class="lni lni-shopping-basket"></i>
-            <span class="text">
-                <h3>₱{{ number_format($priceCount, 2 )}}</h3>
-                <p>Total Sales</p>
-            </span>
-        </li>
+            <li>
+                <i class="material-icons lni">attach_money</i>
+                <span class="text">
+                    <h3>₱{{ number_format($priceCount, 2) }}</h3>
+                    <p>Total Sales</p>
+                </span>
+            </li>
 
-        <li>
-            <i class="lni lni-shopping-basket"></i>
-            <span class="text">
-                <h3>{{ $completedOrderCount }}</h3>
-                <p>Complete Orders</p>
-            </span>
-        </li>
-    </ul>
+            <li>
+                <i class="material-icons lni">check_circle</i>
+                <span class="text">
+                    <h3>{{ $completedOrderCount }}</h3>
+                    <p>Complete Orders</p>
+                </span>
+            </li>
+        </ul>
+
 
     <div class="main-panel">
         <div class="row d-flex">
