@@ -23,7 +23,6 @@ class AdminController extends Controller
         return view('admin.admin-login');
     }
 
-    //LOGIN STAF,ADMIN
     public function store(Request $request)
     {
         $request->validate([
@@ -61,106 +60,70 @@ class AdminController extends Controller
         } else {
             $redirectTo = '/login';
         }
-    
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
+
         return redirect($redirectTo)->with('success', 'Logged out successfully');
     }
-    
-
-
-    //Show All products 
-    // public function allproducts(){
-    //     return view('admin.all-products');
-    // }
 
     public function showAll()
     {
-    // Assuming you are fetching products from a Product model
-    $products = Product::Simplepaginate(6); // 6 products per page
+        $products = Product::Simplepaginate(6);
+        $categories = CategoryModel::all();
 
-    $categories = CategoryModel::all();
-
-    return view('admin.all-products', compact('products', 'categories'));
-
- 
-
-
+        return view('admin.all-products', compact('products', 'categories'));
     }
-
-
-
-
-    //Add Product
 
     public function add(Request $request) {
-       // Validate the incoming data
-       $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'category_id' => 'required|exists:category,id',
-        'stock' => 'required|integer|min:0',
-        'price' => 'required|numeric|min:0',
-        'img' => 'nullable|image|max:2048',
-    ]);
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:category,id',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'img' => 'nullable|image|max:2048',
+        ]);
 
-    // Handle product image upload if provided
-    if ($request->hasFile('img')) {
-        $validatedData['img'] = $request->file('img')->store('products', 'public');
+        if ($request->hasFile('img')) {
+            $validatedData['img'] = $request->file('img')->store('products', 'public');
+        }
+
+        Product::create($validatedData);
+
+        return redirect()->back()->with('success', 'Product added successfully!');
     }
 
-    // Create the product
-    Product::create($validatedData);
-
-    // Redirect back with a success message
-    return redirect()->back()->with('success', 'Product added successfully!');
-}
-
-
-
     public function orderDetails($order_id) {
-       // Fetch the order using the order ID
         $orders = Order::with('user', 'orderProducts.product')->find($order_id);
 
         if (!$orders) {
             return redirect()->back()->with('error', 'Order not found.');
         }
 
-        // Calculate the subtotal for products in the order
         $subtotal = $orders->orderProducts->sum(function ($orderProduct) {
             return $orderProduct->quantity * $orderProduct->price;
         });
 
-        // Fetch related products if needed
         $orderProducts = $orders->orderProducts;
-        
-    
+
         return view('admin.order-details', compact('orders', 'subtotal','orderProducts'));
     }
 
-    //show inventory
-
     public function showInventory() {
-        // Fetch all products with their categories
         $products = Product::with('category')->get();
-        
+
         return view('admin.inventory', compact('products'));
     }
-    
 
-    //Show customer order
     public function customerOrder(Request $request)
     {
-        // Retrieve filter inputs
         $search = $request->input('search');
         $fromDate = $request->input('from_date');
         $toDate = $request->input('to_date');
 
-        // Build the query
         $query = Order::with(['user', 'orderProducts.product']);
 
-        // Apply search filter
         if ($search) {
             $query->where('order_number', 'like', "%{$search}%")
                   ->orWhereHas('user', function ($q) use ($search) {
@@ -168,7 +131,6 @@ class AdminController extends Controller
                   });
         }
 
-        // Apply date filters
         if ($fromDate) {
             $query->whereDate('created_at', '>=', $fromDate);
         }
@@ -177,21 +139,14 @@ class AdminController extends Controller
             $query->whereDate('created_at', '<=', $toDate);
         }
 
-        // Order by latest first
-        $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10); // Adjust pagination as needed
+        $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10);
 
-        // Preserve query parameters in pagination links
         $orders->appends($request->all());
 
         return view('admin.order-list', compact('orders', 'search', 'fromDate', 'toDate'));
     }
 
-  
-   
-
-    //Add Staff
     public function addStaff(Request $request) {
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:staff',
@@ -212,19 +167,15 @@ class AdminController extends Controller
         return view('admin.staff', compact('admins'));
     }
 
-    //edit single staff 
     public function updateStaff(Request $request, $id)
     {
         $admin = Staff::findOrFail($id);
         $admin->update($request->only('name', 'email'));
-        
-        // Redirect back with a success message
+
         return redirect()->back()->with('success', 'Staff updated successfully');
     }
-    
 
-   //Delete single staff 
-   public function destroy($id)
+    public function destroy($id)
     {
         $admin = Staff::findOrFail($id);
         $admin->delete();
@@ -232,92 +183,64 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Staff deleted successfully');
     }
 
+    public function updateProduct(Request $request, $id)
+    {   
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:category,id',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'img' => 'nullable|image|max:2048',
+        ]);
 
-
-   // Update the product details in the database
-public function updateProduct(Request $request, $id)
-{   
-    // Validate the incoming data
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'category_id' => 'required|exists:category,id',
-        'stock' => 'required|integer|min:0',
-        'price' => 'required|numeric|min:0',
-        'img' => 'nullable|image|max:2048',
-    ]);
-
-    // Find the product by ID
-    $product = Product::findOrFail($id);
-
-    // Update product data
-    $product->name = $validatedData['name'];
-    $product->description = $validatedData['description'] ?? $product->description;
-    $product->category_id = $validatedData['category_id'];
-    $product->stock = $validatedData['stock'];
-    $product->price = $validatedData['price'];
-
-    // Handle product image upload if provided
-    if ($request->hasFile('img')) {
-        // Delete the old image if it exists
-        if ($product->img) {
-            \Storage::disk('public')->delete($product->img);
-        }
-        // Store the new image and save the path to the product
-        $product->img = $request->file('img')->store('products', 'public');
-    }
-
-
-    // Save the updated product back to the database
-    $product->save();
-
-    // Redirect back with a success message
-    return redirect()->back()->with('success', 'Product updated successfully!');
-}
-
-
-    //Delete Product 
-    public function destroyProduct($id)
-    {
-        // Find the product by ID
         $product = Product::findOrFail($id);
 
-        // Delete the image if exists
+        $product->name = $validatedData['name'];
+        $product->description = $validatedData['description'] ?? $product->description;
+        $product->category_id = $validatedData['category_id'];
+        $product->stock = $validatedData['stock'];
+        $product->price = $validatedData['price'];
+
+        if ($request->hasFile('img')) {
+            if ($product->img) {
+                \Storage::disk('public')->delete($product->img);
+            }
+            $product->img = $request->file('img')->store('products', 'public');
+        }
+
+        $product->save();
+
+        return redirect()->back()->with('success', 'Product updated successfully!');
+    }
+
+    public function destroyProduct($id)
+    {
+        $product = Product::findOrFail($id);
+
         if ($product->img) {
             \Storage::disk('public')->delete($product->img);
         }
 
-        // Delete the product
         $product->delete();
 
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Product deleted successfully!');
     }
 
-
-    // Edit Inventory 
     public function updateInventory(Request $request, $id)
-{
-    // Validate the incoming request data
-    $request->validate([
-        'stock' => 'required|integer|min:0',
-        // Add any other fields you'd like to update
-    ]);
+    {
+        $request->validate([
+            'stock' => 'required|integer|min:0',
+        ]);
 
-    // Find the product by its ID
-    $product = Product::findOrFail($id);
+        $product = Product::findOrFail($id);
 
-    // Update the product's stock (and other fields if needed)
-    $product->stock = $request->input('stock');
-    
-    // Save the updated product
-    $product->save();
+        $product->stock = $request->input('stock');
 
-    // Redirect back with a success message
-    return redirect()->back()->with('success', 'Product updated successfully');
-}
+        $product->save();
 
-    //Order UPdate status 
+        return redirect()->back()->with('success', 'Product updated successfully');
+    }
 
     public function updateOrderStatus(Request $request, $order_id)
     {
@@ -325,19 +248,14 @@ public function updateProduct(Request $request, $id)
             'status' => 'required|in:Processing,Delivered,Completed,Cancelled',
         ]);
 
-       
         $order = Order::findOrFail($order_id);
 
-     
         $oldStatus = $order->status;
 
-     
         $order->status = $request->status;
         $order->save();
 
-      
         $user = $order->user;
-
 
         $user->notify(new OrderStatusUpdated($order));
 
@@ -345,82 +263,63 @@ public function updateProduct(Request $request, $id)
             $user->notify(new OrderDelivered($order));
         }
 
-        
         return back()->with('success', 'Order status updated successfully.');
     }
 
-        //Show Customer list 
-        public function showCustomerList(){
+    public function showCustomerList(){
+        $users = User::all();
 
-            $users = User::all();
-           
-            return view('admin.customer-list', compact('users'));
+        return view('admin.customer-list', compact('users'));
+    }
+
+    public function destroyCustomer($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully');
+    }
+
+    public function showDashboard(Request $request)
+    {
+        $totalOrder = Order::with('orderProducts')->get(); 
+        $orderCount = $totalOrder->count();
+
+        $priceCount = $totalOrder->sum(function ($order) {
+            return $order->orderProducts->sum('total_price');
+        });
+
+        $completedOrders = Order::where('status', 'Completed')->get();
+        $completedOrderCount = $completedOrders->count();
+
+        $bestSellingProduct = OrdersProduct::select('product_id', \DB::raw('COUNT(*) as total_sales'))
+            ->groupBy('product_id')
+            ->orderBy('total_sales', 'DESC')
+            ->first();
+
+        if ($bestSellingProduct) {
+            $bestSellingProductDetails = Product::find($bestSellingProduct->product_id);
         }
 
-        //Delet single Customer 
-       
-        public function destroyCustomer($id)
-        {
-            $user = User::findOrFail($id);
-            $user->delete();
+        $salesData = OrdersProduct::select(
+                \DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), 
+                \DB::raw('SUM(total_price) as total_sales')
+            )
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-            return redirect()->back()->with('success', 'User deleted successfully');
-        }
+        $labels = $salesData->pluck('month')->map(function ($month) {
+            return \Carbon\Carbon::parse($month)->format('F Y');
+        });
+        $data = $salesData->pluck('total_sales');
 
-        //Show Dashboard
-        public function showDashboard(Request $request)
-        {
-            // Get all orders with their associated order products using eager loading
-            $totalOrder = Order::with('orderProducts')->get(); 
-            $orderCount = $totalOrder->count();
-        
-            // Calculate total sales by summing the price from the associated order products
-            $priceCount = $totalOrder->sum(function ($order) {
-                return $order->orderProducts->sum('total_price'); // Sum the price for each order's products
-            });
-        
-            // Fetch all orders with the status of 'complete'
-            $completedOrders = Order::where('status', 'Completed')->get();
-            $completedOrderCount = $completedOrders->count();
-        
-            // Get the best-selling product
-            $bestSellingProduct = OrdersProduct::select('product_id', \DB::raw('COUNT(*) as total_sales'))
-                ->groupBy('product_id')
-                ->orderBy('total_sales', 'DESC')
-                ->first();
-        
-            // If you want to get more details about the product, you may join with the products table
-            if ($bestSellingProduct) {
-                $bestSellingProductDetails = Product::find($bestSellingProduct->product_id);
-            }
-        
-            // Calculate total sales amount by month for the graph
-            $salesData = OrdersProduct::select(
-                    \DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), 
-                    \DB::raw('SUM(total_price) as total_sales')
-                )
-                ->groupBy('month')
-                ->orderBy('month')
-                ->get();
-        
-            // Prepare labels and data for the graph
-            $labels = $salesData->pluck('month')->map(function ($month) {
-                return \Carbon\Carbon::parse($month)->format('F Y'); // Format month for display
-            });
-            $data = $salesData->pluck('total_sales');
+        $query = Order::with(['user', 'orderProducts.product']);
 
-            $query = Order::with(['user', 'orderProducts.product']);
+        $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10);
 
-            //Order by latest first
-            $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10); // Adjust pagination as needed
+        $orders->appends($request->all());
 
-            // Preserve query parameters in pagination links
-            $orders->appends($request->all());
-        
-            // Return the view with all necessary data
-            return view('admin.dashboard', compact('orderCount', 'totalOrder', 'priceCount', 'completedOrders', 'completedOrderCount', 'bestSellingProduct', 'bestSellingProductDetails', 'labels', 'data', 'orders'));
-        }
-        
-
-        
+        return view('admin.dashboard', compact('orderCount', 'totalOrder', 'priceCount', 'completedOrders', 'completedOrderCount', 'bestSellingProduct', 'bestSellingProductDetails', 'labels', 'data', 'orders'));
+    }
 }

@@ -28,8 +28,7 @@ class CategoryController extends Controller
         // Create new category
         $category = new CategoryModel;
         $category->name = $request->name;
-        $category->slug = $request->slug ?: Str::slug($request->name, '-');  // Auto-generate slug if not provided
-        $category->title = $request->title;
+        $category->slug = $request->slug ?: Str::slug($request->name, '-');  
         $category->description = $request->description;
         $category->keywords = $request->keywords;
 
