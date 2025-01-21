@@ -1,6 +1,6 @@
 APP_NAME=Kapenista
 APP_ENV=local
-APP_KEY=base64:cXCtsIKmbM8zU1s0E5ekAQ825Dk4h1JVON72YxQiSW0=
+APP_KEY=base64:ne2UgpC9KEmm8f19Xx85ZIHfzDFv3fuEZnntGYG/n1U=
 APP_DEBUG=true
 APP_URL=http://localhost
 
@@ -13,7 +13,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=kapenista_shop_db
 DB_USERNAME=root
-DB_PASSWORD=
+DB_PASSWORD=lessojitlog
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
@@ -32,7 +32,7 @@ MAIL_MAILER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=465
 MAIL_USERNAME=kapenista@gmail.com
-MAIL_PASSWORD=fhelbagmvqsnfche
+MAIL_PASSWORD=bpnkejtyrruqgupy
 MAIL_ENCRYPTION=ssl
 MAIL_FROM_ADDRESS="kapenista@gmail.com"
 MAIL_FROM_NAME="Kapenista"
@@ -64,3 +64,6 @@ GOOGLE_REDIRECT="http://localhost:8000/auth/google/callback"
 FACEBOOK_CLIENT_ID="417025510793378"
 FACEBOOK_CLIENT_SECRET="d444ceb1976b6b447fb3c795ba6b76e2"
 FACEBOOK_REDIRECT="http://localhost/laravel-socialite/public/login/facebook/callback"
+
+PAYMONGO_SECRET_KEY=sk_test_7SBJREog24ahTemND8P79z7p
+PAYMONGO_PUBLIC_KEY=pk_test_bDh9yzyuv4YkXg74pQbrmN4S
