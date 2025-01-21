@@ -278,6 +278,7 @@ Route::middleware(['auth:admin,staff'])->group(function () {
 
      Route::get('/admin/notifications', [NotificationController::class, 'indexAdmin'])->name('admin.notifications');
      Route::patch('/admin/notifications/{id}', [NotificationController::class, 'markAsReadAdmin'])->name('admin.notifications.read');
+     Route::patch('/staff/notifications/{id}', [NotificationController::class, 'markAsReadStaff'])->name('staff.notifications.read');
  
 
 });

@@ -43,4 +43,11 @@ class NotificationController extends Controller
        return redirect()->back();
     }
 
+    public function markAsReadStaff($id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->markAsRead();
+
+        return redirect()->back()->with('error', 'Notification not found.');
+    }
 }

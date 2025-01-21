@@ -94,7 +94,7 @@
                 @else
                     @foreach(auth('staff')->user()->unreadNotifications as $notification)
                     <li class="dropdown-item {{ $notification->read_at ? 'bg-light' : 'bg1' }}">
-                        <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('staff.notifications.read', $notification->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-link text-decoration-none text-dark">
