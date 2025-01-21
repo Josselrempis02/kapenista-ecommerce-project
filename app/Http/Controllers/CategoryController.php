@@ -29,6 +29,7 @@ class CategoryController extends Controller
         $category = new CategoryModel;
         $category->name = $request->name;
         $category->slug = $request->slug ?: Str::slug($request->name, '-');  
+        $category->title = $request->title;
         $category->description = $request->description;
         $category->keywords = $request->keywords;
 
