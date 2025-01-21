@@ -299,6 +299,9 @@ class UserController extends Controller
        }
 
       
-       
+       public function showPrivacy() {
+        return view('users.privacy');
+    }
+
 }
  

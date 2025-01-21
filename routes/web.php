@@ -45,7 +45,7 @@ Route::middleware('guest:web')->group(function () {
 // User Authentication Routes
 // ==================
 
-
+Route::get('/privacy', [UserController::class, 'showPrivacy'])->name('show.privacy');
 
 // Show the signup page for new users
 Route::get('/signup', [UserController::class, 'signup']);

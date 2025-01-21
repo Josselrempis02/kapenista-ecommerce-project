@@ -4,18 +4,17 @@
             <img src="{{ asset('assets/img/final-logo.png') }}" alt="">
             <p>2023 Kapenista Inc.</p>
             <div class="social-icon">
-                <a href="#"><i class='bx bxl-facebook-circle'></i></a>
-                <a href="#"><i class='bx bxl-instagram'></i></a>
-                <a href="#"><i class='bx bxl-tiktok'></i></a>
+                <a href="https://www.facebook.com/kapensta"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="https://www.instagram.com/kape.nista?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class='bx bxl-instagram'></i></a>
             </div>
         </div>
         <div class="second-info">
             <h4>Support</h4>
-            <p><a href="home.html">Home</a></p>
-            <p><a href="about.html">About page</a></p>
-            <p><a href="menu.html">Menu</a></p>
-            <p><a href="shop.html">Shop</a></p>
-            <p><a href="privacy.html">Privacy</a></p>
+            <p><a href="/">Home</a></p>
+            <p><a href="#about-us">About page</a></p>
+            <p><a href="#menu">Menu</a></p>
+            <p><a href="/shop">Shop</a></p>
+            <p><a href="{{ route ('show.privacy')}}">Privacy</a></p>
         </div>
         <div class="third-info">
             <h4>Location</h4>
@@ -23,8 +22,9 @@
         </div>
         <div class="fourth-info">
             <h4>Follow us</h4>
-            <p>Facebook</p>
-            <p>Instagram</p>
+            <a href="https://www.facebook.com/kapensta">Facebook</a>
+            <br>
+            <a href="https://www.instagram.com/kape.nista?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram</a>
         </div>
     </div>
 </section>

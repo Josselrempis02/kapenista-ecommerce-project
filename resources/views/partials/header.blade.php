@@ -52,7 +52,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
             <li><a href="#about-us">About</a></li>
             <li><a href="#menu">Menu</a></li>
             <li><a href="/shop">Shop</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Location</a></li>
         </ul>
         <div class="nav-icon">
             @auth
