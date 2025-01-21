@@ -277,7 +277,7 @@ Route::middleware(['auth:admin,staff'])->group(function () {
      Route::get('/export-sales-report', [SalesReportController::class, 'exportPDF'])->name('export.sales.report');
 
      Route::get('/admin/notifications', [NotificationController::class, 'indexAdmin'])->name('admin.notifications');
-     Route::post('/admin/notifications/{id}', [NotificationController::class, 'markAsReadAdmin'])->name('admin.notifications.read');
+     Route::patch('/admin/notifications/{id}', [NotificationController::class, 'markAsReadAdmin'])->name('admin.notifications.read');
  
 
 });

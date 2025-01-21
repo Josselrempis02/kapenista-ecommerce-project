@@ -40,7 +40,7 @@ class NotificationController extends Controller
     
         $notification->markAsRead();
     
-        return response()->json(['success' => true, 'message' => 'Notification marked as read']);
+       return redirect()->back();
     }
 
 }
