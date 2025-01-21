@@ -183,7 +183,7 @@ Route::middleware('guest:staff')->group(function () {
     });
 
 // Log out the admin
-Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin-logout');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin-logout');
 
 // ==================
 // Admin Password Reset Routes
