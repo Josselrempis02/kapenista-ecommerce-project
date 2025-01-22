@@ -206,7 +206,6 @@ Route::post('admin/reset-password', [AdminResetPasswordController::class, 'reset
 // ==================
 
 Route::middleware(['auth:admin,staff'])->group(function () {
- 
 
     // Show Dashboard
     Route::get('/admin/dashboard', [AdminController::class, 'showDashboard']);
@@ -259,7 +258,7 @@ Route::middleware(['auth:admin,staff'])->group(function () {
      Route::delete('/category/delete/{id}', [CategoryController::class, 'destroyCategory'])->name('admin.category.destroy');
 
      //Show Invetory
-    // Inventory
+    
     Route::get('/inventory', [AdminController::class, 'showInventory'])->name('inventory');
 
     Route::put('/products/{id}', [AdminController::class, 'updateInventory'])->name('products.update');
@@ -280,7 +279,6 @@ Route::middleware(['auth:admin,staff'])->group(function () {
      Route::patch('/admin/notifications/{id}', [NotificationController::class, 'markAsReadAdmin'])->name('admin.notifications.read');
      Route::patch('/staff/notifications/{id}', [NotificationController::class, 'markAsReadStaff'])->name('staff.notifications.read');
  
-
 });
 
 
