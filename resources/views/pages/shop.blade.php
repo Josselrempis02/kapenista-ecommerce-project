@@ -30,7 +30,7 @@
         <div class="shop-product-container">
             @foreach($products as $product)
                 <div class="shop-product-row">
-                    <img src="{{ asset('assets/img/menu3.jfif') }}" alt="{{ $product->name }}">
+                    <img src="{{ asset('storage/' . $product->img) }}" alt="{{ $product->name }}">
                     <div class="shop-product-text">
                         <h5>{{ $product->name }}</h5>
                     </div>

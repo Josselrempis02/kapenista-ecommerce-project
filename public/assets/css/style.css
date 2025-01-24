@@ -499,6 +499,7 @@ a {
 }
 .shop-product-row img {
     max-width: 100%;
+    height: 400px;
 }
 
 .shop-product-text h5 {

@@ -138,12 +138,12 @@
 <!-- Products Section -->
 <section class="products mt-4">
     <div class="row">
-        @foreach($products as $product)
+    @forelse($products as $product)
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex align-items-start">
-                            <img src="{{ $product->img ? asset('storage/' . $product->img) : asset('img/final-logo.png') }}" class="img-fluid rounded" style="width: 100px; height: 150px;">
+                            <img src="{{ $product->img ? asset('storage/' . $product->img) : asset('img/final-logo.png') }}" class="img-fluid rounded" style="width: 100px; height: 100px;">
                             <div class="ms-3">
                                 <h5 class="card-title mb-1">{{ $product->name }}</h5>
                                 <p class="card-subtitle text-muted mb-2">{{ $product->category->name ?? 'Uncategorized' }}</p>
@@ -285,7 +285,10 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+            @empty
+            <p class="text-center text-muted">No products found.</p>
+          @endforelse
+
     </div>
 
     <!-- Pagination Links -->

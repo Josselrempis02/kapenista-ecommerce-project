@@ -39,7 +39,7 @@
     <td>{{ $item->options->size }}</td> <!-- Display size here -->
     <td>
         <!-- Quantity input with onchange event -->
-        <input type="number" value="{{ $item->qty }}" min="1" class="update-cart" onchange="updatePrice(this)" oninput="validateQuantity(this)" data-row-id="{{ $item->rowId }}">
+        <input type="number" value="{{ $item->qty }}" class="update-cart" onchange="updatePrice(this)" oninput="validateQuantity(this)" data-row-id="{{ $item->rowId }}">
     </td>
     <td>
         <!-- Subtotal span where price will be updated -->
@@ -53,17 +53,18 @@
         </tbody>
     </table>
 
+
             <div class="total-price cart-price">
                 <div class="table-container">
                     <h1>Cart Total</h1>
                     <table>
                         <tr>
                             <td>Subtotal</td>
-                            <td>₱{{ $total }}</td>
+                            <td class="subtotalPrice">₱{{ $total }}</td>
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td>₱{{ $total }}</td>
+                            <td class="subtotalPrice">₱{{ $total }}</td>
                         </tr>
                     </table>
 
@@ -82,18 +83,37 @@
 
 <script>
 function updatePrice(element) {
-    // Get the current quantity from the input element
-    let quantity = element.value;
-    
-    // Get the base price from the hidden price element (converted to float)
-    let basePrice = parseFloat(element.closest('tr').querySelector('.hidden-price').dataset.basePrice); 
-    
-    // Calculate the updated price (base price multiplied by quantity)
-    let updatedPrice = basePrice * quantity;
-    
-    // Update the subtotal (price) in the corresponding row
-    element.closest('tr').querySelector('.subtotal').innerText =  + updatedPrice.toFixed(2);
+    let quantity = parseFloat(element.value) || 1;
+    let rowId = element.dataset.rowId;
+
+    $.ajax({
+        url: '{{ route("cart.update") }}',
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            rowId: rowId,
+            quantity: quantity
+        },
+        success: function (response) {
+            if (response.status === 'success') {
+                // Update the item's subtotal
+                let subtotalElement = element.closest('tr').querySelector('.subtotal');
+                subtotalElement.innerText = response.subtotal;
+
+                // Update the cart total
+                document.querySelectorAll('.subtotalPrice').forEach((totalElement) => {
+                    totalElement.innerText = `₱${response.total}`;
+                });
+            } else {
+                alert(response.message || 'Failed to update the cart.');
+            }
+        },
+        error: function () {
+            alert('An error occurred while updating the cart.');
+        }
+    });
 }
+
 
 function validateQuantity(input) {
     input.value = input.value.replace(/[^0-9]/g, ''); // Only allows digits

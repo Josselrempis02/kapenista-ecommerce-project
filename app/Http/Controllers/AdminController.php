@@ -13,6 +13,7 @@ use App\Models\OrdersProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\OrderDelivered;
+use Illuminate\Support\Facades\Storage;
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 
@@ -215,17 +216,17 @@ class AdminController extends Controller
     }
 
     public function destroyProduct($id)
-    {
-        $product = Product::findOrFail($id);
+{
+    $product = Product::findOrFail($id);
 
-        if ($product->img) {
-            \Storage::disk('public')->delete($product->img);
-        }
-
-        $product->delete();
-
-        return redirect()->back()->with('success', 'Product deleted successfully!');
+    if ($product->img) {
+        Storage::disk('public')->delete($product->img);
     }
+
+    $product->delete();
+
+    return redirect()->back()->with('success', 'Product deleted successfully!');
+}
 
     public function updateInventory(Request $request, $id)
     {

@@ -108,8 +108,24 @@ class ShopController extends Controller
     }
 
     public function update(Request $request)
-    {
-        \Cart::update($request->rowId, $request->qty);
-        return response()->json(['success' => true]);
-    }
+{
+    $rowId = $request->input('rowId');
+    $quantity = $request->input('quantity');
+
+    // Update the quantity in the cart
+    Cart::update($rowId, $quantity);
+
+    // Retrieve the updated cart item
+    $cartItem = Cart::get($rowId);
+
+    // Recalculate totals
+    $total = Cart::subtotal();
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Cart updated successfully.',
+        'subtotal' => $cartItem->subtotal,
+        'total' => $total,
+    ]);
+}
 }

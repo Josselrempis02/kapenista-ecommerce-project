@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Staff;
+use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\OrdersProduct;
@@ -67,6 +68,10 @@ class PaymentController extends Controller
                 $order_product->price = $item->price;
                 $order_product->total_price = $item->price * $item->qty;
                 $order_product->save();
+
+                $product = Product::find($item->id);
+                $product->stock -= $item->qty;
+                $product->save();
             }
         });
     

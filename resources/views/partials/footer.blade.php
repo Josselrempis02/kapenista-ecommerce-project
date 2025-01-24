@@ -33,6 +33,7 @@
 </div>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/js/spinner.js') }}"></script>
+
 <script>
   AOS.init();
 </script>

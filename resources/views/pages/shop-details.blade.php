@@ -25,7 +25,7 @@
     <div class="small-container single-product">
     <div class="col-1">
         <div class="col-2">
-            <img src="{{ asset('assets/img/menu3.jfif') }}" width="100%" alt="{{ $product->name }}">
+             <img src="{{ asset('storage/' . $product->img) }}" width="100%" alt="{{ $product->name }}">
         </div>
 
         <div class="col-2">
@@ -38,10 +38,15 @@
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                 <input type="hidden" id="hidden-price" name="price" value="{{ $product->price }}">
-                <select name="size" id="select-size" onchange="updatePrice()">
-                    <option value="16oz">16oz</option>
-                    <option value="22oz">22oz</option>
-                </select>
+                @if($product->category_id == 3)
+                    <p>Size: 300ml</p> 
+                    <input type="hidden" name="size" value="300ml"> 
+                @else
+                    <select name="size" id="select-size" onchange="updatePrice()">
+                        <option value="16oz">16oz</option>
+                        <option value="22oz">22oz</option>
+                    </select>
+                @endif
                 <br>
                 <input type="number" name="quantity" value="1" min="1" max="25" oninput="validateQuantity(this)">
                 <br>
@@ -58,7 +63,7 @@
         let updatedPrice = basePrice;
 
         if (selectSize === '22oz') {
-            updatedPrice += 10; // Add 10 to the base price for 22oz size
+            updatedPrice += 10;
         }
 
         document.getElementById('product-price').innerText = '₱' + updatedPrice.toFixed(2);
@@ -67,7 +72,7 @@
     function validateQuantity(input) {
     input.value = input.value.replace(/[^0-9]/g, ''); // Only allows digits
     if (input.value.length > 2) {
-        input.value = input.value.slice(0, 2); // Limits to 2 digits
+        input.value = input.value.slice(0, 2); 
     }
 }
 </script>
@@ -79,7 +84,7 @@
                 <div class="shop-product-container">
                     @foreach($otherProducts as $otherProduct)
                         <div class="shop-product-row">
-                            <img src="{{ asset('assets/img/menu3.jfif') }}" alt="{{ $otherProduct->name }}">
+                        <img src="{{ $otherProduct->img ? asset('storage/' . $otherProduct->img) : asset('img/final-logo.png') }}">
                             <div class="shop-product-text">
                                 <h5>{{ $otherProduct->name }}</h5>
                             </div>
