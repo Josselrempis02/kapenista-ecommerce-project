@@ -161,19 +161,22 @@ class UserController extends Controller
             'phone_number' => ['nullable', 'string', 'max:11'], // Adjust as needed
             'address' => ['nullable', 'string', 'max:255'], // Adjust as needed
         ]);
-
-         // Hash Password
-         $formFields['password'] = bcrypt($formFields['password']);
-
-         // Create User
-         $user = User::create($formFields);
-
-         // Login
+    
+        // Hash Password
+        $formFields['password'] = bcrypt($formFields['password']);
+    
+        // Create User
+        $user = User::create($formFields);
+    
+        // Send Email Verification Notification
+        $user->sendEmailVerificationNotification();
+    
+        // Login the user
         auth()->login($user);
-
-        return redirect('/')->with('message', 'User created and logged in');
- 
+    
+        return redirect('/email/verify')->with('message', 'Registration successful! Please verify your email to proceed.');
     }
+    
 
      // Logout User
      public function logout(Request $request) {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -8,10 +7,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SalesReportController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\AdminResetPasswordController;
 use App\Http\Controllers\AdminForgotPasswordController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,35 @@ Route::middleware('guest:web')->group(function () {
     Route::post('/users/authenticate', [UserController::class, 'authenticate']);
     
     });
+
+    // Email verification notice
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+// Handle email verification
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/')->with('message', 'Email verified successfully!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Resend email verification
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// Protected route for verified users
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    })->name('index');
+});
+
+
+
 // ==================
 // User Authentication Routes
 // ==================
