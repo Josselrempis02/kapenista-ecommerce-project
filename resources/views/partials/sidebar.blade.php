@@ -1,4 +1,5 @@
 <aside id="sidebar" class="sidebar-toggle">
+   
         <div class="sidebar-logo">
             <img src="{{ asset('assets/img/final-logo.png') }}" alt="Logo">
         </div>

@@ -91,43 +91,46 @@
 
 
             <hr>
-            <table class="table table-striped">
-                <thead>
-                    <tr class="orders-header">
-                        <th scope="col">Order #</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Customer Name</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($orders as $order)
-                        <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details', ['order_id' => $order->order_id]) }}'" style="cursor: pointer;">
-                            <td>{{ $order->order_number }}</td>
-                            <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
-                            <td>{{ $order->user->name }}</td>
-                            <td>
-                                @php
-                                    $badgeClass = match($order->status) {
-                                        'Pending' => 'bg-warning',
-                                        'Processing' => 'bg-info',
-                                        'Completed' => 'bg-success',
-                                        'Cancelled' => 'bg-danger',
-                                        default => 'bg-secondary',
-                                    };
-                                @endphp
-                                <span class="badge {{ $badgeClass }}">{{ $order->status }}</span>
-                            </td>
-                            <td>₱{{ number_format($order->orderProducts->sum('total_price'), 2) }}</td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center">No orders found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr class="orders-header">
+                <th scope="col">Order #</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($orders as $order)
+                <tr class="recent-orders-tr" onclick="window.location='{{ route('order.details', ['order_id' => $order->order_id]) }}'" style="cursor: pointer;">
+                    <td>{{ $order->order_number }}</td>
+                    <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                    <td>{{ $order->user->name }}</td>
+                    <td>
+                        @php
+                            $badgeClass = match($order->status) {
+                                'Pending' => 'bg-warning',
+                                'Processing' => 'bg-info',
+                                'Completed' => 'bg-success',
+                                'Cancelled' => 'bg-danger',
+                                default => 'bg-secondary',
+                            };
+                        @endphp
+                        <span class="badge {{ $badgeClass }}">{{ $order->status }}</span>
+                    </td>
+                    <td>₱{{ number_format($order->orderProducts->sum('total_price'), 2) }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">No orders found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
 
             <!-- Pagination Links -->
             <div class="d-flex justify-content-end">

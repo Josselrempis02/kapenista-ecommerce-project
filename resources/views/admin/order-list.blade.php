@@ -36,6 +36,7 @@
             <!-- End Filter Form -->
 
             <hr>
+            <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr class="orders-header">
@@ -73,6 +74,7 @@
                     @endforelse
                 </tbody>
             </table>
+            </div>
 
             <!-- Pagination Links -->
             <div class="d-flex justify-content-end">

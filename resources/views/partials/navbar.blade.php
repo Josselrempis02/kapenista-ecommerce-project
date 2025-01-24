@@ -4,7 +4,12 @@
 
         <!-- Auth Check for Admin or Staff -->
         @auth('admin')
-        <a class="navbar-brand" href="#">Admin Panel</a>
+        <div class="d-flex admin-icon px-3">
+                <button class="toggler-btn" type="button">
+                    <i class="lni lni-grid-alt"></i>
+                </button>
+            </div>
+        <a class="navbar-brand" href="#"> Admin Panel</a>
             <div class="ms-auto d-flex align-items-center">
                 <div class="dropdown me-3">
                             <button 

@@ -23,6 +23,7 @@
             </button>
         </div>
         <hr>
+        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr class="orders-header">
@@ -91,6 +92,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 </section>
 @endsection

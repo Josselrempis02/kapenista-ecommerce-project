@@ -19,12 +19,13 @@
 
     <div class="recent-orders p-3 border bg-light fw-bold" style="border-radius: 10px;">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="card-title mb-0">Inventory List</h4>
+            <h4 class="card-title mb-0">Customer List</h4>
             <button class="btn btn-link text-dark p-0">
                 <i class="fas fa-ellipsis-h"></i>
             </button>
         </div>
         <hr>
+        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr class="orders-header">
@@ -56,6 +57,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
    
 </section>
