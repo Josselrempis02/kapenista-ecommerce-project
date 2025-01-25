@@ -285,23 +285,25 @@ class AdminController extends Controller
     {
         $totalOrder = Order::with('orderProducts')->get(); 
         $orderCount = $totalOrder->count();
-
+    
         $priceCount = $totalOrder->sum(function ($order) {
             return $order->orderProducts->sum('total_price');
         });
-
+    
         $completedOrders = Order::where('status', 'Completed')->get();
         $completedOrderCount = $completedOrders->count();
-
+    
         $bestSellingProduct = OrdersProduct::select('product_id', \DB::raw('COUNT(*) as total_sales'))
             ->groupBy('product_id')
             ->orderBy('total_sales', 'DESC')
             ->first();
-
+    
+        // Initialize $bestSellingProductDetails with a default value
+        $bestSellingProductDetails = null;
         if ($bestSellingProduct) {
             $bestSellingProductDetails = Product::find($bestSellingProduct->product_id);
         }
-
+    
         $salesData = OrdersProduct::select(
                 \DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), 
                 \DB::raw('SUM(total_price) as total_sales')
@@ -309,18 +311,30 @@ class AdminController extends Controller
             ->groupBy('month')
             ->orderBy('month')
             ->get();
-
+    
         $labels = $salesData->pluck('month')->map(function ($month) {
             return \Carbon\Carbon::parse($month)->format('F Y');
         });
         $data = $salesData->pluck('total_sales');
-
+    
         $query = Order::with(['user', 'orderProducts.product']);
-
+    
         $orders = $query->orderBy('created_at', 'desc')->simplePaginate(10);
-
+    
         $orders->appends($request->all());
-
-        return view('admin.dashboard', compact('orderCount', 'totalOrder', 'priceCount', 'completedOrders', 'completedOrderCount', 'bestSellingProduct', 'bestSellingProductDetails', 'labels', 'data', 'orders'));
+    
+        return view('admin.dashboard', compact(
+            'orderCount', 
+            'totalOrder', 
+            'priceCount', 
+            'completedOrders', 
+            'completedOrderCount', 
+            'bestSellingProduct', 
+            'bestSellingProductDetails', 
+            'labels', 
+            'data', 
+            'orders'
+        ));
     }
+    
 }
